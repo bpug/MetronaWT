@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <GaponMSBuildTasksPath Condition=" '$(GaponMSBuildTasksPath)' == '' " >.</GaponMSBuildTasksPath>
+    <GaponMSBuildTasksLib>$(GaponMSBuildTasksPath)\Gapon.MSBuild.Tasks.dll</GaponMSBuildTasksLib>
+  </PropertyGroup>
+
+  <!-- Compression -->
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Compression.Cab" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Compression.DNZip" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Compression.Zip" />
+
+  <!-- FileSystem -->
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.FileSystem.DirectoryGroup" />
+
+  <!-- Framework -->
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Framework.ItemsHelper" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Framework.ReEvaluateCommonProperties" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Framework.SetEnvVar" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Framework.SetMetadata" />
+
+  <!-- Git -->
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitCommit" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitNameRev" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitParseBranchName" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitPush" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitRemote" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitRevParse" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitTag" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitVersion" />
+
+  <!-- Hooks -->
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Hooks.GetHookFiles" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Hooks.PsHook" />
+
+  <!-- Mercurial -->
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Mercurial.Commands.HgAdd" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Mercurial.Commands.HgClone" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Mercurial.Commands.HgCommit" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Mercurial.Commands.HgForget" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Mercurial.Commands.HgInit" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Mercurial.Commands.HgPull" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Mercurial.Commands.HgPush" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Mercurial.Commands.HgRemove" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Mercurial.Commands.HgTag" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Mercurial.Commands.HgUpdate" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Mercurial.Commands.HgVersion" />
+
+  <!-- Nunit -->
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Testing.NUnit" />
+
+  <!-- Subversion -->
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Svn.BranchName" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Svn.SvnCheckout" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Svn.SvnClient" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Svn.SvnCopy" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Svn.SvnCommit" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Svn.SvnExport" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Svn.SvnInfo" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Svn.SvnStatus" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Svn.SvnUpdate" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Vcs.Svn.SvnVersion" />
+
+  <!-- Versioning -->
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Versioning.AssemblyInfo" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Versioning.CommonAssemblyVersion" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Versioning.MsBuildInfo" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Versioning.AssemblyVersion" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Versioning.WixInfo" />
+
+  <!-- Wix -->
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Wix.Common.GetCodes" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Wix.Common.SetProductCode" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Wix.Patch.CreateSnapshot" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Wix.Patch.CreatePatches" />
+
+  <!-- Xml -->
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Xml.XmlQuery" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Xml.XmlRead" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Xml.XmlUpdate" />
+
+  <!-- Xunit -->
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Testing.CombineXunitXml" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Testing.xunit" />
+  <UsingTask AssemblyFile="$(GaponMSBuildTasksLib)"
+             TaskName="Gapon.MSBuild.Tasks.Testing.xunitproject" />
+
+</Project>

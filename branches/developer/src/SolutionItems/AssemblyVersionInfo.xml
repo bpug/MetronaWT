@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project>
+  <versioninfos>
+    <latest>
+      <semver>1.0.0</semver>
+      <version>3.2.41202.1</version>
+    </latest>
+    <!-- Available mode values: auto, manual, major, minor, patch, pre -->
+    <next mode="auto">
+      <semver>3.2.0</semver>
+      <version>3.2.41202.1</version>
+    </next>
+  </versioninfos>
+</project>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+
+  <!-- # Main -->
+
+  <!-- ## IlMerge -->
+  <Target Name="IlMerge"
+          Condition=" '$(MergeWithIlMerge)' == 'true' ">
+
+    <PropertyGroup>
+      <IlMergeTargetPlatform Condition=" '$(IlMergeTargetPlatform)' == 'v2' ">$(IlMergeTargetPlatformV2)</IlMergeTargetPlatform>
+      <IlMergeTargetPlatform Condition=" '$(IlMergeTargetPlatform)' == 'v4' ">$(IlMergeTargetPlatformV4)</IlMergeTargetPlatform>
+      <IlMergeKeyFileCommandParam Condition=" '$(IlMergeSignOutputFile)' == 'true' "> /keyfile:&quot;$(IlMergeKeyFile)&quot;</IlMergeKeyFileCommandParam>
+      <IlMergeInternalizeCommandParam Condition=" '$(IlMergeInternalize)' == 'true' AND '$(IlMergeInternalizeExcludeFile)' == '' "> /internalize</IlMergeInternalizeCommandParam>
+      <IlMergeInternalizeCommandParam Condition=" '$(IlMergeInternalize)' == 'true' AND '$(IlMergeInternalizeExcludeFile)' != '' "> /internalize:&quot;$(IlMergeInternalizeExcludeFile)&quot;</IlMergeInternalizeCommandParam>
+      <IlMergeMainFilesPattern Condition=" '%(OutputFileNames.IlMergeIsMainFile)' == 'true' ">@(OutputFileNames-&gt;'$(BinFolder)\%(Pattern)',';')</IlMergeMainFilesPattern>
+      <IlMergeInputFilesPattern Condition=" '%(OutputFileNames.IlMergeIsMainFile)' != 'true' AND '%(OutputFileNames.IlMergeEnabled)' == 'true' ">@(OutputFileNames-&gt;'$(BinFolder)\%(Pattern)',';')</IlMergeInputFilesPattern>
+      <IlMergeOutputFileNamesPattern Condition=" '%(OutputFileNames.IlMergeIsMainFile)' == 'true' AND '%(OutputFileNames.IlMergeOutputFileName)' == '' ">@(OutputFileNames-&gt;'%(Pattern)',';')</IlMergeOutputFileNamesPattern>
+      <IlMergeOutputFileNamesPattern Condition=" '%(OutputFileNames.IlMergeIsMainFile)' == 'true' AND '%(OutputFileNames.IlMergeOutputFileName)' != '' ">@(OutputFileNames-&gt;'%(IlMergeOutputFileName)',';')</IlMergeOutputFileNamesPattern>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <IlMergeMainFiles Include="$(IlMergeMainFilesPattern)" />
+      <IlMergeOutputFileNames Include="$(IlMergeOutputFileNamesPattern)" />
+    </ItemGroup>
+
+    <Gapon.MSBuild.Tasks.Framework.ItemsHelper Items="@(IlMergeMainFiles)">
+      <Output PropertyName="IlMergeMainFile"
+              TaskParameter="First" />
+    </Gapon.MSBuild.Tasks.Framework.ItemsHelper>
+    <Gapon.MSBuild.Tasks.Framework.ItemsHelper Items="@(IlMergeOutputFileNames)">
+      <Output PropertyName="IlMergeOutputFileName"
+              TaskParameter="First" />
+    </Gapon.MSBuild.Tasks.Framework.ItemsHelper>
+
+    <ItemGroup>
+      <IlMergeInputFiles Include="$(IlMergeMainFile);$(IlMergeInputFilesPattern)" />
+    </ItemGroup>
+
+    <RemoveDuplicates Inputs="@(IlMergeInputFiles)">
+      <Output ItemName="IlMergeFilteredInputFiles"
+              TaskParameter="Filtered" />
+    </RemoveDuplicates>
+
+    <MakeDir Condition=" !Exists('$(IlMergeArtifactFolder)') "
+             Directories="$(IlMergeArtifactFolder)" />
+
+    <Exec Command="&quot;$(IlMergeExe)&quot; /targetplatform:&quot;$(IlMergeTargetPlatform)&quot; /target:$(IlMergeTarget) /log:&quot;$(IlMergeArtifactFolder)\ilmerge.log&quot; /ndebug /closed /allowdup$(IlMergeInternalizeCommandParam)$(IlMergeKeyFileCommandParam) /out:$(IlMergeOutputFileName) @(IlMergeFilteredInputFiles-&gt;'&quot;%(FullPath)&quot;', ' ')"
+          WorkingDirectory="$(IlMergeArtifactFolder)" />
+
+    <ItemGroup>
+      <IlMergeOutputFiles Include="$(IlMergeArtifactFolder)\**\*.exe;$(IlMergeArtifactFolder)\**\*.dll" />
+    </ItemGroup>
+
+    <!-- Replace original with ilmerged -->
+    <Copy DestinationFiles="@(IlMergeOutputFiles -&gt;'$(BinFolder)\%(RecursiveDir)%(Filename)%(Extension)')"
+          SourceFiles="@(IlMergeOutputFiles)" />
+
+    <!-- Sign output files -->
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="OutputPath=$(BinFolder)"
+             Targets="SignOutput" />
+
+  </Target>
+
+</Project>

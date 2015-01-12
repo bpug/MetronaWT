@@ -1,0 +1,416 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+
+  <UsingTask TaskName="GetConfig" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v$(MSBuildToolsVersion).dll">
+    <ParameterGroup>
+      <FilePath ParameterType="System.String" Required="true" />
+      <Enabled ParameterType="System.Boolean" Output="true" />
+      <IlMergeInherited ParameterType="System.Boolean" Output="true" />
+      <ExePathUseDefault ParameterType="System.Boolean" Output="true" />
+      <CustomExePath ParameterType="System.String" Output="true" />
+      <ExePathInherited ParameterType="System.Boolean" Output="true" />
+      <InternalizeEnabled ParameterType="System.Boolean" Output="true" />
+      <InternalizeExcludeTypesFilePath ParameterType="System.String" Output="true" />
+      <InternalizeExcludeTypes ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true" />
+      <InternalizeInherited ParameterType="System.Boolean" Output="true" />
+      <Closed ParameterType="System.Boolean" Output="true" />
+      <ClosedInherited ParameterType="System.Boolean" Output="true" />
+      <NDebug ParameterType="System.Boolean" Output="true" />
+      <NDebugInherited ParameterType="System.Boolean" Output="true" />
+      <ExcludeEnabled ParameterType="System.Boolean" Output="true" />
+      <ExcludeAssemblies ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true" />
+      <ExcludeInherited ParameterType="System.Boolean" Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System" />
+      <Reference Include="System.Core" />
+      <Reference Include="System.Xml" />
+      <Reference Include="System.Xml.Linq" />
+      <Using Namespace="System.Collections.Generic" />
+      <Using Namespace="System.Collections.ObjectModel" />
+      <Using Namespace="System.Diagnostics" />
+      <Using Namespace="System.Text" />
+      <Using Namespace="System.Xml.Linq" />
+      <Using Namespace="Microsoft.Build.Framework" />
+      <Using Namespace="Microsoft.Build.Utilities" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+          Enabled = true;
+          IlMergeInherited = false;
+
+          ExePathUseDefault = true;
+          CustomExePath = null;
+          ExePathInherited = false;
+
+          InternalizeEnabled = false;
+          InternalizeExcludeTypes = null;
+          InternalizeInherited = false;
+
+          Closed = true;
+          ClosedInherited = false;
+
+          NDebug = true;
+          NDebugInherited = false;
+
+          ExcludeEnabled = false;
+          ExcludeInherited = false;
+
+          var internalizeExcludeTypes = new Collection<string>();
+          var excludeAssemblies = new Collection<string>();
+
+          var xelement = XDocument.Load(FilePath);
+          foreach (var rootElement in xelement.Elements())
+          {
+              switch (rootElement.Name.LocalName)
+              {
+                  case "ilmerge":
+                  {
+                      if ((IlMergeInherited = (bool)rootElement.Attribute("inherited")))
+                      {
+                          continue;
+                      }
+
+                      Enabled = (bool)rootElement.Attribute("enabled");
+                      foreach (var element in rootElement.Elements())
+                      {
+                          switch (element.Name.LocalName)
+                          {
+                              case "exepath":
+                              {
+                                  if ((ExePathInherited = (bool)element.Attribute("inherited")))
+                                  {
+                                      continue;
+                                  }
+
+                                  ExePathUseDefault = (bool)element.Attribute("usedefault");
+                                  CustomExePath = element.Value.Trim();
+                                  continue;
+                              }
+                              case "internalize":
+                              {
+                                  if ((InternalizeInherited = (bool)element.Attribute("inherited")))
+                                  {
+                                      continue;
+                                  }
+
+                                  InternalizeEnabled = (bool)element.Attribute("enabled");
+                                  InternalizeExcludeTypesFilePath =
+                                      (string)element.Attribute("excludetypesfilepath");
+                                  foreach (var internalizeExcludeType in element.Elements())
+                                  {
+                                      switch (internalizeExcludeType.Name.LocalName)
+                                      {
+                                          case "excludetypes":
+                                              internalizeExcludeTypes.Add(internalizeExcludeType.Value.Trim());
+                                              continue;
+                                      }
+                                  }
+                                  continue;
+                              }
+                              case "closed":
+                              {
+                                  if ((ClosedInherited = (bool)element.Attribute("inherited")))
+                                  {
+                                      continue;
+                                  }
+
+                                  Closed = bool.Parse(element.Value.Trim());
+                                  continue;
+                              }
+                              case "ndebug":
+                              {
+                                  if ((NDebugInherited = (bool)element.Attribute("inherited")))
+                                  {
+                                      continue;
+                                  }
+
+                                  NDebug = bool.Parse(element.Value.Trim());
+                                  continue;
+                              }
+                              case "exclude":
+                              {
+                                  if ((ExcludeInherited = (bool)element.Attribute("inherited")))
+                                  {
+                                      continue;
+                                  }
+
+                                  ExcludeEnabled = (bool)element.Attribute("enabled");
+                                  foreach (var excludeAssembly in element.Elements())
+                                  {
+                                      switch (excludeAssembly.Name.LocalName)
+                                      {
+                                          case "assembly":
+                                              excludeAssemblies.Add(excludeAssembly.Value.Trim());
+                                              continue;
+                                      }
+                                  }
+                                  continue;
+                              }
+                              default:
+                                  continue;
+                          }
+                      }
+
+                      continue;
+                  }
+              }
+          }
+
+          InternalizeExcludeTypes = internalizeExcludeTypes.Select(x => new TaskItem(x))
+                                                                .ToArray();
+          ExcludeAssemblies = excludeAssemblies.Select(x => new TaskItem(x))
+                                                    .ToArray();
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <PropertyGroup>
+    <IlMergeDefaultExePath Condition=" '$(IlMergeDefaultExePath)' == '' Or '$(IlMergeDefaultExePath)' == '*Undefined*' ">$(MSBuildProgramFiles32)\Microsoft\ILMerge</IlMergeDefaultExePath>
+    <IlMergeDefaultExeFilename Condition=" '$(IlMergeDefaultExeFilename)' == '' Or '$(IlMergeDefaultExeFilename)' == '*Undefined*' ">ILMerge.exe</IlMergeDefaultExeFilename>
+    <IlMergeConfigFilename Condition=" '$(IlMergeConfigFileName)' == '' Or '$(IlMergeConfigFileName)' == '*Undefined*' ">ilmerge.xml</IlMergeConfigFilename>
+  </PropertyGroup>
+
+  <Choose>
+    <When Condition=" '$(TargetFrameworkVersion)' == 'v2.0' Or '$(TargetFrameworkVersion)' == '' Or '$(TargetFrameworkVersion)' == '*Undefined*' ">
+      <PropertyGroup>
+        <!--<IlMergeTargetPlatform>/targetplatform:v2,&quot;$(MSBuildBinPath)&quot;</IlMergeTargetPlatform>-->
+        <IlMergeTargetPlatform>/targetplatform:v2,&quot;%SystemRoot%\Microsoft.NET\Framework64\v2.0.50727&quot;</IlMergeTargetPlatform>
+      </PropertyGroup>
+    </When>
+    <When Condition=" '$(TargetFrameworkVersion)' == 'v4.0' And '$(TargetFrameworkVersion)' != '*Undefined*' ">
+      <PropertyGroup>
+        <!--<IlMergeTargetPlatform>/targetplatform:v4,&quot;$(MSBuildToolsPath)&quot;</IlMergeTargetPlatform>-->
+        <!--<IlMergeTargetPlatform>/targetplatform:v4,&quot;$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.1&quot;</IlMergeTargetPlatform>-->
+        <!--<IlMergeTargetPlatform>/targetplatform:v4,&quot;$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5&quot;</IlMergeTargetPlatform>-->
+        <IlMergeTargetPlatform>/targetplatform:v4,&quot;%SystemRoot%\Microsoft.NET\Framework64\v4.0.30319&quot;</IlMergeTargetPlatform>
+      </PropertyGroup>
+    </When>
+  </Choose>
+
+  <Choose>
+    <When Condition=" '$(SignAssembly)' == 'true' And '$(KeyOriginatorFile)' != '' And '$(KeyOriginatorFile)' != '*Undefined*' ">
+      <PropertyGroup>
+        <IlMergeKeyFile>/keyfile:&quot;$(ProjectDir)$(KeyOriginatorFile)&quot;</IlMergeKeyFile>
+      </PropertyGroup>
+    </When>
+    <When Condition=" '$(SignAssembly)' == 'true' And '$(AssemblyOriginatorKeyFile)' != '' And '$(AssemblyOriginatorKeyFile)' != '*Undefined*' ">
+      <PropertyGroup>
+        <IlMergeKeyFile>/keyfile:&quot;$(ProjectDir)$(AssemblyOriginatorKeyFile)&quot;</IlMergeKeyFile>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <IlMergeKeyFile></IlMergeKeyFile>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+
+  <Target Name="AfterBuild">
+    <Message Importance="high" Text="[ILMERGE] MSBuildToolsVersion:     $(MSBuildToolsVersion)" />
+    <Message Importance="high" Text="[ILMERGE] MSBuildBinPath:          $(MSBuildBinPath)" />
+    <Message Importance="high" Text="[ILMERGE] MSBuildToolsPath:        $(MSBuildToolsPath)" />
+    <Message Importance="high" Text="[ILMERGE] TargetFrameworkVersion:  $(TargetFrameworkVersion)" />
+    <Message Importance="high" Text="[ILMERGE] IlMergeKeyFile:          $(IlMergeKeyFile)" />
+    <Message Importance="high" Text="[ILMERGE] Merge files marked as local" />
+
+    <ItemGroup>
+      <_IlMergeDefaultExePathConfigFile Include="$(MSBuildThisFileDirectory)$(IlMergeConfigFilename)" />
+      <_ParentConfigFile Include="$(ProjectDir)\..\$(IlMergeConfigFilename)" />
+      <_ConfigFile Include="$(ProjectDir)$(IlMergeConfigFilename)" />
+    </ItemGroup>
+    <PropertyGroup>
+      <Enabled>false</Enabled>
+      <IlMergeDefaultExePathConfigFile>@(_IlMergeDefaultExePathConfigFile->'%(FullPath)')</IlMergeDefaultExePathConfigFile>
+      <ParentConfigFile>@(_ParentConfigFile->'%(FullPath)')</ParentConfigFile>
+      <ConfigFile>@(_ConfigFile->'%(FullPath)')</ConfigFile>
+    </PropertyGroup>
+
+    <GetConfig Condition=" Exists('$(IlMergeDefaultExePathConfigFile)') " FilePath="$(IlMergeDefaultExePathConfigFile)">
+      <Output TaskParameter="Enabled" PropertyName="Enabled" />
+      <Output TaskParameter="IlMergeInherited" PropertyName="IlMergeInherited" />
+      <Output TaskParameter="ExePathUseDefault" PropertyName="ExePathUseDefault" />
+      <Output TaskParameter="CustomExePath" PropertyName="CustomExePath" />
+      <Output TaskParameter="ExePathInherited" PropertyName="ExePathInherited" />
+      <Output TaskParameter="InternalizeEnabled" PropertyName="InternalizeEnabled" />
+      <Output TaskParameter="InternalizeExcludeTypesFilePath" PropertyName="InternalizeExcludeTypesFilePath" />
+      <Output TaskParameter="InternalizeExcludeTypes" ItemName="InternalizeExcludeTypes" />
+      <Output TaskParameter="InternalizeInherited" PropertyName="InternalizeInherited" />
+      <Output TaskParameter="Closed" PropertyName="Closed" />
+      <Output TaskParameter="ClosedInherited" PropertyName="ClosedInherited" />
+      <Output TaskParameter="NDebug" PropertyName="NDebug" />
+      <Output TaskParameter="NDebugInherited" PropertyName="NDebugInherited" />
+      <Output TaskParameter="ExcludeEnabled" PropertyName="ExcludeEnabled" />
+      <Output TaskParameter="ExcludeAssemblies" ItemName="ExcludeAssemblies" />
+      <Output TaskParameter="ExcludeInherited" PropertyName="ExcludeInherited" />
+    </GetConfig>
+    <Message Condition=" Exists('$(IlMergeDefaultExePathConfigFile)') " Importance="high" Text="[ILMERGE] Read values from config:                 $(IlMergeDefaultExePathConfigFile)" />
+    <Message Condition=" Exists('$(IlMergeDefaultExePathConfigFile)') " Importance="high" Text="[ILMERGE] Config->Enabled:                         $(Enabled)" />
+    <Message Condition=" Exists('$(IlMergeDefaultExePathConfigFile)') " Importance="high" Text="[ILMERGE] Config->ExePathUseDefault:               $(ExePathUseDefault)" />
+    <Message Condition=" Exists('$(IlMergeDefaultExePathConfigFile)') " Importance="high" Text="[ILMERGE] Config->CustomExePath:                   $(CustomExePath)" />
+    <Message Condition=" Exists('$(IlMergeDefaultExePathConfigFile)') " Importance="high" Text="[ILMERGE] Config->InternalizeEnabled:              $(InternalizeEnabled)" />
+    <Message Condition=" Exists('$(IlMergeDefaultExePathConfigFile)') " Importance="high" Text="[ILMERGE] Config->InternalizeExcludeTypesFilePath: $(InternalizeExcludeTypesFilePath)" />
+    <Message Condition=" Exists('$(IlMergeDefaultExePathConfigFile)') " Importance="high" Text="[ILMERGE] Config->InternalizeExcludeTypes:         @(InternalizeExcludeTypes)" />
+    <Message Condition=" Exists('$(IlMergeDefaultExePathConfigFile)') " Importance="high" Text="[ILMERGE] Config->Closed:                          $(Closed)" />
+    <Message Condition=" Exists('$(IlMergeDefaultExePathConfigFile)') " Importance="high" Text="[ILMERGE] Config->NDebug:                          $(NDebug)" />
+    <Message Condition=" Exists('$(IlMergeDefaultExePathConfigFile)') " Importance="high" Text="[ILMERGE] Config->ExcludeEnabled:                  $(ExcludeEnabled)" />
+    <Message Condition=" Exists('$(IlMergeDefaultExePathConfigFile)') " Importance="high" Text="[ILMERGE] Config->ExcludeAssemblies:               @(ExcludeAssemblies)" />
+
+    <GetConfig Condition=" Exists('$(ParentConfigFile)') " FilePath="$(ParentConfigFile)">
+      <Output TaskParameter="Enabled" PropertyName="_Enabled2" />
+      <Output TaskParameter="IlMergeInherited" PropertyName="_IlMergeInherited2" />
+      <Output TaskParameter="ExePathUseDefault" PropertyName="_ExePathUseDefault2" />
+      <Output TaskParameter="CustomExePath" PropertyName="_CustomExePath2" />
+      <Output TaskParameter="ExePathInherited" PropertyName="_ExePathInherited2" />
+      <Output TaskParameter="InternalizeEnabled" PropertyName="_InternalizeEnabled2" />
+      <Output TaskParameter="InternalizeExcludeTypesFilePath" PropertyName="_InternalizeExcludeTypesFilePath2" />
+      <Output TaskParameter="InternalizeExcludeTypes" ItemName="_InternalizeExcludeTypes2" />
+      <Output TaskParameter="InternalizeInherited" PropertyName="_InternalizeInherited2" />
+      <Output TaskParameter="Closed" PropertyName="_Closed2" />
+      <Output TaskParameter="ClosedInherited" PropertyName="_ClosedInherited2" />
+      <Output TaskParameter="NDebug" PropertyName="_NDebug2" />
+      <Output TaskParameter="NDebugInherited" PropertyName="_NDebugInherited2" />
+      <Output TaskParameter="ExcludeEnabled" PropertyName="_ExcludeEnabled2" />
+      <Output TaskParameter="ExcludeAssemblies" ItemName="_ExcludeAssemblies2" />
+      <Output TaskParameter="ExcludeInherited" PropertyName="_ExcludeInherited2" />
+    </GetConfig>
+    <PropertyGroup Condition=" Exists('$(ParentConfigFile)') ">
+      <Enabled Condition=" '$(_IlMergeInherited2)' != 'true' ">$(_Enabled2)</Enabled>
+      <ExePathUseDefault Condition=" '$(_ExePathInherited2)' != 'true' ">$(_ExePathUseDefault2)</ExePathUseDefault>
+      <CustomExePath Condition=" '$(_ExePathInherited2)' != 'true' ">$(_CustomExePath2)</CustomExePath>
+      <InternalizeEnabled Condition=" '$(_InternalizeInherited2)' != 'true' ">$(_InternalizeEnabled2)</InternalizeEnabled>
+      <InternalizeExcludeTypesFilePath Condition=" '$(_InternalizeInherited2)' != 'true' ">$(_InternalizeExcludeTypesFilePath2)</InternalizeExcludeTypesFilePath>
+      <Closed Condition=" '$(_ClosedInherited2)' != 'true' ">$(_Closed2)</Closed>
+      <NDebug Condition=" '$(_NDebugInherited2)' != 'true' ">$(_NDebug2)</NDebug>
+      <ExcludeEnabled Condition=" '$(_ExcludeInherited2)' != 'true' ">$(_ExcludeEnabled2)</ExcludeEnabled>
+    </PropertyGroup>
+    <ItemGroup Condition=" Exists('$(ParentConfigFile)') ">
+      <InternalizeExcludeTypes Condition=" '$(_InternalizeInherited2)' != 'true' " Include="@(_InternalizeExcludeTypes2)" />
+      <ExcludeAssemblies Condition=" '$(_ExcludeInherited2)' != 'true' " Include="@(_ExcludeAssemblies2)" />
+    </ItemGroup>
+    <Message Condition=" Exists('$(ParentConfigFile)') " Importance="high" Text="[ILMERGE] Read values from config:                 $(ParentConfigFile)" />
+    <Message Condition=" Exists('$(ParentConfigFile)') " Importance="high" Text="[ILMERGE] Config->Enabled:                         $(Enabled)" />
+    <Message Condition=" Exists('$(ParentConfigFile)') " Importance="high" Text="[ILMERGE] Config->ExePathUseDefault:               $(ExePathUseDefault)" />
+    <Message Condition=" Exists('$(ParentConfigFile)') " Importance="high" Text="[ILMERGE] Config->CustomExePath:                   $(CustomExePath)" />
+    <Message Condition=" Exists('$(ParentConfigFile)') " Importance="high" Text="[ILMERGE] Config->InternalizeEnabled:              $(InternalizeEnabled)" />
+    <Message Condition=" Exists('$(ParentConfigFile)') " Importance="high" Text="[ILMERGE] Config->InternalizeExcludeTypesFilePath: $(InternalizeExcludeTypesFilePath)" />
+    <Message Condition=" Exists('$(ParentConfigFile)') " Importance="high" Text="[ILMERGE] Config->InternalizeExcludeTypes:         @(InternalizeExcludeTypes)" />
+    <Message Condition=" Exists('$(ParentConfigFile)') " Importance="high" Text="[ILMERGE] Config->Closed:                          $(Closed)" />
+    <Message Condition=" Exists('$(ParentConfigFile)') " Importance="high" Text="[ILMERGE] Config->NDebug:                          $(NDebug)" />
+    <Message Condition=" Exists('$(ParentConfigFile)') " Importance="high" Text="[ILMERGE] Config->ExcludeEnabled:                  $(ExcludeEnabled)" />
+    <Message Condition=" Exists('$(ParentConfigFile)') " Importance="high" Text="[ILMERGE] Config->ExcludeAssemblies:               @(ExcludeAssemblies)" />
+
+    <GetConfig Condition=" Exists('$(ConfigFile)') " FilePath="$(ConfigFile)">
+      <Output TaskParameter="Enabled" PropertyName="_Enabled3" />
+      <Output TaskParameter="IlMergeInherited" PropertyName="_IlMergeInherited3" />
+      <Output TaskParameter="ExePathUseDefault" PropertyName="_ExePathUseDefault3" />
+      <Output TaskParameter="CustomExePath" PropertyName="_CustomExePath3" />
+      <Output TaskParameter="ExePathInherited" PropertyName="_ExePathInherited3" />
+      <Output TaskParameter="InternalizeEnabled" PropertyName="_InternalizeEnabled3" />
+      <Output TaskParameter="InternalizeExcludeTypesFilePath" PropertyName="_InternalizeExcludeTypesFilePath3" />
+      <Output TaskParameter="InternalizeExcludeTypes" ItemName="_InternalizeExcludeTypes3" />
+      <Output TaskParameter="InternalizeInherited" PropertyName="_InternalizeInherited3" />
+      <Output TaskParameter="Closed" PropertyName="_Closed3" />
+      <Output TaskParameter="ClosedInherited" PropertyName="_ClosedInherited3" />
+      <Output TaskParameter="NDebug" PropertyName="_NDebug3" />
+      <Output TaskParameter="NDebugInherited" PropertyName="_NDebugInherited3" />
+      <Output TaskParameter="ExcludeEnabled" PropertyName="_ExcludeEnabled3" />
+      <Output TaskParameter="ExcludeAssemblies" ItemName="_ExcludeAssemblies3" />
+      <Output TaskParameter="ExcludeInherited" PropertyName="_ExcludeInherited3" />
+    </GetConfig>
+    <PropertyGroup Condition=" Exists('$(ConfigFile)') ">
+      <Enabled Condition=" '$(_IlMergeInherited3)' != 'true' ">$(_Enabled3)</Enabled>
+      <ExePathUseDefault Condition=" '$(_ExePathInherited3)' != 'true' ">$(_ExePathUseDefault3)</ExePathUseDefault>
+      <CustomExePath Condition=" '$(_ExePathInherited3)' != 'true' ">$(_CustomExePath3)</CustomExePath>
+      <InternalizeEnabled Condition=" '$(_InternalizeInherited3)' != 'true' ">$(_InternalizeEnabled3)</InternalizeEnabled>
+      <InternalizeExcludeTypesFilePath Condition=" '$(_InternalizeInherited3)' != 'true' ">$(_InternalizeExcludeTypesFilePath3)</InternalizeExcludeTypesFilePath>
+      <Closed Condition=" '$(_ClosedInherited3)' != 'true' ">$(_Closed3)</Closed>
+      <NDebug Condition=" '$(_NDebugInherited3)' != 'true' ">$(_NDebug3)</NDebug>
+      <ExcludeEnabled Condition=" '$(_ExcludeInherited3)' != 'true' ">$(_ExcludeEnabled3)</ExcludeEnabled>
+    </PropertyGroup>
+    <ItemGroup Condition=" Exists('$(ConfigFile)') ">
+      <InternalizeExcludeTypes Condition=" '$(_InternalizeInherited3)' != 'true' " Include="@(_InternalizeExcludeTypes3)" />
+      <ExcludeAssemblies Condition=" '$(_ExcludeInherited3)' != 'true' " Include="@(_ExcludeAssemblies3)" />
+    </ItemGroup>
+
+    <Message Condition=" Exists('$(ConfigFile)') " Importance="high" Text="[ILMERGE] Read values from config:                 $(ConfigFile)" />
+    <Message Condition=" Exists('$(ConfigFile)') " Importance="high" Text="[ILMERGE] Config->Enabled:                         $(Enabled)" />
+    <Message Condition=" Exists('$(ConfigFile)') " Importance="high" Text="[ILMERGE] Config->ExePathUseDefault:               $(ExePathUseDefault)" />
+    <Message Condition=" Exists('$(ConfigFile)') " Importance="high" Text="[ILMERGE] Config->CustomExePath:                   $(CustomExePath)" />
+    <Message Condition=" Exists('$(ConfigFile)') " Importance="high" Text="[ILMERGE] Config->InternalizeEnabled:              $(InternalizeEnabled)" />
+    <Message Condition=" Exists('$(ConfigFile)') " Importance="high" Text="[ILMERGE] Config->InternalizeExcludeTypesFilePath: $(InternalizeExcludeTypesFilePath)" />
+    <Message Condition=" Exists('$(ConfigFile)') " Importance="high" Text="[ILMERGE] Config->InternalizeExcludeTypes:         @(InternalizeExcludeTypes)" />
+    <Message Condition=" Exists('$(ConfigFile)') " Importance="high" Text="[ILMERGE] Config->Closed:                          $(Closed)" />
+    <Message Condition=" Exists('$(ConfigFile)') " Importance="high" Text="[ILMERGE] Config->NDebug:                          $(NDebug)" />
+    <Message Condition=" Exists('$(ConfigFile)') " Importance="high" Text="[ILMERGE] Config->ExcludeEnabled:                  $(ExcludeEnabled)" />
+    <Message Condition=" Exists('$(ConfigFile)') " Importance="high" Text="[ILMERGE] Config->ExcludeAssemblies:               @(ExcludeAssemblies)" />
+
+    <RemoveDuplicates Inputs="@(InternalizeExcludeTypes)">
+      <Output TaskParameter="Filtered" ItemName="FilteredInternalizeExcludeTypes" />
+    </RemoveDuplicates>
+    <RemoveDuplicates Inputs="@(ExcludeAssemblies)">
+      <Output TaskParameter="Filtered" ItemName="FilteredExcludeAssemblies" />
+    </RemoveDuplicates>
+    <Message Importance="high" Text="[ILMERGE] Filtered Config->InternalizeExcludeTypes:  @(FilteredInternalizeExcludeTypes)" />
+    <Message Importance="high" Text="[ILMERGE] Filtered Config->ExcludeAssemblies:        @(FilteredExcludeAssemblies)" />
+
+    <ItemGroup Condition=" '$(Enabled)' == 'true' And '$(InternalizeEnabled)' == 'true' And '$(InternalizeExcludeTypesFilePath)' == '' And '@(FilteredInternalizeExcludeTypes)' != '' ">
+      <InternalizeExcludeTypesTempFilePath Include="$(OutDir)ilmerge.internalize.exclude" />
+    </ItemGroup>
+    <WriteLinesToFile Condition=" '$(Enabled)' == 'true' And '$(InternalizeEnabled)' == 'true' And '$(InternalizeExcludeTypesFilePath)' == '' And '@(FilteredInternalizeExcludeTypes)' != '' " File="@(InternalizeExcludeTypesTempFilePath)" Lines="@(FilteredInternalizeExcludeTypes)" Overwrite="true" Encoding="utf-8" />
+
+    <CreateItem Condition=" '$(Enabled)' == 'true' And ('%(Extension)' == '.dll' Or '%(Extension)' == '.exe') And '%(Filename)%(Extension)' != '@(FilteredExcludeAssemblies->'%(Filename)%(Extension)')' " Include="@(ReferenceCopyLocalPaths)">
+      <Output TaskParameter="Include" ItemName="AssembliesToMerge" />
+    </CreateItem>
+    <Message Condition=" '$(Enabled)' == 'true' " Importance="High" Text="[ILMERGE] AssembliesToMerge: @(AssembliesToMerge->'%(Filename)')" />
+
+    <ItemGroup Condition=" '$(Enabled)' == 'true' ">
+      <_IlMergeLogPath Include="$(OutDir)ilmerge.log" />
+    </ItemGroup>
+    <PropertyGroup Condition=" '$(Enabled)' == 'true' ">
+      <IlMergeExePath Condition=" '$(ExePathUseDefault)' == 'true' And Exists('$(IlMergeDefaultExePath)\$(IlMergeDefaultExeFilename)') ">&quot;$(IlMergeDefaultExePath)\$(IlMergeDefaultExeFilename)&quot;</IlMergeExePath>
+      <IlMergeExePath Condition=" '$(ExePathUseDefault)' == 'true' And Exists('$(MSBuildThisFileDirectory)$(IlMergeDefaultExeFilename)') ">&quot;$(MSBuildThisFileDirectory)$(IlMergeDefaultExeFilename)&quot;</IlMergeExePath>
+      <IlMergeExePath Condition=" '$(ExePathUseDefault)' != 'true' ">&quot;$([System.IO.Path]::GetFullPath($(CustomExePath)\$(IlMergeDefaultExeFilename)))&quot;</IlMergeExePath>
+      <IlMergeLogPath>/log:@(_IlMergeLogPath->'&quot;%(FullPath)&quot;')</IlMergeLogPath>
+      <IlMergeInternalize Condition=" '$(InternalizeEnabled)' == 'true' ">/internalize</IlMergeInternalize>
+      <IlMergeInternalize Condition=" '$(InternalizeEnabled)' != 'true' "></IlMergeInternalize>
+      <IlMergeInternalize Condition=" '$(InternalizeEnabled)' == 'true' And '$(InternalizeExcludeTypesFilePath)' != '' ">$(IlMergeInternalize):&quot;$(InternalizeExcludeTypesFilePath)&quot;</IlMergeInternalize>
+      <IlMergeInternalize Condition=" '$(InternalizeEnabled)' == 'true' And '$(InternalizeExcludeTypesFilePath)' == '' And '@(InternalizeExcludeTypesTempFilePath)' != '' And '@(FilteredInternalizeExcludeTypes)' != '' ">$(IlMergeInternalize):&quot;@(InternalizeExcludeTypesTempFilePath)&quot;</IlMergeInternalize>
+      <IlMergeClosed Condition=" '$(Closed)' == 'true' ">/closed</IlMergeClosed>
+      <IlMergeClosed Condition=" '$(Closed)' != 'true' "></IlMergeClosed>
+      <IlMergeNDebug Condition=" '$(NDebug)' == 'true' ">/ndebug</IlMergeNDebug>
+      <IlMergeNDebug Condition=" '$(NDebug)' != 'true' "></IlMergeNDebug>
+      <IlMergeOut>/out:@(MainAssembly->'&quot;%(FullPath)&quot;')</IlMergeOut>
+      <!--<IlMergePrimaryAssembly>@(IntermediateAssembly->'&quot;%(FullPath)&quot;')</IlMergePrimaryAssembly>-->
+      <IlMergePrimaryAssembly>@(MainAssembly->'&quot;%(FullPath)&quot;')</IlMergePrimaryAssembly>
+      <IlMergeOtherAssemblies>@(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')</IlMergeOtherAssemblies>
+    </PropertyGroup>
+
+    <Message Condition=" '$(Enabled)' != 'true' " Importance="high" Text="[ILMERGE] Disabled" />
+
+    <Message Condition=" '$(Enabled)' == 'true' " Importance="high" Text="[ILMERGE] Argument->IlMergeExePath:  $(IlMergeExePath)" />
+    <Message Condition=" '$(Enabled)' == 'true' " Importance="high" Text="[ILMERGE] Argument->Log:             $(IlMergeLogPath)" />
+    <Message Condition=" '$(Enabled)' == 'true' " Importance="high" Text="[ILMERGE] Argument->KeyFile:         $(IlMergeKeyFile)" />
+    <Message Condition=" '$(Enabled)' == 'true' " Importance="high" Text="[ILMERGE] Argument->Internalize:     $(IlMergeInternalize)" />
+    <Message Condition=" '$(Enabled)' == 'true' " Importance="high" Text="[ILMERGE] Argument->Closed:          $(IlMergeClosed)" />
+    <Message Condition=" '$(Enabled)' == 'true' " Importance="high" Text="[ILMERGE] Argument->NDebug:          $(IlMergeNDebug)" />
+    <Message Condition=" '$(Enabled)' == 'true' " Importance="high" Text="[ILMERGE] Argument->TargetPlatform:  $(IlMergeTargetPlatform)" />
+    <Message Condition=" '$(Enabled)' == 'true' " Importance="high" Text="[ILMERGE] Argument->Out:             $(IlMergeOut)" />
+    <Message Condition=" '$(Enabled)' == 'true' " Importance="high" Text="[ILMERGE] Argument->PrimaryAssembly: $(IlMergePrimaryAssembly)" />
+    <Message Condition=" '$(Enabled)' == 'true' " Importance="high" Text="[ILMERGE] Argument->OtherAssemblies: $(IlMergeOtherAssemblies)" />
+
+    <Exec Condition=" '$(Enabled)' == 'true' " Command="$(IlMergeExePath) $(IlMergeLogPath) $(IlMergeKeyFile) $(IlMergeInternalize) $(IlMergeClosed) $(IlMergeNDebug) $(IlMergeTargetPlatform) /allowDup $(IlMergeOut) $(IlMergePrimaryAssembly) $(IlMergeOtherAssemblies) " />
+
+    <CreateItem Condition=" '$(Enabled)' == 'true' AND '%(Filename)%(Extension)' != '@(FilteredExcludeAssemblies->'%(Filename)%(Extension)')' " Include="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')">
+      <Output TaskParameter="Include" ItemName="AssembliesToDelete" />
+    </CreateItem>
+    <Message Condition=" '$(Enabled)' == 'true' " Importance="High" Text="[ILMERGE] AssembliesToDelete: @(AssembliesToDelete->'%(Filename)')" />
+
+    <Delete Condition=" '$(Enabled)' == 'true' " Files="@(AssembliesToDelete)" />
+  </Target>
+
+  <!--<Target Name="_CopyFilesMarkedCopyLocal" />-->
+
+</Project>

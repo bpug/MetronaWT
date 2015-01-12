@@ -1,0 +1,98 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metrona.Wt.Web", "Metrona.Wt.Web\Metrona.Wt.Web.csproj", "{6B56402F-BBC0-4E5E-98C5-87CD6CF5EA2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metrona.Wt.Data", "Metrona.Wt.Data\Metrona.Wt.Data.csproj", "{3EA24047-4978-491F-B0AD-CAE3C61C22A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metrona.Wt.Model", "Metrona.Wt.Model\Metrona.Wt.Model.csproj", "{0F578ED1-5C9E-4FBA-9150-E5B02679D31C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metrona.Wt.Service", "Metrona.Wt.Service\Metrona.Wt.Service.csproj", "{D03F0CE5-15B6-480D-96E0-D08A6E54DB07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metrona.Wt.Core", "Metrona.Wt.Core\Metrona.Wt.Core.csproj", "{CD0F75BD-F4AE-4E97-932A-F244286D951A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metrona.Wt.Report", "Metrona.Wt.Report\Metrona.Wt.Report.csproj", "{6C1F7AF7-A94F-450B-983F-40DC3AD0A297}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metrona.Wt.Database", "Metrona.Wt.Database\Metrona.Wt.Database.csproj", "{EAD420E7-99E6-4EFA-BDC0-AACA59FAA971}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metrona.Wt.Identity", "Metrona.Wt.Identity\Metrona.Wt.Identity.csproj", "{AA1E7AF6-CD89-47A4-8045-CD4C04B07768}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F15D88C4-878B-4299-AEC9-1CB8E290258D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "version", "version", "{1F7EFC2D-33AD-484F-9088-24FD3FF33FCA}"
+	ProjectSection(SolutionItems) = preProject
+		SolutionItems\AssemblyInfo.cs = SolutionItems\AssemblyInfo.cs
+		SolutionItems\AssemblyVersionInfo.xml = SolutionItems\AssemblyVersionInfo.xml
+		SolutionItems\Changelog.Setup.txt = SolutionItems\Changelog.Setup.txt
+		SolutionItems\CommonAssemblyInfo.cs = SolutionItems\CommonAssemblyInfo.cs
+		SolutionItems\CommonAssemblyInfoVersion.cs = SolutionItems\CommonAssemblyInfoVersion.cs
+		SolutionItems\CommonAssemblyVersion.cs = SolutionItems\CommonAssemblyVersion.cs
+		SolutionItems\version.targets = SolutionItems\version.targets
+		SolutionItems\version.wxi = SolutionItems\version.wxi
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Production|Any CPU = Production|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B56402F-BBC0-4E5E-98C5-87CD6CF5EA2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B56402F-BBC0-4E5E-98C5-87CD6CF5EA2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B56402F-BBC0-4E5E-98C5-87CD6CF5EA2B}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{6B56402F-BBC0-4E5E-98C5-87CD6CF5EA2B}.Production|Any CPU.Build.0 = Production|Any CPU
+		{6B56402F-BBC0-4E5E-98C5-87CD6CF5EA2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B56402F-BBC0-4E5E-98C5-87CD6CF5EA2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EA24047-4978-491F-B0AD-CAE3C61C22A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EA24047-4978-491F-B0AD-CAE3C61C22A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EA24047-4978-491F-B0AD-CAE3C61C22A2}.Production|Any CPU.ActiveCfg = Release|Any CPU
+		{3EA24047-4978-491F-B0AD-CAE3C61C22A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EA24047-4978-491F-B0AD-CAE3C61C22A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F578ED1-5C9E-4FBA-9150-E5B02679D31C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F578ED1-5C9E-4FBA-9150-E5B02679D31C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F578ED1-5C9E-4FBA-9150-E5B02679D31C}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{0F578ED1-5C9E-4FBA-9150-E5B02679D31C}.Production|Any CPU.Build.0 = Production|Any CPU
+		{0F578ED1-5C9E-4FBA-9150-E5B02679D31C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F578ED1-5C9E-4FBA-9150-E5B02679D31C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D03F0CE5-15B6-480D-96E0-D08A6E54DB07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D03F0CE5-15B6-480D-96E0-D08A6E54DB07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D03F0CE5-15B6-480D-96E0-D08A6E54DB07}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{D03F0CE5-15B6-480D-96E0-D08A6E54DB07}.Production|Any CPU.Build.0 = Production|Any CPU
+		{D03F0CE5-15B6-480D-96E0-D08A6E54DB07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D03F0CE5-15B6-480D-96E0-D08A6E54DB07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD0F75BD-F4AE-4E97-932A-F244286D951A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD0F75BD-F4AE-4E97-932A-F244286D951A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD0F75BD-F4AE-4E97-932A-F244286D951A}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{CD0F75BD-F4AE-4E97-932A-F244286D951A}.Production|Any CPU.Build.0 = Production|Any CPU
+		{CD0F75BD-F4AE-4E97-932A-F244286D951A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD0F75BD-F4AE-4E97-932A-F244286D951A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C1F7AF7-A94F-450B-983F-40DC3AD0A297}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C1F7AF7-A94F-450B-983F-40DC3AD0A297}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C1F7AF7-A94F-450B-983F-40DC3AD0A297}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{6C1F7AF7-A94F-450B-983F-40DC3AD0A297}.Production|Any CPU.Build.0 = Production|Any CPU
+		{6C1F7AF7-A94F-450B-983F-40DC3AD0A297}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C1F7AF7-A94F-450B-983F-40DC3AD0A297}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAD420E7-99E6-4EFA-BDC0-AACA59FAA971}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAD420E7-99E6-4EFA-BDC0-AACA59FAA971}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAD420E7-99E6-4EFA-BDC0-AACA59FAA971}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{EAD420E7-99E6-4EFA-BDC0-AACA59FAA971}.Production|Any CPU.Build.0 = Production|Any CPU
+		{EAD420E7-99E6-4EFA-BDC0-AACA59FAA971}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAD420E7-99E6-4EFA-BDC0-AACA59FAA971}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA1E7AF6-CD89-47A4-8045-CD4C04B07768}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA1E7AF6-CD89-47A4-8045-CD4C04B07768}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA1E7AF6-CD89-47A4-8045-CD4C04B07768}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{AA1E7AF6-CD89-47A4-8045-CD4C04B07768}.Production|Any CPU.Build.0 = Production|Any CPU
+		{AA1E7AF6-CD89-47A4-8045-CD4C04B07768}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA1E7AF6-CD89-47A4-8045-CD4C04B07768}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1F7EFC2D-33AD-484F-9088-24FD3FF33FCA} = {F15D88C4-878B-4299-AEC9-1CB8E290258D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
+	EndGlobalSection
+EndGlobal

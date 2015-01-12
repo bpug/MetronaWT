@@ -1,0 +1,3 @@
+﻿$(function () {
+    $('.chzn-select').chosen();
+})

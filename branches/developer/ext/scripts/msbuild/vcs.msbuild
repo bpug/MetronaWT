@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+
+  <!-- # Coordinate targets -->
+  <Target Name="CheckinPreRelease">
+
+    <PropertyGroup>
+      <CommonProperties>
+        ;AssemblyFileVersionMajor=$(AssemblyFileVersionMajor)
+        ;AssemblyFileVersionMinor=$(AssemblyFileVersionMinor)
+        ;AssemblyFileVersionBuild=$(AssemblyFileVersionBuild)
+        ;AssemblyFileVersionRevision=$(AssemblyFileVersionRevision)
+        ;AssemblyFileVersionMajorMinor=$(AssemblyFileVersionMajorMinor)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersionMajor=$(AssemblyVersionMajor)
+        ;AssemblyVersionMinor=$(AssemblyVersionMinor)
+        ;AssemblyVersionBuild=$(AssemblyVersionBuild)
+        ;AssemblyVersionRevision=$(AssemblyVersionRevision)
+        ;AssemblyVersionMajorMinor=$(AssemblyVersionMajorMinor)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersionMajor=$(AssemblyInformationalVersionMajor)
+        ;AssemblyInformationalVersionMinor=$(AssemblyInformationalVersionMinor)
+        ;AssemblyInformationalVersionPatch=$(AssemblyInformationalVersionPatch)
+        ;AssemblyInformationalVersionPreReleaseIdentifier=$(AssemblyInformationalVersionPreReleaseIdentifier)
+        ;AssemblyInformationalVersionBuildIdentifier=$(AssemblyInformationalVersionBuildIdentifier)
+        ;AssemblyInformationalVersionMajorMinor=$(AssemblyInformationalVersionMajorMinor)
+        ;AssemblyInformationalVersionMajorMinorPatch=$(AssemblyInformationalVersionMajorMinorPatch)
+        ;AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier=$(AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </CommonProperties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="$(CommonProperties)"
+             Targets="VcsCommit" />
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="$(CommonProperties)"
+             Targets="VcsPush" />
+
+    <!--<CallTarget Targets="VcsPush" />-->
+
+  </Target>
+
+  <Target Name="CheckinDefault">
+
+    <PropertyGroup>
+      <CommonProperties>
+        ;AssemblyFileVersionMajor=$(AssemblyFileVersionMajor)
+        ;AssemblyFileVersionMinor=$(AssemblyFileVersionMinor)
+        ;AssemblyFileVersionBuild=$(AssemblyFileVersionBuild)
+        ;AssemblyFileVersionRevision=$(AssemblyFileVersionRevision)
+        ;AssemblyFileVersionMajorMinor=$(AssemblyFileVersionMajorMinor)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersionMajor=$(AssemblyVersionMajor)
+        ;AssemblyVersionMinor=$(AssemblyVersionMinor)
+        ;AssemblyVersionBuild=$(AssemblyVersionBuild)
+        ;AssemblyVersionRevision=$(AssemblyVersionRevision)
+        ;AssemblyVersionMajorMinor=$(AssemblyVersionMajorMinor)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersionMajor=$(AssemblyInformationalVersionMajor)
+        ;AssemblyInformationalVersionMinor=$(AssemblyInformationalVersionMinor)
+        ;AssemblyInformationalVersionPatch=$(AssemblyInformationalVersionPatch)
+        ;AssemblyInformationalVersionPreReleaseIdentifier=$(AssemblyInformationalVersionPreReleaseIdentifier)
+        ;AssemblyInformationalVersionBuildIdentifier=$(AssemblyInformationalVersionBuildIdentifier)
+        ;AssemblyInformationalVersionMajorMinor=$(AssemblyInformationalVersionMajorMinor)
+        ;AssemblyInformationalVersionMajorMinorPatch=$(AssemblyInformationalVersionMajorMinorPatch)
+        ;AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier=$(AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </CommonProperties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="$(CommonProperties)"
+             Targets="VcsCommit" />
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="$(CommonProperties)"
+             Targets="VcsTag" />
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="$(CommonProperties)"
+             Targets="VcsPush" />
+
+    <!--<CallTarget Targets="VcsPush" />-->
+
+  </Target>
+
+
+  <!-- # Main -->
+
+  <!-- ## GetVcsInfo -->
+  <Target Name="GetVcsInfo">
+
+    <!-- Svn specific -->
+    <Gapon.MSBuild.Tasks.Vcs.Svn.BranchName Condition=" '$(VcsType)' == 'svn' "
+                                            ProjectRootDirectory="$(RootFolder)">
+      <Output PropertyName="BranchName"
+              TaskParameter="Branch" />
+    </Gapon.MSBuild.Tasks.Vcs.Svn.BranchName>
+
+    <Gapon.MSBuild.Tasks.Subversion.SvnInfo Condition=" '$(VcsType)' == 'svn' "
+                                            Password="$(VcsPassword)"
+                                            ToolPath="$(VcsSvnToolPath)"
+                                            TrustServerCert="true"
+                                            Username="$(VcsUsername)">
+      <Output PropertyName="Changeset"
+              TaskParameter="LastChangedRevision" />
+    </Gapon.MSBuild.Tasks.Subversion.SvnInfo>
+
+    <!-- Hg specific -->
+    <Gapon.MSBuild.Tasks.Vcs.Mercurial.Commands.HgVersion Condition=" '$(VcsType)' == 'hg' "
+                                                          LibraryLocation="VcsHgToolPath"
+                                                          LocalPath="$(RootFolder)">
+      <Output PropertyName="BranchName"
+              TaskParameter="BranchName" />
+      <Output PropertyName="DateTimeIso"
+              TaskParameter="DateTimeIso" />
+      <Output PropertyName="Changeset"
+              TaskParameter="Changeset" />
+      <Output PropertyName="Revision"
+              TaskParameter="Revision" />
+    </Gapon.MSBuild.Tasks.Vcs.Mercurial.Commands.HgVersion>
+
+    <!-- Git specific -->
+    <Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitRemote Condition=" '$(VcsType)' == 'git' "
+                                                    LibraryLocation="$(VcsGitToolPath)"
+                                                    LocalPath="$(RootFolder)">
+      <Output PropertyName="Remote"
+              TaskParameter="Remote" />
+    </Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitRemote>
+
+    <PropertyGroup>
+      <Remote Condition=" '$(Remote)' == '' ">no-remote-found</Remote>
+    </PropertyGroup>
+
+    <Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitVersion Condition=" '$(VcsType)' == 'git' "
+                                                     LibraryLocation="$(VcsGitToolPath)"
+                                                     LocalPath="$(RootFolder)"
+                                                     Remote="$(Remote)"
+                                                     RemoteBranchNameFallback="$(GIT_BRANCH)">
+      <Output PropertyName="Branch"
+              TaskParameter="Branch" />
+      <Output PropertyName="DateTimeIso"
+              TaskParameter="DateTimeIso" />
+      <Output PropertyName="Changeset"
+              TaskParameter="Changeset" />
+      <Output PropertyName="HeadDescription"
+              TaskParameter="HeadDescription" />
+      <Output PropertyName="LocalBranchName"
+              TaskParameter="LocalBranchName" />
+      <Output PropertyName="RemoteBranchName"
+              TaskParameter="RemoteBranchName" />
+    </Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitVersion>
+
+    <PropertyGroup>
+      <RemoteBranchName Condition=" '$(VcsType)' == 'git' AND '$(RemoteBranchName)' == '' ">$(LocalBranchName)</RemoteBranchName>
+    </PropertyGroup>
+
+    <!--Alternate for changeset-->
+    <!--<Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitRevParse Condition=" '$(VcsType)' == 'git' "
+                                                          Branch="HEAD"
+                                                          LibraryLocation="$(VcsGitToolPath)"
+                                                          LocalPath="$(RootFolder)"
+                                                          Short="true">
+            <Output PropertyName="Changeset"
+                    TaskParameter="Revision" />
+        </Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitRevParse>-->
+
+    <Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitParseBranchName Condition=" '$(VcsType)' == 'git' "
+                                                             Branch="$(RemoteBranchName)"
+                                                             Remote="$(Remote)">
+      <Output PropertyName="BranchName"
+              TaskParameter="BranchName" />
+    </Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitParseBranchName>
+
+  </Target>
+
+  <!-- ## VcsCommit -->
+  <Target Name="VcsCommit"
+          DependsOnTargets="GetVcsInfo">
+
+    <PropertyGroup>
+      <BranchName Condition=" '$(BranchName)' == '' ">unknown</BranchName>
+      <CommitMessage>CI build on branch $(BranchName) &gt;&gt;&gt; Associated with $(ProductName) v$(MainAssemblyVersion)</CommitMessage>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <UpdatedVersionFiles Include="$(VersionInputFile)" />
+      <UpdatedVersionFiles Include="$(VersionOutputFile)" />
+      <UpdatedVersionFiles Include="$(WixVersionFile)" />
+      <UpdatedVersionFiles Include="$(MsBuildVersionFile)" />
+      <UpdatedVersionFiles Include="$(CommonAssemblyVersionFile)" />
+      <UpdatedVersionFiles Include="$(CommonWixFile)" />
+      <UpdatedVersionFiles Include="$(WixCodesIndividualFilesBasePath)\CommonWix*.wxi" />
+    </ItemGroup>
+
+    <!-- Svn specific -->
+    <Gapon.MSBuild.Tasks.Subversion.SvnCommit Condition=" '$(VcsType)' == 'svn' "
+                                              Message="$(CommitMessage)"
+                                              Password="$(VcsPassword)"
+                                              Targets="@(UpdatedVersionFiles)"
+                                              ToolPath="$(VcsSvnToolPath)"
+                                              TrustServerCert="true"
+                                              Username="$(VcsUsername)" />
+
+    <!-- Hg specific -->
+    <Gapon.MSBuild.Tasks.Vcs.Mercurial.Commands.HgCommit Condition=" '$(VcsType)' == 'hg' "
+                                                         Includes="@(UpdatedVersionFiles)"
+                                                         LibraryLocation="VcsHgToolPath"
+                                                         LocalPath="$(RootFolder)"
+                                                         Message="$(CommitMessage)"
+                                                         User="$(VcsAuthor)"/>
+
+    <!-- Git specific -->
+    <Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitCommit Condition=" '$(VcsType)' == 'git' "
+                                                    Author="$(VcsAuthor)"
+                                                    Includes="@(UpdatedVersionFiles)"
+                                                    LibraryLocation="$(VcsGitToolPath)"
+                                                    LocalPath="$(RootFolder)"
+                                                    Message="$(CommitMessage)" />
+
+  </Target>
+
+  <!-- ## VcsTag -->
+  <Target Name="VcsTag"
+          DependsOnTargets="GetVcsInfo">
+
+    <PropertyGroup>
+      <TagName>v$(MainAssemblyVersion)</TagName>
+      <TagDescription>Added tag v$(MainAssemblyVersion) for changeset $(Changeset)</TagDescription>
+    </PropertyGroup>
+
+    <!-- Svn specific -->
+    <Gapon.MSBuild.Tasks.Subversion.SvnCopy Condition=" '$(VcsType)' == 'svn' "
+                                            DestinationPath="$(VcsServerUrl)$(VcsTagsPath)/$(TagName)"
+                                            Message="$(TagDescription)"
+                                            Password="$(VcsPassword)"
+                                            SourcePath="$(VcsServerUrl)$(VcsTrunkPath)"
+                                            ToolPath="$(VcsSvnToolPath)"
+                                            TrustServerCert="true"
+                                            Username="$(VcsUsername)" />
+
+    <!-- Hg specific -->
+    <Gapon.MSBuild.Tasks.Vcs.Mercurial.Commands.HgTag Condition=" '$(VcsType)' == 'hg' "
+                                                      Force="true"
+                                                      LibraryLocation="VcsHgToolPath"
+                                                      LocalPath="$(RootFolder)"
+                                                      Message="$(TagDescription)"
+                                                      Revision="$(Changeset)"
+                                                      Tag="$(TagName)" />
+
+    <!-- Git specific -->
+    <Gapon.MSBuild.Tasks.Framework.SetEnvVar Condition=" '$(VcsType)' == 'git' "
+                                             Value="1"
+                                             Variable="GIT_SSL_NO_VERIFY" />
+
+    <Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitTag Condition=" '$(VcsType)' == 'git' "
+                                                 Description="$(TagName)"
+                                                 Force="true"
+                                                 LibraryLocation="$(VcsGitToolPath)"
+                                                 LocalPath="$(RootFolder)"
+                                                 Message="$(TagDescription)" />
+
+    <Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitRevParse Condition=" '$(VcsType)' == 'git' "
+                                                      Branch="HEAD"
+                                                      LibraryLocation="$(VcsGitToolPath)"
+                                                      LocalPath="$(RootFolder)"
+                                                      Short="true">
+      <Output PropertyName="Changeset"
+              TaskParameter="Revision" />
+    </Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitRevParse>
+
+    <PropertyGroup>
+      <GitDestination>$(Remote) $(Changeset):$(BranchName)</GitDestination>
+    </PropertyGroup>
+
+    <Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitPush Condition=" '$(VcsType)' == 'git' "
+                                                  Destination="$(GitDestination)"
+                                                  LibraryLocation="$(VcsGitToolPath)"
+                                                  LocalPath="$(RootFolder)"
+                                                  Password="$(VcsPassword)"
+                                                  Porcelain="true"
+                                                  PushTags="true"
+                                                  Quiet="true"
+                                                  UseDestination="true"
+                                                  User="$(VcsUsername)" />
+
+  </Target>
+
+  <!-- ## VcsPush -->
+  <Target Name="VcsPush"
+          DependsOnTargets="GetVcsInfo">
+
+    <!-- Hg specific -->
+    <Gapon.MSBuild.Tasks.Vcs.Mercurial.Commands.HgPush Condition=" '$(VcsType)' == 'hg' "
+                                                       LibraryLocation="VcsHgToolPath"
+                                                       LocalPath="$(RootFolder)"
+                                                       Password="$(VcsPassword)"
+                                                       User="$(VcsUsername)" />
+
+
+    <!-- Git specific -->
+    <Gapon.MSBuild.Tasks.Framework.SetEnvVar Condition=" '$(VcsType)' == 'git' "
+                                             Value="1"
+                                             Variable="GIT_SSL_NO_VERIFY" />
+
+    <Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitRevParse Condition=" '$(VcsType)' == 'git' "
+                                                      Branch="HEAD"
+                                                      LibraryLocation="$(VcsGitToolPath)"
+                                                      LocalPath="$(RootFolder)"
+                                                      Short="true">
+      <Output PropertyName="Changeset"
+              TaskParameter="Revision" />
+    </Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitRevParse>
+
+    <PropertyGroup>
+      <GitDestination>$(Remote) $(Changeset):$(BranchName)</GitDestination>
+    </PropertyGroup>
+
+    <Gapon.MSBuild.Tasks.Vcs.Git.Commands.GitPush Condition=" '$(VcsType)' == 'git' "
+                                                  Destination="$(GitDestination)"
+                                                  LibraryLocation="$(VcsGitToolPath)"
+                                                  LocalPath="$(RootFolder)"
+                                                  Password="$(VcsPassword)"
+                                                  Porcelain="true"
+                                                  Quiet="true"
+                                                  UseDestination="true"
+                                                  User="$(VcsUsername)" />
+
+  </Target>
+
+</Project>

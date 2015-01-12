@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+
+  <!-- # Initialization -->
+
+  <!-- ## InitAssemblyVersion -->
+  <PropertyGroup>
+    <MainAssemblyVersion Condition=" '$(MainAssemblyVersion)' == '' AND '$(UseSemanticVersionNaming)' != 'true' ">$(AssemblyFileVersion)</MainAssemblyVersion>
+    <MainAssemblyVersion Condition=" '$(MainAssemblyVersion)' == '' AND '$(UseSemanticVersionNaming)' == 'true' ">$(AssemblyInformationalVersion)</MainAssemblyVersion>
+  </PropertyGroup>
+
+  <!-- ## ExcludeArtifactsFilePatterns -->
+  <PropertyGroup>
+    <WildCard>%2A</WildCard>
+    <DoubleWildCard>$(WildCard)$(WildCard)</DoubleWildCard>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard).pdb">
+      <Pattern>**\*.pdb</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard)nunit$(WildCard).$(WildCard)">
+      <Pattern>**\*nunit*.*</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard)xunit$(WildCard).$(WildCard)">
+      <Pattern>**\*xunit*.*</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard)test$(WildCard).$(WildCard)">
+      <Pattern>**\*.tests.*.*</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard).xml">
+      <Pattern>**\*.xml</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard)_i.c">
+      <Pattern>**\*_i.c</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard)_p.c">
+      <Pattern>**\*_p.c</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard).ilk">
+      <Pattern>**\*.ilk</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard).meta">
+      <Pattern>**\*.meta</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard).obj">
+      <Pattern>**\*.obj</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard).pch">
+      <Pattern>**\*.pch</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard).wixpdb">
+      <Pattern>**\*.wixpdb</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard).pgc">
+      <Pattern>**\*.pgc</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard).pgd">
+      <Pattern>**\*.pgd</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard).rsp">
+      <Pattern>**\*.rsp</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard).sbr">
+      <Pattern>**\*.sbr</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard).tlb">
+      <Pattern>**\*.tlb</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard).tli">
+      <Pattern>**\*.tli</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard).tlh">
+      <Pattern>**\*.tlh</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard).tmp">
+      <Pattern>**\*.tmp</Pattern>
+    </ExcludeArtifactsFilePatterns>
+    <ExcludeArtifactsFilePatterns Include="$(DoubleWildCard)\$(WildCard).vspscc">
+      <Pattern>**\*.vspscc</Pattern>
+    </ExcludeArtifactsFilePatterns>
+  </ItemGroup>
+
+</Project>

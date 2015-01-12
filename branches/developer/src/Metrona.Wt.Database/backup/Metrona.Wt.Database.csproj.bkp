@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EAD420E7-99E6-4EFA-BDC0-AACA59FAA971}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Metrona.Wt.Database</RootNamespace>
+    <AssemblyName>Metrona.Wt.Database</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Production|AnyCPU'">
+    <OutputPath>bin\Production\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.Extended">
+      <HintPath>..\packages\EntityFramework.Extended.6.1.0.133\lib\net45\EntityFramework.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MySql.Data.6.9.5\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MySql.Data.Entity.6.9.5\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionItems\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\SolutionItems\CommonAssemblyInfoVersion.cs">
+      <Link>Properties\CommonAssemblyInfoVersion.cs</Link>
+    </Compile>
+    <Compile Include="IEntitiesContext.cs" />
+    <Compile Include="KlimaContext.Partial.cs" />
+    <Compile Include="KlimaContextInitializer.cs" />
+    <Compile Include="Models\KlimaContext.cs" />
+    <Compile Include="Models\Mapping\BundeslandMap.cs" />
+    <Compile Include="Models\Mapping\BundeslandPlzMap.cs" />
+    <Compile Include="Models\Mapping\MeteoLangGtzDeutschlandMap.cs" />
+    <Compile Include="Models\Mapping\MeteoGtzDeutschlandMap.cs" />
+    <Compile Include="Models\Mapping\EventlogMap.cs" />
+    <Compile Include="Models\Mapping\EventlogDayMap.cs" />
+    <Compile Include="Models\Mapping\KlimafaktorDwdMap.cs" />
+    <Compile Include="Models\Mapping\KlimafaktorDwdOkfMap.cs" />
+    <Compile Include="Models\Mapping\KlimaMap.cs" />
+    <Compile Include="Models\Mapping\KlimaDwdMap.cs" />
+    <Compile Include="Models\Mapping\TAB_LANGZEITGTZ_TAGESWERT_DWDMap.cs" />
+    <Compile Include="Models\Mapping\LangzeitmittelMap.cs" />
+    <Compile Include="Models\Mapping\MeteoGtzMap.cs" />
+    <Compile Include="Models\Mapping\MeteoLangGtzMap.cs" />
+    <Compile Include="Models\Mapping\MeteoFaktorMap.cs" />
+    <Compile Include="Models\Mapping\PromilleMap.cs" />
+    <Compile Include="Models\Mapping\UserMap.cs" />
+    <Compile Include="Models\Mapping\WetterStationMap.cs" />
+    <Compile Include="Models\Mapping\WetterStationPlzMap.cs" />
+    <Compile Include="Models\Mapping\VIEW_EVENTLOGMap.cs" />
+    <Compile Include="Models\Mapping\KlimaTemperaturBundeslandMap.cs" />
+    <Compile Include="Models\Mapping\KlimaTemperaturDeutschlandMap.cs" />
+    <Compile Include="Models\Mapping\VIEW_LANG_GTZMONATMap.cs" />
+    <Compile Include="Models\Mapping\MeteoGtzBundeslandMap.cs" />
+    <Compile Include="Models\Mapping\MeteoLangGtzBundeslandMap.cs" />
+    <Compile Include="Models\Mapping\VIEW_MONATDATAMap.cs" />
+    <Compile Include="Models\Mapping\VIEW_MONATDATA_TAGESWERTE_DWDMap.cs" />
+    <Compile Include="Models\Eventlog.cs" />
+    <Compile Include="Models\EventlogDay.cs" />
+    <Compile Include="Models\KlimafaktorDwd.cs" />
+    <Compile Include="Models\KlimafaktorDwdOkf.cs" />
+    <Compile Include="Models\KlimaDwd.cs" />
+    <Compile Include="Models\LangzeitGtzDwd.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\VIEW_EVENTLOG.cs" />
+    <Compile Include="Models\VIEW_LANG_GTZMONAT.cs" />
+    <Compile Include="Models\VIEW_MONATDATA.cs" />
+    <Compile Include="Models\VIEW_MONATDATA_TAGESWERTE_DWD.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BundeslandRepository.cs" />
+    <Compile Include="Repositories\Core\EntityAsyncRepository{T}.cs" />
+    <Compile Include="Repositories\Core\IEntityAsyncRepository{T}.cs" />
+    <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\IBundeslandRepository.cs" />
+    <Compile Include="Repositories\IKlimaRepository.cs" />
+    <Compile Include="Repositories\IWetterstationRepository.cs" />
+    <Compile Include="Repositories\IMeteoGtzRepository.cs" />
+    <Compile Include="Repositories\KlimaRepository.cs" />
+    <Compile Include="Repositories\WetterstationRepository.cs" />
+    <Compile Include="Repositories\MeteoGtzRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Metrona.Wt.Core\Metrona.Wt.Core.csproj">
+      <Project>{cd0f75bd-f4ae-4e97-932a-f244286d951a}</Project>
+      <Name>Metrona.Wt.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Metrona.Wt.Model\Metrona.Wt.Model.csproj">
+      <Project>{0f578ed1-5c9e-4fba-9150-e5b02679d31c}</Project>
+      <Name>Metrona.Wt.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

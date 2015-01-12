@@ -1,0 +1,17 @@
+
+/*** Function CreateDateTime (need for EF) *** */
+
+DELIMITER $$
+drop function IF EXISTS CreateDateTime$$
+create function CreateDateTime(year int, month int, day int, hours int, min int, sec int)
+RETURNS Date
+DETERMINISTIC
+begin
+ return DATE(CONCAT_WS('-', year, month, day)); 
+end$$
+
+/*************************************************
+Wird in DatabaseInitializer erzeugt
+Bei Exception:
+SET GLOBAL log_bin_trust_function_creators = 1;
+*************************************************/

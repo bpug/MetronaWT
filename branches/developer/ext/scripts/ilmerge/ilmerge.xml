@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ilmerge enabled="true" inherited="false">
+  <exepath usedefault="false" inherited="false">..\..\tools\ilmerge</exepath>
+  <!--<internalize enabled="true" excludetypesfilepath="ilmerge.internalize.exclude" inherited="false">-->
+  <internalize enabled="false" excludetypesfilepath="" inherited="false">
+    <!--<excludetypes>System.Boolean</excludetypes>-->
+  </internalize>
+  <closed inherited="false">true</closed>
+  <ndebug inherited="false">true</ndebug>
+  <exclude enabled="false" inherited="false">
+    <!--<assembly>System.dll</assembly>-->
+  </exclude>
+</ilmerge>

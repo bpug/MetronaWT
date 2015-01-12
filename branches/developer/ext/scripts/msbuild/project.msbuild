@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         DefaultTargets="Build"
+         ToolsVersion="4.0">
+
+  <!-- # System settings -->
+  <Import Project="settings.system.msbuild" />
+
+  <!-- # User settings -->
+  <Import Project="files.user.msbuild" />
+  <Import Project="settings.user.default.msbuild" />
+  <Import Project="settings.user.msbuild" />
+
+  <!-- # Import libraries -->
+  <Import Project="$(LibFolder)\msbuild\Gapon.MSBuild.Tasks.targets" />
+
+  <!-- # Module imports -->
+  <Import Project="$(MsBuildVersionFile)" />
+  <Import Project="core.msbuild" />
+  <Import Project="compile.msbuild" />
+  <Import Project="version.msbuild" />
+  <Import Project="ilmerge.msbuild" />
+  <Import Project="sign.msbuild" />
+  <Import Project="package.msbuild" />
+  <Import Project="vcs.msbuild" />
+  <Import Project="nuget.msbuild" />
+  <Import Project="hooks.msbuild" />
+
+  <!-- # Coordinate targets -->
+  <Target Name="Build">
+    <CallTarget Targets="Clean" />
+    <CallTarget Targets="Compile" />
+    <CallTarget Targets="IlMerge" />
+    <CallTarget Targets="Compile-Msi" />
+    <CallTarget Targets="Test" />
+    <CallTarget Targets="Package" />
+    <CallTarget Targets="NuGetBuild" />
+  </Target>
+
+  <Target Name="PreCiBuild">
+    <CallTarget Targets="Clean" />
+    <CallTarget Targets="SetVcsInfo" />
+    <CallTarget Targets="Compile" />
+    <CallTarget Targets="IlMerge" />
+    <CallTarget Targets="Compile-Msi" />
+    <CallTarget Targets="Test" />
+    <CallTarget Targets="Package" />
+    <CallTarget Targets="CheckinPreRelease" />
+    <CallTarget Targets="NuGetPreRelease" />
+  </Target>
+
+  <Target Name="DefaultCiBuild">
+    <CallTarget Targets="Clean" />
+    <CallTarget Targets="SetVcsInfo" />
+    <CallTarget Targets="Compile" />
+    <CallTarget Targets="IlMerge" />
+    <CallTarget Targets="Compile-Msi" />
+    <CallTarget Targets="Test" />
+    <CallTarget Targets="Package" />
+    <CallTarget Targets="CheckinDefault" />
+    <CallTarget Targets="NuGetDefault" />
+  </Target>
+
+</Project>

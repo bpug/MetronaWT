@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+
+  <!-- # Main -->
+
+  <!-- ## SetVersion -->
+  <Target Name="SetVersion"
+          DependsOnTargets="GetVcsInfo">
+    <Gapon.MSBuild.Tasks.Versioning.AssemblyVersion BaseBuildDate="$(BaseBuildDate)"
+                                                    BranchName="$(BranchName)"
+                                                    BuildTriggerType="$(BuildTriggerType)"
+                                                    BuildType="$(BuildType)"
+                                                    MajorType="$(MajorType)"
+                                                    MinorType="$(MinorType)"
+                                                    HashIdentifier="$(Changeset)"
+                                                    PatchType="$(PatchType)"
+                                                    RevisionType="$(RevisionType)"
+                                                    VersionFile="$(VersionInputFile)">
+      <Output PropertyName="Major"
+              TaskParameter="Major" />
+      <Output PropertyName="Minor"
+              TaskParameter="Minor" />
+      <Output PropertyName="Build"
+              TaskParameter="Build" />
+      <Output PropertyName="Revision"
+              TaskParameter="Revision" />
+      <Output PropertyName="Patch"
+              TaskParameter="Patch" />
+      <Output PropertyName="PreReleaseIdentifier"
+              TaskParameter="PreReleaseIdentifier" />
+      <Output PropertyName="BuildIdentifier"
+              TaskParameter="BuildIdentifier" />
+      <Output PropertyName="AssemblyInformationalVersion"
+              TaskParameter="SemVer" />
+      <Output PropertyName="AssemblyFileVersion"
+              TaskParameter="Version" />
+    </Gapon.MSBuild.Tasks.Versioning.AssemblyVersion>
+
+    <PropertyGroup>
+      <CommonAssemblyVersion Condition=" '$(UseSemanticVersionNaming)' != 'true' ">$(Major).$(Minor).$(Build).0</CommonAssemblyVersion>
+      <CommonAssemblyVersion Condition=" '$(UseSemanticVersionNaming)' == 'true' ">$(Major).$(Minor).$(Patch).0</CommonAssemblyVersion>
+      <MainAssemblyVersion Condition=" '$(UseSemanticVersionNaming)' != 'true' ">$(AssemblyFileVersion)</MainAssemblyVersion>
+      <MainAssemblyVersion Condition=" '$(UseSemanticVersionNaming)' == 'true' ">$(AssemblyInformationalVersion)</MainAssemblyVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <AssemblyInfoFiles Include="$(VersionOutputFile)" />
+    </ItemGroup>
+
+    <Gapon.MSBuild.Tasks.Versioning.AssemblyInfo AssemblyFileVersion="$(AssemblyFileVersion)"
+                                                 AssemblyInformationalVersion="$(AssemblyInformationalVersion)"
+                                                 AssemblySemanticVersion="$(AssemblyInformationalVersion)"
+                                                 AssemblyVersion="$(CommonAssemblyVersion)"
+                                                 FileNames="@(AssemblyInfoFiles)">
+      <Output ItemName="ChangedFileNames"
+              TaskParameter="ChangedFileNames" />
+    </Gapon.MSBuild.Tasks.Versioning.AssemblyInfo>
+
+    <Gapon.MSBuild.Tasks.Versioning.WixInfo AssemblyFileVersion="$(AssemblyFileVersion)"
+                                            AssemblyInformationalVersion="$(AssemblyInformationalVersion)"
+                                            AssemblyVersion="$(CommonAssemblyVersion)"
+                                            FileName="$(WixVersionFile)" />
+
+    <Gapon.MSBuild.Tasks.Versioning.MsBuildInfo AssemblyFileVersion="$(AssemblyFileVersion)"
+                                                AssemblyInformationalVersion="$(AssemblyInformationalVersion)"
+                                                AssemblyVersion="$(CommonAssemblyVersion)"
+                                                FileName="$(MsBuildVersionFile)" />
+
+    <Gapon.MSBuild.Tasks.Wix.Common.SetProductCode FilePath="$(CommonWixFile)"
+                                                   IndividualFilesBasePath="$(WixCodesIndividualFilesBasePath)"
+                                                   SetIndividualFiles="$(WixCodesSetIndividualFiles)" />
+  </Target>
+
+  <!-- ## SetVcsInfo -->
+  <Target Name="SetVcsInfo"
+          DependsOnTargets="GetVcsInfo;SetVersion">
+    <ItemGroup>
+      <CommonAssemblyVersionFiles Include="$(CommonAssemblyVersionFile)" />
+    </ItemGroup>
+
+    <Gapon.MSBuild.Tasks.Versioning.CommonAssemblyVersion AssemblyFileVersion="$(AssemblyFileVersion)"
+                                                          AssemblyInformationalVersion="$(AssemblyInformationalVersion)"
+                                                          AssemblyVersion="$(CommonAssemblyVersion)"
+                                                          BranchChangeset="$(Changeset)"
+                                                          BranchName="$(BranchName)"
+                                                          FileNames="@(CommonAssemblyVersionFiles)" />
+  </Target>
+
+</Project>

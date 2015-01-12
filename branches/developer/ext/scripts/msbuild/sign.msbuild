@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+
+  <!-- # Main -->
+
+  <!-- ## Sign output -->
+  <Target Name="SignOutput"
+          Condition=" '$(SignOutput)' == 'true' ">
+
+    <PropertyGroup>
+      <_SignOutputPassword Condition=" '$(SignOutputPassword)' != '' "> /p $(SignOutputPassword)</_SignOutputPassword>
+      <_SignOutputTimeStamping Condition=" '$(SignOutputTimeStamping)' == 'true' "> /as /tr $(SignOutputTimeStampingProvider)</_SignOutputTimeStamping>
+      <_SignOutputItosAttr Condition=" '$(SignOutputItosAttr)' == 'true' "> /itos</_SignOutputItosAttr>
+      <_SignOutputSeal Condition=" '$(SignOutputSeal)' == 'true' "> /tseal $(SignOutputTimeStampingProvider) /seal</_SignOutputSeal>
+      <_FilePatternToSign Condition=" '%(OutputFileNames.Sign)' == 'true' ">@(OutputFileNames-&gt;'$(OutputPath)\%(Pattern)',';')</_FilePatternToSign>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <_FilesToSign Include="$(_FilePatternToSign)" />
+    </ItemGroup>
+
+    <Exec Condition=" '@(_FilesToSign)' != '' AND '$(SignOutputFile)' != '' AND Exists('%(_FilesToSign.Identity)') "
+          Command="&quot;$(SignToolExe)&quot; sign /v /f &quot;$(SignOutputFile)&quot;$(_SignOutputPassword)$(_SignOutputTimeStamping)$(_SignOutputItosAttr) &quot;%(_FilesToSign.Identity)&quot;"
+          WorkingDirectory="$(OutputPath)" />
+
+    <Exec Condition=" '@(_FilesToSign)' != '' AND '$(SignOutputFile)' != '' AND Exists('%(_FilesToSign.Identity)') AND '$(SignOutputSeal)' == 'true' "
+          Command="&quot;$(SignToolExe)&quot; sign /v /f &quot;$(SignOutputFile)&quot;$(_SignOutputPassword)$(_SignOutputSeal) &quot;%(_FilesToSign.Identity)&quot;"
+          WorkingDirectory="$(OutputPath)" />
+
+  </Target>
+
+</Project>

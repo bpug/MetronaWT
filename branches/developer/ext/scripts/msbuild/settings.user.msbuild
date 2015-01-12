@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" SpecVersion="1.19" PsmVersion="1" PsmMigration="1">
+  <PropertyGroup>
+    <ProductName>Brunata.WebManager</ProductName>
+    <BaseBuildDate>2011-09-20</BaseBuildDate>
+    <PatchType>MinorIncrement</PatchType>
+    <StepType>None</StepType>
+    <PrecompileWebApp>true</PrecompileWebApp>
+  </PropertyGroup>
+</Project>

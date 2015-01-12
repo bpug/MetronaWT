@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+
+  <PropertyGroup>
+
+    <!-- # Project properties -->
+    <!-- ## BuildTriggerType values: AnyCPU, x86, x64 or empty(project specific) -->
+    <TargetPlatform></TargetPlatform>
+
+    <!-- # IncrementAssemblyVersion properties -->
+    <!-- ## BuildTriggerType values: None, CiBuild, NightlyBuild, PreRelease, Default -->
+    <BuildTriggerType Condition=" '$(BuildTriggerType)' == '' ">None</BuildTriggerType>
+    <!-- ## MajorType values: None, Increment -->
+    <MajorType>None</MajorType>
+    <!-- ## MinorType values: None, Increment, Reset -->
+    <MinorType>None</MinorType>
+    <!-- ## BuildType values: None, AutomaticDays, AutomaticMs, Increment, Reset -->
+    <BuildType>AutomaticMs</BuildType>
+    <!-- ## RevisionType values: None, Automatic, BuildIncrement, Increment, Reset -->
+    <RevisionType>BuildIncrement</RevisionType>
+    <!-- ## PatchType values: None, AutomaticDays, AutomaticMs, MinorIncrement, Increment, Reset -->
+    <PatchType>None</PatchType>
+
+    <!-- # Version control properties -->
+    <!-- ## VcsType values: svn, hg, git -->
+    <VcsType>git</VcsType>
+    <VcsServerUrl>https://repository-server/name/</VcsServerUrl>
+    <VcsUsername></VcsUsername>
+    <VcsPassword></VcsPassword>
+
+    <!-- # PrecompileWebApp properties -->
+    <PrecompileWebApp>false</PrecompileWebApp>
+    <PrecompileWebAppAllowPartiallyTrustedCallers>false</PrecompileWebAppAllowPartiallyTrustedCallers>
+    <PrecompileWebAppClean>true</PrecompileWebAppClean>
+    <PrecompileWebAppDebug>false</PrecompileWebAppDebug>
+    <PrecompileWebAppDelaySign>false</PrecompileWebAppDelaySign>
+    <PrecompileWebAppFixedNames>true</PrecompileWebAppFixedNames>
+    <PrecompileWebAppForce>true</PrecompileWebAppForce>
+    <PrecompileWebAppKeyContainer></PrecompileWebAppKeyContainer>
+    <PrecompileWebAppKeyFile></PrecompileWebAppKeyFile>
+    <PrecompileWebAppUpdateable>false</PrecompileWebAppUpdateable>
+
+    <!-- # Publishing/Packaging properties -->
+    <UseSemanticVersionNaming Condition=" '$(UseSemanticVersionNaming)' == '' ">true</UseSemanticVersionNaming>
+    <ZipArchiveOutputName>$[ProductName]</ZipArchiveOutputName>
+    <ZipArchiveOutputNameWithVersion>true</ZipArchiveOutputNameWithVersion>
+    <ZipArchiveOutputNameReplaceDots>false</ZipArchiveOutputNameReplaceDots>
+    <ZipArchiveOutputNameReplaceDotsWith></ZipArchiveOutputNameReplaceDotsWith>
+    <ZipArchiveOutputNameReplaceWhiteSpacesWith>.</ZipArchiveOutputNameReplaceWhiteSpacesWith>
+    <!-- ## ZipArchiveOutputNameVersionScheme values: AssemblyFileVersion, AssemblyVersion, AssemblyInformationalVersion -->
+    <ZipArchiveOutputNameVersionScheme>AssemblyInformationalVersion</ZipArchiveOutputNameVersionScheme>
+
+    <!-- # Nuget packaging properties -->
+    <IsNuGetPackage Condition=" '$(IsNuGetPackage)' == '' ">false</IsNuGetPackage>
+    <NuGetServer>https://nuget-server.com/</NuGetServer>
+    <NugetSemVerSpec200>false</NugetSemVerSpec200>
+    <NuGetPushPreReleaseEnabled Condition=" '$(NuGetPushPreReleaseEnabled)' == '' ">true</NuGetPushPreReleaseEnabled>
+    <NuGetPushDefaultEnabled Condition=" '$(NuGetPushDefaultEnabled)' == '' ">true</NuGetPushDefaultEnabled>
+
+    <!-- # IlMerge properties -->
+    <MergeWithIlMerge Condition=" '$(MergeWithIlMerge)' == '' ">false</MergeWithIlMerge>
+    <!-- # IlMergeTargetPlatform values: v2, v4 -->
+    <IlMergeTargetPlatform>v4</IlMergeTargetPlatform>
+    <!-- # IlMergeTarget values: exe, dll -->
+    <IlMergeTarget>dll</IlMergeTarget>
+    <IlMergeSignOutputFile>false</IlMergeSignOutputFile>
+    <IlMergeKeyFile>$(ExtFolder)\keys\Company.App.snk</IlMergeKeyFile>
+    <IlMergeInternalize>false</IlMergeInternalize>
+    <IlMergeInternalizeExcludeFile>$(SrcFolder)\SolutionItems\ilmerge\exclude.txt</IlMergeInternalizeExcludeFile>
+
+    <!-- # Wix properties -->
+    <WixOutputNameWithVersion>false</WixOutputNameWithVersion>
+    <WixOutputNameReplaceDots>false</WixOutputNameReplaceDots>
+    <WixOutputNameReplaceDotsWith></WixOutputNameReplaceDotsWith>
+    <WixOutputNameReplaceWhiteSpacesWith>.</WixOutputNameReplaceWhiteSpacesWith>
+    <!-- # WixOutputNameVersionScheme values: AssemblyFileVersion, AssemblyVersion, AssemblyInformationalVersion -->
+    <WixOutputNameVersionScheme>AssemblyInformationalVersion</WixOutputNameVersionScheme>
+    <WixSnapshotEnabled Condition=" '$(WixSnapshotEnabled)' == '' ">true</WixSnapshotEnabled>
+    <WixSnapshotOutputAsXml>true</WixSnapshotOutputAsXml>
+    <WixPatchesEnabled Condition=" '$(WixPatchesEnabled)' == '' ">false</WixPatchesEnabled>
+    <WixPatchesFindVersionPattern>{rootDirectory}/{version}/{filename}.msi</WixPatchesFindVersionPattern>
+    <WixPatchesInputAsXml>true</WixPatchesInputAsXml>
+    <WixPatchesMaxDeltas>50</WixPatchesMaxDeltas>
+    <WixPatchesOutputPatchFileName>{appname}_{currentversion}_{previousversion}</WixPatchesOutputPatchFileName>
+    <WixPatchesPatchFileName>$(SrcFolder)\Company.App.Setup\Patches\Patch.wxs</WixPatchesPatchFileName>
+    <WixPatchesRootDirectory>$(DeploymentShare)\Company.App\releases</WixPatchesRootDirectory>
+
+    <!-- # Sign assembly properties -->
+    <!-- # SignAssembly values: custom, true, false -->
+    <SignAssembly Condition=" '$(SignAssembly)' == '' ">custom</SignAssembly>
+    <AssemblyOriginatorKeyFile Condition=" '$(AssemblyOriginatorKeyFile)' == '' "></AssemblyOriginatorKeyFile>
+
+    <!-- # Sign output properties -->
+    <SignOutput Condition=" '$(SignOutput)' == '' ">true</SignOutput>
+    <SignOutputFile Condition=" '$(SignOutputFile)' == '' "></SignOutputFile>
+    <SignOutputPassword Condition=" '$(SignOutputPassword)' == '' "></SignOutputPassword>
+    <SignOutputTimeStamping Condition=" '$(SignOutputTimeStamping)' == '' ">true</SignOutputTimeStamping>
+    <!-- # SignOutputTimeStampingProvider values: SignOutputTimeStampingVerisign, SignOutputTimeStampingComodoca, SignOutputTimeStampingDigicert or a custom provider -->
+    <SignOutputTimeStampingProvider Condition=" '$(SignOutputTimeStampingProvider)' == '' ">$(SignOutputTimeStampingDigicert)</SignOutputTimeStampingProvider>
+    <SignOutputItosAttr Condition=" '$(SignOutputItosAttr)' == '' ">false</SignOutputItosAttr>
+    <SignOutputSeal Condition=" '$(SignOutputSeal)' == '' ">false</SignOutputSeal>
+
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+
+  <!-- # Main -->
+
+  <!-- ## Clean -->
+  <Target Name="Clean">
+    <ItemGroup>
+      <AllProjectFiles Exclude="$(SrcFolder)\**\*.wixproj;$(SrcFolder)\**\*.crproj"
+                       Include="$(SrcFolder)\**\*.*proj" />
+
+      <AllSetupProjectFiles Include="$(SrcFolder)\**\*.wixproj" />
+      <AllSetupProjectFiles Remove="@(AllProjectFiles)" />
+    </ItemGroup>
+
+    <PropertyGroup>
+      <PlatformParam Condition=" '$(TargetPlatform)' != '' ">;Platform=$(TargetPlatform)</PlatformParam>
+      <WixToolPathParam Condition=" '$(WixLocalInstalled)' != 'true' ">;WixToolPath=$(WixToolPath)</WixToolPathParam>
+      <WixTargetsPath Condition=" '$(WixLocalInstalled)' != 'true' ">$(WixToolPath)\Wix.targets</WixTargetsPath>
+      <WixTasksPath Condition=" '$(WixLocalInstalled)' != 'true' ">$(WixToolPath)\WixTasks.dll</WixTasksPath>
+      <WixTargetsPathParam Condition=" '$(WixLocalInstalled)' != 'true' ">;WixTargetsPath=$(WixTargetsPath)</WixTargetsPathParam>
+      <WixTasksPathParam Condition=" '$(WixLocalInstalled)' != 'true' ">;WixTasksPath=$(WixTasksPath)</WixTasksPathParam>
+    </PropertyGroup>
+
+    <MSBuild ContinueOnError="true"
+             Projects="@(AllProjectFiles)"
+             Properties="Configuration=Release$(PlatformParam);OutputPath=$(BinFolder)"
+             Targets="Clean" />
+    <MSBuild ContinueOnError="true"
+             Projects="@(AllSetupProjectFiles)"
+             Properties="Configuration=Release$(PlatformParam);OutputPath=$(BinSetupFolder)$(WixToolPathParam)$(WixTargetsPathParam)$(WixTasksPathParam)"
+             Targets="Clean" />
+  </Target>
+
+  <!-- ## Compile -->
+  <Target Name="Compile">
+    <ItemGroup>
+      <AllProjectFiles Exclude="$(SrcFolder)\**\*.wixproj;$(SrcFolder)\**\*.crproj"
+                       Include="$(SrcFolder)\**\*.*proj" />
+    </ItemGroup>
+
+    <PropertyGroup>
+      <SignAssemblyParam Condition=" '$(SignAssembly)' != 'custom' ">;SignAssembly=$(SignAssembly)</SignAssemblyParam>
+      <AssemblyOriginatorKeyFileParam Condition=" '$(AssemblyOriginatorKeyFile)' != '' ">;AssemblyOriginatorKeyFile=$(AssemblyOriginatorKeyFile)</AssemblyOriginatorKeyFileParam>
+      <PlatformParam Condition=" '$(TargetPlatform)' != '' ">;Platform=$(TargetPlatform)</PlatformParam>
+    </PropertyGroup>
+
+    <!-- Compile to "OutputFolder" -->
+    <MSBuild Projects="@(AllProjectFiles)"
+             Properties="Configuration=Release$(PlatformParam);OutputPath=$(BinFolder)$(SignAssemblyParam)$(AssemblyOriginatorKeyFileParam)"
+             Targets="Build" />
+
+    <!-- Sign output files -->
+    <MSBuild Condition=" '$(MergeWithIlMerge)' == 'false' "
+             Projects="$(MSBuildProjectFile)"
+             Properties="OutputPath=$(BinFolder)"
+             Targets="SignOutput" />
+  </Target>
+
+  <!-- ## Compile-Msi -->
+  <Target Name="Compile-Msi">
+    <ItemGroup>
+      <AllSetupProjectFiles Include="$(SrcFolder)\**\*.wixproj" />
+    </ItemGroup>
+
+    <!-- Compile each msi project -->
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="Project=%(AllSetupProjectFiles.Identity);Configuration=Release;PlatformParam=$(PlatformParam)"
+             Targets="Compile-Msi-Project" />
+  </Target>
+
+  <Target Name="Compile-Msi-Project"
+          Condition=" '$(Project)' != '' ">
+
+    <XmlPeek Namespaces="&lt;Namespace Prefix='a' Uri='http://schemas.microsoft.com/developer/msbuild/2003' /&gt;"
+             Query="/a:Project/a:PropertyGroup[1]/a:OutputName/text()"
+             XmlInputPath="$(Project)">
+      <Output ItemName="OutputNameResults"
+              TaskParameter="Result" />
+    </XmlPeek>
+
+    <Gapon.MSBuild.Tasks.Framework.ItemsHelper Items="@(OutputNameResults)">
+      <Output PropertyName="OutputName"
+              TaskParameter="First" />
+    </Gapon.MSBuild.Tasks.Framework.ItemsHelper>
+
+    <XmlPeek Namespaces="&lt;Namespace Prefix='a' Uri='http://schemas.microsoft.com/developer/msbuild/2003' /&gt;"
+             Query="/a:Project/a:PropertyGroup[contains(translate(@Condition,'$(Configuration.ToUpper())','$(Configuration.ToLower())'),'$(Configuration.ToLower())')]/a:DefineConstants/text()"
+             XmlInputPath="$(Project)">
+      <Output ItemName="DefineConstantsResults"
+              TaskParameter="Result" />
+    </XmlPeek>
+
+    <Gapon.MSBuild.Tasks.Framework.ItemsHelper Condition=" '@(DefineConstantsResults)' != '' "
+                                               Items="@(DefineConstantsResults)">
+      <Output PropertyName="DefineConstants"
+              TaskParameter="First" />
+    </Gapon.MSBuild.Tasks.Framework.ItemsHelper>
+
+    <Gapon.MSBuild.Tasks.Wix.Common.GetCodes FilePath="$(CommonWixFile)"
+                                             ProjectName="$(Project)">
+      <Output PropertyName="ProductCode"
+              TaskParameter="ProductCode" />
+    </Gapon.MSBuild.Tasks.Wix.Common.GetCodes>
+
+    <PropertyGroup>
+      <PlatformParam Condition=" '$(TargetPlatform)' != '' ">;Platform=$(TargetPlatform)</PlatformParam>
+      <OutputName>$(OutputName.Replace(' ', $(WixOutputNameReplaceWhiteSpacesWith)))</OutputName>
+      <OutputName Condition=" '$(WixOutputNameReplaceDots)' == 'true' ">$(OutputName.Replace('.', $(WixOutputNameReplaceDotsWith)))</OutputName>
+      <_AssemblyVersion Condition=" '$(WixOutputNameWithVersion)' == 'true' AND '$(WixOutputNameVersionScheme)' == 'AssemblyFileVersion' ">$(AssemblyFileVersion)</_AssemblyVersion>
+      <_AssemblyVersion Condition=" '$(WixOutputNameWithVersion)' == 'true' AND '$(WixOutputNameVersionScheme)' == 'AssemblyVersion' ">$(AssemblyVersion)</_AssemblyVersion>
+      <_AssemblyVersion Condition=" '$(WixOutputNameWithVersion)' == 'true' AND '$(WixOutputNameVersionScheme)' == 'AssemblyInformationalVersion' ">$(AssemblyInformationalVersion)</_AssemblyVersion>
+      <OutputNameParam Condition=" '$(WixOutputNameWithVersion)' == 'true' ">;OutputName=$(OutputName).$(_AssemblyVersion)</OutputNameParam>
+      <OutputNameParam Condition=" '$(WixOutputNameWithVersion)' != 'true' ">;OutputName=$(OutputName)</OutputNameParam>
+      <ProductCodeParam Condition=" '$(ProductCode)' != '' ">;ProductCode=$(ProductCode)</ProductCodeParam>
+      <ExtendedDefineConstants>
+        ;RootFolder=$(RootFolder)
+        ;BinFolder=$(BinFolder)
+        ;BinSetupFolder=$(BinSetupFolder)
+        $(ProductCodeParam)
+      </ExtendedDefineConstants>
+      <DefineConstantsParam Condition=" '$(ExtendedDefineConstants)' != '' AND '$(DefineConstants)' == '' ">;DefineConstants=$(ExtendedDefineConstants)</DefineConstantsParam>
+      <DefineConstantsParam Condition=" '$(ExtendedDefineConstants)' == '' AND '$(DefineConstants)' != '' ">;DefineConstants=$(DefineConstants)</DefineConstantsParam>
+      <DefineConstantsParam Condition=" '$(ExtendedDefineConstants)' != '' AND '$(DefineConstants)' != '' ">;DefineConstants=$(DefineConstants);$(ExtendedDefineConstants)</DefineConstantsParam>
+
+      <WixToolPathParam Condition=" '$(WixLocalInstalled)' != 'true' ">;WixToolPath=$(WixToolPath)</WixToolPathParam>
+      <WixTargetsPath Condition=" '$(WixLocalInstalled)' != 'true' ">$(WixToolPath)\Wix.targets</WixTargetsPath>
+      <WixTasksPath Condition=" '$(WixLocalInstalled)' != 'true' ">$(WixToolPath)\WixTasks.dll</WixTasksPath>
+      <WixTargetsPathParam Condition=" '$(WixLocalInstalled)' != 'true' ">;WixTargetsPath=$(WixTargetsPath)</WixTargetsPathParam>
+      <WixTasksPathParam Condition=" '$(WixLocalInstalled)' != 'true' ">;WixTasksPath=$(WixTasksPath)</WixTasksPathParam>
+    </PropertyGroup>
+
+    <Gapon.MSBuild.Tasks.Framework.SetEnvVar Value="$(RootFolder)"
+                                             Variable="RootFolder" />
+
+    <!-- Compile to "OutputFolder" -->
+    <MSBuild ContinueOnError="true"
+             Projects="$(Project)"
+             Properties="Configuration=$(Configuration)$(PlatformParam);OutputPath=$(BinSetupFolder)$(OutputNameParam)$(DefineConstantsParam)$(WixToolPathParam)$(WixTargetsPathParam)$(WixTasksPathParam)"
+             Targets="Build" />
+
+    <!-- Snapshot/Patches -->
+    <PropertyGroup>
+      <WixTargetsPathProp Condition=" '$(WixLocalInstalled)' != 'true' ">$(WixTargetsPath)</WixTargetsPathProp>
+      <WixTasksPathProp Condition=" '$(WixLocalInstalled)' != 'true' ">$(WixTasksPath)</WixTasksPathProp>
+      <WixToolPathProp Condition=" '$(WixLocalInstalled)' != 'true' ">$(WixToolPath)</WixToolPathProp>
+    </PropertyGroup>
+
+    <!-- Create snapshot -->
+    <Gapon.MSBuild.Tasks.Wix.Patch.CreateSnapshot Condition=" '$(WixSnapshotEnabled)' == 'true' "
+                                                  OutputAsXml="$(WixSnapshotOutputAsXml)"
+                                                  OutputBuildDirectory="$(WixOutputBuildDirectory)"
+                                                  OutputDirectory="$(WixOutputDirectory)"
+                                                  ProjectFile="$(Project)"
+                                                  WixTargetsPath="$(WixTargetsPathProp)"
+                                                  WixTasksPath="$(WixTasksPathProp)"
+                                                  WixToolPath="$(WixToolPathProp)">
+      <Output PropertyName="SnapshotOutputFile"
+              TaskParameter="OutputFile" />
+    </Gapon.MSBuild.Tasks.Wix.Patch.CreateSnapshot>
+
+    <!-- Create patches -->
+    <Gapon.MSBuild.Tasks.Wix.Patch.CreatePatches Condition=" '$(WixPatchesEnabled)' == 'true' "
+                                                 CurrentInputFile="$(SnapshotOutputFile)"
+                                                 CurrentVersion="$(MainAssemblyVersion)"
+                                                 FindVersionPattern="$(WixPatchesFindVersionPattern)"
+                                                 InputAsXml="$(WixPatchesInputAsXml)"
+                                                 MaxDeltas="$(WixPatchesMaxDeltas)"
+                                                 OutputBuildDirectory="$(WixOutputBuildDirectory)"
+                                                 OutputDirectory="$(WixOutputDirectory)"
+                                                 OutputPatchFileName="$(WixPatchesOutputPatchFileName)"
+                                                 PatchFileName="$(WixPatchesPatchFileName)"
+                                                 ProjectFile="$(Project)"
+                                                 RootDirectory="$(WixPatchesRootDirectory)"
+                                                 WixTargetsPath="$(WixTargetsPathProp)"
+                                                 WixTasksPath="$(WixTasksPathProp)"
+                                                 WixToolPath="$(WixToolPathProp)" />
+
+    <!-- Sign output files -->
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="OutputPath=$(BinSetupFolder)"
+             Targets="SignOutput" />
+
+  </Target>
+
+  <!-- ## Test -->
+  <Target Name="Test">
+
+    <!-- Run unit test assemblies -->
+    <ItemGroup>
+      <TestAssemblies Include="$(BinFolder)\*.tests.*.dll;$(BinFolder)\*.tests.dll" />
+    </ItemGroup>
+
+    <Gapon.MSBuild.Tasks.Testing.NUnit Assemblies="@(TestAssemblies)"
+                                       Condition=" '@(TestAssemblies)' != '' "
+                                       Force32Bit="true"
+                                       OutputXmlFile="$(BuildFolder)\$(ProductName).Tests.NUnit.xml"
+                                       ToolPath="$(NUnitToolPath)"
+                                       WorkingDirectory="$(BinFolder)" />
+
+    <Gapon.MSBuild.Tasks.Testing.xunit Assemblies="@(TestAssemblies)"
+                                       Condition=" '@(TestAssemblies)' != '' "
+                                       Html="$(BuildFolder)\$(ProductName).Tests.xunit.html"
+                                       ToolPath="$(XUnitToolPath)"
+                                       WorkingFolder="$(BinFolder)"
+                                       Xml="$(BuildFolder)\$(ProductName).Tests.xunit.xml" />
+
+  </Target>
+
+</Project>

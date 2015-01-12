@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+
+  <PropertyGroup>
+
+    <!-- # Project properties -->
+    <Version>$(BUILD_NUMBER)</Version>
+
+    <!-- # Folder properties -->
+    <RootFolder>$(MSBuildProjectDirectory)\..\..\..</RootFolder>
+    <ExtFolder>$(RootFolder)\ext</ExtFolder>
+    <LibFolder>$(RootFolder)\lib</LibFolder>
+    <SrcFolder>$(RootFolder)\src</SrcFolder>
+    <ToolsFolder>$(RootFolder)\tools</ToolsFolder>
+    <BuildFolder>$(RootFolder)\_build</BuildFolder>
+    <BinFolder>$(BuildFolder)\bin\release</BinFolder>
+    <BinSetupFolder>$(BuildFolder)\bin\setup</BinSetupFolder>
+    <ArtifactsRootFolder>$(RootFolder)\_artifacts</ArtifactsRootFolder>
+
+    <!-- # Hooks properties -->
+    <PsHookScriptPath>$(ExtFolder)\scripts\pshooks</PsHookScriptPath>
+    <MsBuildHookScriptPath>$(ExtFolder)\scripts\msbuildhooks</MsBuildHookScriptPath>
+    <MsBuildHookFileExtension>xml</MsBuildHookFileExtension>
+
+    <!-- # IncrementAssemblyVersion properties -->
+    <VersionInputFile>$(SrcFolder)\SolutionItems\AssemblyVersionInfo.xml</VersionInputFile>
+    <VersionOutputFile>$(SrcFolder)\**\AssemblyInfo.cs;$(SrcFolder)\**\CommonAssemblyInfoVersion.cs</VersionOutputFile>
+    <WixVersionFile>$(SrcFolder)\SolutionItems\Version.wxi</WixVersionFile>
+    <MsBuildVersionFile>$(SrcFolder)\SolutionItems\Version.targets</MsBuildVersionFile>
+    <CommonAssemblyVersionFile>$(SrcFolder)\SolutionItems\CommonAssemblyVersion.cs</CommonAssemblyVersionFile>
+    <CommonWixFile>$(SrcFolder)\SolutionItems\wix\CommonWix.xml</CommonWixFile>
+
+    <!-- # Testing properties -->
+    <NUnitToolPath>$(LibFolder)\nunit</NUnitToolPath>
+    <XUnitToolPath>$(LibFolder)\xunit</XUnitToolPath>
+
+    <!-- # Version control properties -->
+    <VcsTrunkPath>trunk</VcsTrunkPath>
+    <VcsTagsPath>tags</VcsTagsPath>
+    <VcsSvnToolPath></VcsSvnToolPath>
+    <VcsHgToolPath></VcsHgToolPath>
+    <VcsGitToolPath></VcsGitToolPath>
+    <VcsAuthor>ci-buildsystem &lt;no-reply%40buildsystem.com&gt;</VcsAuthor>
+
+    <!-- # PrecompileWebApp properties -->
+    <PrecompileWebAppTargetFrameworkMoniker>.NETFramework,Version=v4.0</PrecompileWebAppTargetFrameworkMoniker>
+    <!--<PrecompileWebAppTargetFrameworkMoniker>.NETFramework,Version=v2.0</PrecompileWebAppTargetFrameworkMoniker>-->
+    <PrecompileWebAppVirtualPath>/</PrecompileWebAppVirtualPath>
+
+    <!-- # Publishing/Packaging properties -->
+    <ArtifactsFolder Condition=" '$(ArtifactsFolder)' == '' ">$(ArtifactsRootFolder)</ArtifactsFolder>
+    <ArtifactsCurrentFolderName Condition=" '$(ArtifactsCurrentFolderName)' == '' ">latest</ArtifactsCurrentFolderName>
+    <ArtifactsBinariesFolder Condition=" '$(ArtifactsBinariesFolder)' == '' ">binaries</ArtifactsBinariesFolder>
+    <ArtifactsSetupFolder Condition=" '$(ArtifactsSetupFolder)' == '' ">setup</ArtifactsSetupFolder>
+    <AsZipArchive Condition=" '$(AsZipArchive)' == '' ">true</AsZipArchive>
+
+    <!-- # Nuget packaging properties -->
+    <NuGetExe>$(ToolsFolder)\nuget\NuGet.exe</NuGetExe>
+    <NuGetPackageFolder>$(ArtifactsFolder)\nuget</NuGetPackageFolder>
+    <NuGetPackWithExcludePattern>false</NuGetPackWithExcludePattern>
+
+    <!-- # IlMerge properties -->
+    <IlMergeExe>$(ToolsFolder)\ilmerge\ILMerge.exe</IlMergeExe>
+    <IlMergeArtifactFolder>$(BuildFolder)\bin\_ilmerge</IlMergeArtifactFolder>
+    <IlMergeTargetPlatformV2>v2, %SystemRoot%\Microsoft.NET\Framework64\v2.0.50727</IlMergeTargetPlatformV2>
+    <IlMergeTargetPlatformV4>v4, %SystemRoot%\Microsoft.NET\Framework64\v4.0.30319</IlMergeTargetPlatformV4>
+    <!--<IlMergeTargetPlatformV4>v4, %ProgramFiles%\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0</IlMergeTargetPlatformV4>-->
+    <!--<IlMergeTargetPlatformV4>v4</IlMergeTargetPlatformV4>-->
+
+    <!-- # Wix properties -->
+    <WixLocalInstalled Condition=" Exists('$(Wix)') ">true</WixLocalInstalled>
+    <WixToolPath Condition=" '$(WixToolPath)' == '' OR '$(WixToolPath)' == 'false' ">$(ToolsFolder)\wix</WixToolPath>
+    <WixCodesSetIndividualFiles>true</WixCodesSetIndividualFiles>
+    <WixCodesIndividualFilesBasePath>$(SrcFolder)\SolutionItems\wix</WixCodesIndividualFilesBasePath>
+    <WixOutputBuildDirectory>$(BuildFolder)\bin\_wix</WixOutputBuildDirectory>
+    <WixOutputDirectory>$(BinSetupFolder)</WixOutputDirectory>
+
+    <!-- # Sign output properties -->
+    <SignToolExe>$(ToolsFolder)\signtool\signtool.exe</SignToolExe>
+    <SignOutputTimeStampingVerisign>http://timestamp.verisign.com/scripts/timstamp.dll</SignOutputTimeStampingVerisign>
+    <SignOutputTimeStampingComodoca>http://timestamp.comodoca.com/authenticode</SignOutputTimeStampingComodoca>
+    <SignOutputTimeStampingDigicert>http://timestamp.digicert.com</SignOutputTimeStampingDigicert>
+
+  </PropertyGroup>
+
+</Project>

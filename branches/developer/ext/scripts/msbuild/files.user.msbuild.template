@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+
+  <ItemGroup>
+
+    <!-- Output files -->
+    <OutputFileNames Include="default">
+      <Pattern>**\*.exe</Pattern>
+      <Sign>true</Sign>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.config</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.config.xml</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.dll</Pattern>
+      <Sign>true</Sign>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>Company.App.exe</Pattern>
+      <IlMergeEnabled>true</IlMergeEnabled>
+      <IlMergeIsMainFile>true</IlMergeIsMainFile>
+      <IlMergeOutputFileName>Company.App.exe.dll</IlMergeOutputFileName>
+      <Sign>true</Sign>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>Company.App.config</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>Company.App.config.xml</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>Company.App.dll</Pattern>
+      <IlMergeEnabled>true</IlMergeEnabled>
+      <Sign>true</Sign>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.msi</Pattern>
+      <Sign>true</Sign>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.wixout</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.msp</Pattern>
+      <Sign>true</Sign>
+    </OutputFileNames>
+
+    <!-- Excluded files -->
+    <ExcludeFileNames Include="default">
+      <Pattern>**\*.pdb</Pattern>
+    </ExcludeFileNames>
+
+    <ExcludeFileNames Include="default">
+      <Pattern>**\*.wixpdb</Pattern>
+    </ExcludeFileNames>
+
+    <!-- Output directories -->
+    <OutputDirectories Include="default">
+      <Pattern>**\*</Pattern>
+    </OutputDirectories>
+
+  </ItemGroup>
+
+</Project>

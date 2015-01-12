@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+
+  <ItemGroup>
+
+    <!-- Output files -->
+	<OutputFileNames Include="default">
+      <Pattern>**\*.asax</Pattern>
+    </OutputFileNames>
+	<OutputFileNames Include="default">
+      <Pattern>**\*.aspx</Pattern>
+    </OutputFileNames>
+	
+	<OutputFileNames Include="default">
+      <Pattern>**\*.ascx</Pattern>
+    </OutputFileNames>
+	
+	<OutputFileNames Include="default">
+      <Pattern>**\*.Master</Pattern>
+    </OutputFileNames>
+	
+	<OutputFileNames Include="default">
+      <Pattern>**\*.woff</Pattern>
+    </OutputFileNames>
+	<OutputFileNames Include="default">
+      <Pattern>**\*.svg</Pattern>
+    </OutputFileNames>
+	<OutputFileNames Include="default">
+      <Pattern>**\*.eot</Pattern>
+    </OutputFileNames>
+	<OutputFileNames Include="default">
+      <Pattern>**\*.ttf</Pattern>
+    </OutputFileNames>
+	
+    <OutputFileNames Include="default">
+      <Pattern>**\*.config</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.config.xml</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.dll</Pattern>
+      <Sign>false</Sign>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.html</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.cshtml</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.js</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.css</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.less</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.png</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.jpg</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.gif</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.xap</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.swf</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.htc</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.markdown</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.md</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\_metadata</Pattern>
+    </OutputFileNames>
+
+    <OutputFileNames Include="default">
+      <Pattern>**\*.pdf</Pattern>
+    </OutputFileNames>
+
+    <!-- Excluded files -->
+    <ExcludeFileNames Include="default">
+      <Pattern>**\*.pdb</Pattern>
+    </ExcludeFileNames>
+
+    <ExcludeFileNames Include="default">
+      <Pattern>**\*.wixpdb</Pattern>
+    </ExcludeFileNames>
+
+    <!-- Output directories -->
+    <OutputDirectories Include="default">
+      <Pattern>**\*</Pattern>
+    </OutputDirectories>
+  </ItemGroup>
+
+</Project>

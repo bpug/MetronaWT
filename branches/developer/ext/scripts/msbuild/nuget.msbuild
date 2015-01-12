@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+
+  <!-- # Coordinate targets -->
+  <Target Name="NuGetBuild"
+          Condition=" '$(IsNuGetPackage)' == 'true' ">
+
+    <PropertyGroup>
+      <CommonProperties>
+        ;AssemblyFileVersionMajor=$(AssemblyFileVersionMajor)
+        ;AssemblyFileVersionMinor=$(AssemblyFileVersionMinor)
+        ;AssemblyFileVersionBuild=$(AssemblyFileVersionBuild)
+        ;AssemblyFileVersionRevision=$(AssemblyFileVersionRevision)
+        ;AssemblyFileVersionMajorMinor=$(AssemblyFileVersionMajorMinor)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersionMajor=$(AssemblyVersionMajor)
+        ;AssemblyVersionMinor=$(AssemblyVersionMinor)
+        ;AssemblyVersionBuild=$(AssemblyVersionBuild)
+        ;AssemblyVersionRevision=$(AssemblyVersionRevision)
+        ;AssemblyVersionMajorMinor=$(AssemblyVersionMajorMinor)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersionMajor=$(AssemblyInformationalVersionMajor)
+        ;AssemblyInformationalVersionMinor=$(AssemblyInformationalVersionMinor)
+        ;AssemblyInformationalVersionPatch=$(AssemblyInformationalVersionPatch)
+        ;AssemblyInformationalVersionPreReleaseIdentifier=$(AssemblyInformationalVersionPreReleaseIdentifier)
+        ;AssemblyInformationalVersionBuildIdentifier=$(AssemblyInformationalVersionBuildIdentifier)
+        ;AssemblyInformationalVersionMajorMinor=$(AssemblyInformationalVersionMajorMinor)
+        ;AssemblyInformationalVersionMajorMinorPatch=$(AssemblyInformationalVersionMajorMinorPatch)
+        ;AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier=$(AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </CommonProperties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="$(CommonProperties);NuGetPushEnabled=false"
+             Targets="NuGet" />
+
+  </Target>
+
+  <Target Name="NuGetPreRelease"
+          Condition=" '$(IsNuGetPackage)' == 'true' ">
+
+    <PropertyGroup>
+      <CommonProperties>
+        ;AssemblyFileVersionMajor=$(AssemblyFileVersionMajor)
+        ;AssemblyFileVersionMinor=$(AssemblyFileVersionMinor)
+        ;AssemblyFileVersionBuild=$(AssemblyFileVersionBuild)
+        ;AssemblyFileVersionRevision=$(AssemblyFileVersionRevision)
+        ;AssemblyFileVersionMajorMinor=$(AssemblyFileVersionMajorMinor)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersionMajor=$(AssemblyVersionMajor)
+        ;AssemblyVersionMinor=$(AssemblyVersionMinor)
+        ;AssemblyVersionBuild=$(AssemblyVersionBuild)
+        ;AssemblyVersionRevision=$(AssemblyVersionRevision)
+        ;AssemblyVersionMajorMinor=$(AssemblyVersionMajorMinor)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersionMajor=$(AssemblyInformationalVersionMajor)
+        ;AssemblyInformationalVersionMinor=$(AssemblyInformationalVersionMinor)
+        ;AssemblyInformationalVersionPatch=$(AssemblyInformationalVersionPatch)
+        ;AssemblyInformationalVersionPreReleaseIdentifier=$(AssemblyInformationalVersionPreReleaseIdentifier)
+        ;AssemblyInformationalVersionBuildIdentifier=$(AssemblyInformationalVersionBuildIdentifier)
+        ;AssemblyInformationalVersionMajorMinor=$(AssemblyInformationalVersionMajorMinor)
+        ;AssemblyInformationalVersionMajorMinorPatch=$(AssemblyInformationalVersionMajorMinorPatch)
+        ;AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier=$(AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </CommonProperties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="$(CommonProperties);NuGetPushEnabled=$(NuGetPushPreReleaseEnabled)"
+             Targets="NuGet" />
+
+  </Target>
+
+  <Target Name="NuGetDefault"
+          Condition=" '$(IsNuGetPackage)' == 'true' ">
+
+    <PropertyGroup>
+      <CommonProperties>
+        ;AssemblyFileVersionMajor=$(AssemblyFileVersionMajor)
+        ;AssemblyFileVersionMinor=$(AssemblyFileVersionMinor)
+        ;AssemblyFileVersionBuild=$(AssemblyFileVersionBuild)
+        ;AssemblyFileVersionRevision=$(AssemblyFileVersionRevision)
+        ;AssemblyFileVersionMajorMinor=$(AssemblyFileVersionMajorMinor)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersionMajor=$(AssemblyVersionMajor)
+        ;AssemblyVersionMinor=$(AssemblyVersionMinor)
+        ;AssemblyVersionBuild=$(AssemblyVersionBuild)
+        ;AssemblyVersionRevision=$(AssemblyVersionRevision)
+        ;AssemblyVersionMajorMinor=$(AssemblyVersionMajorMinor)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersionMajor=$(AssemblyInformationalVersionMajor)
+        ;AssemblyInformationalVersionMinor=$(AssemblyInformationalVersionMinor)
+        ;AssemblyInformationalVersionPatch=$(AssemblyInformationalVersionPatch)
+        ;AssemblyInformationalVersionPreReleaseIdentifier=$(AssemblyInformationalVersionPreReleaseIdentifier)
+        ;AssemblyInformationalVersionBuildIdentifier=$(AssemblyInformationalVersionBuildIdentifier)
+        ;AssemblyInformationalVersionMajorMinor=$(AssemblyInformationalVersionMajorMinor)
+        ;AssemblyInformationalVersionMajorMinorPatch=$(AssemblyInformationalVersionMajorMinorPatch)
+        ;AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier=$(AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </CommonProperties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="$(CommonProperties);NuGetPushEnabled=$(NuGetPushDefaultEnabled)"
+             Targets="NuGet" />
+
+  </Target>
+
+
+  <!-- Tasks -->
+
+  <!-- NugetSemVer100Normalizer -->
+  <UsingTask TaskName="NugetSemVer100Normalizer"
+             TaskFactory="CodeTaskFactory"
+             AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+
+    <ParameterGroup>
+      <Input ParameterType="System.String"
+             Required="true" />
+      <Result ParameterType="System.String"
+              Output="true" />
+    </ParameterGroup>
+
+    <Task>
+      <Using Namespace="System" />
+      <Code Type="Fragment"
+            Language="cs">
+        <![CDATA[
+          string version = string.Empty;
+          string preReleaseIdentifier = string.Empty;
+          string buildIdentifier = string.Empty;
+
+          int indexOfPreReleaseIdentifier = Input.IndexOf('-');
+          int indexOfBuildIdentifier = Input.IndexOf('+');
+          if (indexOfPreReleaseIdentifier == -1 && indexOfBuildIdentifier == -1)
+          {
+              Result = Input;
+              return true;
+          }
+
+          if (indexOfPreReleaseIdentifier != -1 && indexOfBuildIdentifier != -1)
+          {
+              version = Input.Substring(0, indexOfPreReleaseIdentifier);
+              preReleaseIdentifier = Input.Substring(
+                  indexOfPreReleaseIdentifier + 1, indexOfBuildIdentifier - indexOfPreReleaseIdentifier - 1);
+              buildIdentifier = Input.Substring(indexOfBuildIdentifier + 1, Input.Length - indexOfBuildIdentifier - 1);
+          }
+          else if (indexOfPreReleaseIdentifier != -1 && indexOfBuildIdentifier == -1)
+          {
+              version = Input.Substring(0, indexOfPreReleaseIdentifier);
+              preReleaseIdentifier = Input.Substring(
+                  indexOfPreReleaseIdentifier + 1, Input.Length - indexOfPreReleaseIdentifier - 1);
+          }
+          else if (indexOfPreReleaseIdentifier == -1 && indexOfBuildIdentifier != -1)
+          {
+              version = Input.Substring(0, indexOfBuildIdentifier);
+              buildIdentifier = Input.Substring(indexOfBuildIdentifier + 1, Input.Length - indexOfBuildIdentifier - 1);
+          }
+
+          var idIncrementer = new Func<string, string>(
+              x =>
+                  {
+                      int lastIndex;
+                      if ((lastIndex = x.LastIndexOf('.')) != -1 || (lastIndex = x.LastIndexOf('-')) != -1)
+                      {
+                          string idValue = x.Substring(lastIndex + 1);
+                          int id;
+                          if (int.TryParse(idValue, out id))
+                          {
+                              return string.Concat(x.Substring(0, lastIndex + 1), id.ToString("0000"));
+                          }
+                      }
+
+                      return x;
+                  });
+
+          var notAllowedCharReplacer = new Func<string, string>(
+              x => x.Replace('.', '-')
+                    .Replace('+', '-'));
+
+          Result = version;
+
+          if (!string.IsNullOrWhiteSpace(preReleaseIdentifier))
+          {
+              preReleaseIdentifier = notAllowedCharReplacer(idIncrementer(preReleaseIdentifier));
+              Result = string.Concat(Result, "-", preReleaseIdentifier);
+          }
+
+          if (!string.IsNullOrWhiteSpace(buildIdentifier))
+          {
+              buildIdentifier = notAllowedCharReplacer(idIncrementer(buildIdentifier));
+              Result = string.Concat(Result, "-", buildIdentifier);
+          }
+
+          return true;
+        ]]>
+      </Code>
+    </Task>
+
+  </UsingTask>
+
+
+  <!-- # Main -->
+
+  <Target Name="NuGet"
+          Condition=" '$(IsNuGetPackage)' == 'true' ">
+
+    <PropertyGroup>
+      <CommonProperties>
+        ;AssemblyFileVersionMajor=$(AssemblyFileVersionMajor)
+        ;AssemblyFileVersionMinor=$(AssemblyFileVersionMinor)
+        ;AssemblyFileVersionBuild=$(AssemblyFileVersionBuild)
+        ;AssemblyFileVersionRevision=$(AssemblyFileVersionRevision)
+        ;AssemblyFileVersionMajorMinor=$(AssemblyFileVersionMajorMinor)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersionMajor=$(AssemblyVersionMajor)
+        ;AssemblyVersionMinor=$(AssemblyVersionMinor)
+        ;AssemblyVersionBuild=$(AssemblyVersionBuild)
+        ;AssemblyVersionRevision=$(AssemblyVersionRevision)
+        ;AssemblyVersionMajorMinor=$(AssemblyVersionMajorMinor)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersionMajor=$(AssemblyInformationalVersionMajor)
+        ;AssemblyInformationalVersionMinor=$(AssemblyInformationalVersionMinor)
+        ;AssemblyInformationalVersionPatch=$(AssemblyInformationalVersionPatch)
+        ;AssemblyInformationalVersionPreReleaseIdentifier=$(AssemblyInformationalVersionPreReleaseIdentifier)
+        ;AssemblyInformationalVersionBuildIdentifier=$(AssemblyInformationalVersionBuildIdentifier)
+        ;AssemblyInformationalVersionMajorMinor=$(AssemblyInformationalVersionMajorMinor)
+        ;AssemblyInformationalVersionMajorMinorPatch=$(AssemblyInformationalVersionMajorMinorPatch)
+        ;AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier=$(AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </CommonProperties>
+    </PropertyGroup>
+
+    <PropertyGroup>
+      <NuGetSpecFilePattern>$(SrcFolder)\**\*.nuspec</NuGetSpecFilePattern>
+    </PropertyGroup>
+
+    <RemoveDir Condition=" Exists('$(NuGetPackageFolder)') "
+               Directories="$(NuGetPackageFolder)" />
+
+    <MakeDir Condition=" !Exists('$(NuGetPackageFolder)') "
+             Directories="$(NuGetPackageFolder)" />
+
+    <CreateItem Exclude="$(SrcFolder)\**\packages\**\*.nuspec"
+                Include="$(NuGetSpecFilePattern)">
+      <Output ItemName="NuGetSpecFiles"
+              TaskParameter="Include" />
+    </CreateItem>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="$(CommonProperties);NuGetSpecFile=%(NuGetSpecFiles.Identity)"
+             Targets="NuGetPack" />
+
+    <ItemGroup>
+      <NuGetPkgFiles Include="$(NuGetPackageFolder)\*.nupkg" />
+    </ItemGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="$(CommonProperties);NuGetPkgFile=%(NuGetPkgFiles.Identity);NuGetPushEnabled=$(NuGetPushEnabled)"
+             Targets="NuGetPush" />
+
+  </Target>
+
+  <!-- ## NuGetPack -->
+  <Target Name="NuGetPack"
+          Condition=" '$(IsNuGetPackage)' == 'true' ">
+
+    <PropertyGroup>
+      <ExcludeArtifactsShortFilePattern Condition=" '$(NuGetPackWithExcludePattern)' == 'true' ">@(ExcludeArtifactsFilePatterns, ';')</ExcludeArtifactsShortFilePattern>
+      <ExcludePatternParameter Condition=" '$(NuGetPackWithExcludePattern)' == 'true' ">-exclude $(ExcludeArtifactsShortFilePattern)</ExcludePatternParameter>
+    </PropertyGroup>
+
+    <NugetSemVer100Normalizer Condition=" '$(NugetSemVerSpec200)' == 'false' "
+                              Input="$(MainAssemblyVersion)">
+      <Output PropertyName="_AssemblyVersion"
+              TaskParameter="Result" />
+    </NugetSemVer100Normalizer>
+
+    <Exec Command="&quot;$(NuGetExe)&quot; pack &quot;$(NuGetSpecFile)&quot; -outputdirectory &quot;$(NuGetPackageFolder)&quot; -version $(_AssemblyVersion) -basepath &quot;$(RootFolder)&quot; $(ExcludePatternParameter)"
+          WorkingDirectory="$(RootFolder)" />
+
+  </Target>
+
+  <!-- ## NuGetPush -->
+  <Target Name="NuGetPush"
+          Condition=" '$(NuGetPushEnabled)' == 'true' ">
+
+    <Exec Command="&quot;$(NuGetExe)&quot; push &quot;$(NuGetPkgFile)&quot; -source $(NuGetServer)"
+          WorkingDirectory="$(RootFolder)" />
+
+  </Target>
+
+</Project>

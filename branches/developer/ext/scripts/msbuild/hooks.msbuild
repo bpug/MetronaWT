@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+
+  <!-- # Main -->
+
+  <Target Name="Hook">
+    <Gapon.MSBuild.Tasks.Hooks.PsHook BuildPath="$(BuildFolder)"
+                                      BuildTriggerType="$(BuildTriggerType)"
+                                      Environment="$(Environment)"
+                                      RootPath="$(RootFolder)"
+                                      RunningCondition="$(RunningCondition)"
+                                      RunningStep="$(RunningStep)"
+                                      SourceDirectory="$(PsHookScriptPath)" />
+
+    <Gapon.MSBuild.Tasks.Hooks.GetHookFiles BuildTriggerType="$(BuildTriggerType)"
+                                            Environment="$(Environment)"
+                                            FileExtension="$(MsBuildHookFileExtension)"
+                                            RunningCondition="$(RunningCondition)"
+                                            RunningStep="$(RunningStep)"
+                                            SourceDirectory="$(MsBuildHookScriptPath)">
+      <Output ItemName="SortedFiles"
+              TaskParameter="SortedFiles" />
+    </Gapon.MSBuild.Tasks.Hooks.GetHookFiles>
+
+    <PropertyGroup>
+      <Properties Condition=" '@(SortedFiles)' != '' ">
+        ;RootFolder=$(RootFolder)
+        ;ExtFolder=$(ExtFolder)
+        ;LibFolder=$(LibFolder)
+        ;SrcFolder=$(SrcFolder)
+        ;ToolsFolder=$(ToolsFolder)
+        ;BuildFolder=$(BuildFolder)
+        ;BinFolder=$(BinFolder)
+        ;BinSetupFolder=$(BinSetupFolder)
+        ;ArtifactsRootFolder=$(ArtifactsRootFolder)
+        ;ArtifactsFolder=$(ArtifactsFolder)
+        ;ProductName=$(ProductName)
+        ;Configuration=Release$(PlatformParam)
+        ;OutputPath=$(BinFolder)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;BuildTriggerType=$(BuildTriggerType)
+        ;Environment=$(Environment)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </Properties>
+    </PropertyGroup>
+
+    <MSBuild Condition=" '@(SortedFiles)' != '' "
+             ContinueOnError="true"
+             Projects="@(SortedFiles)"
+             Properties="$(Properties)" />
+  </Target>
+
+  <!-- ## PreHook -->
+  <Target Name="SetVersionPreHook"
+          BeforeTargets="SetVersion">
+
+    <PropertyGroup>
+      <RunningCondition>Pre</RunningCondition>
+      <RunningStep>SetVersion</RunningStep>
+      <Properties>
+        ;RootFolder=$(RootFolder)
+        ;ExtFolder=$(ExtFolder)
+        ;LibFolder=$(LibFolder)
+        ;SrcFolder=$(SrcFolder)
+        ;ToolsFolder=$(ToolsFolder)
+        ;BuildFolder=$(BuildFolder)
+        ;BinFolder=$(BinFolder)
+        ;BinSetupFolder=$(BinSetupFolder)
+        ;ArtifactsRootFolder=$(ArtifactsRootFolder)
+        ;ArtifactsFolder=$(ArtifactsFolder)
+        ;ProductName=$(ProductName)
+        ;Configuration=Release$(PlatformParam)
+        ;OutputPath=$(BinFolder)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;BuildTriggerType=$(BuildTriggerType)
+        ;Environment=$(Environment)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </Properties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="RunningCondition=$(RunningCondition);RunningStep=$(RunningStep);$(Properties)"
+             Targets="Hook" />
+
+  </Target>
+
+  <Target Name="CompilePreHook"
+          BeforeTargets="Compile">
+
+    <PropertyGroup>
+      <RunningCondition>Pre</RunningCondition>
+      <RunningStep>Compile</RunningStep>
+      <Properties>
+        ;RootFolder=$(RootFolder)
+        ;ExtFolder=$(ExtFolder)
+        ;LibFolder=$(LibFolder)
+        ;SrcFolder=$(SrcFolder)
+        ;ToolsFolder=$(ToolsFolder)
+        ;BuildFolder=$(BuildFolder)
+        ;BinFolder=$(BinFolder)
+        ;BinSetupFolder=$(BinSetupFolder)
+        ;ArtifactsRootFolder=$(ArtifactsRootFolder)
+        ;ArtifactsFolder=$(ArtifactsFolder)
+        ;ProductName=$(ProductName)
+        ;Configuration=Release$(PlatformParam)
+        ;OutputPath=$(BinFolder)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;BuildTriggerType=$(BuildTriggerType)
+        ;Environment=$(Environment)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </Properties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="RunningCondition=$(RunningCondition);RunningStep=$(RunningStep);$(Properties)"
+             Targets="Hook" />
+
+  </Target>
+
+  <Target Name="IlMergePreHook"
+          BeforeTargets="IlMerge">
+
+    <PropertyGroup>
+      <RunningCondition>Pre</RunningCondition>
+      <RunningStep>IlMerge</RunningStep>
+      <Properties>
+        ;RootFolder=$(RootFolder)
+        ;ExtFolder=$(ExtFolder)
+        ;LibFolder=$(LibFolder)
+        ;SrcFolder=$(SrcFolder)
+        ;ToolsFolder=$(ToolsFolder)
+        ;BuildFolder=$(BuildFolder)
+        ;BinFolder=$(BinFolder)
+        ;BinSetupFolder=$(BinSetupFolder)
+        ;ArtifactsRootFolder=$(ArtifactsRootFolder)
+        ;ArtifactsFolder=$(ArtifactsFolder)
+        ;ProductName=$(ProductName)
+        ;Configuration=Release$(PlatformParam)
+        ;OutputPath=$(BinFolder)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;BuildTriggerType=$(BuildTriggerType)
+        ;Environment=$(Environment)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </Properties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="RunningCondition=$(RunningCondition);RunningStep=$(RunningStep);$(Properties)"
+             Targets="Hook" />
+
+  </Target>
+
+  <Target Name="Compile-MsiPreHook"
+          BeforeTargets="Compile-Msi">
+
+    <PropertyGroup>
+      <RunningCondition>Pre</RunningCondition>
+      <RunningStep>Compile-Msi</RunningStep>
+      <Properties>
+        ;RootFolder=$(RootFolder)
+        ;ExtFolder=$(ExtFolder)
+        ;LibFolder=$(LibFolder)
+        ;SrcFolder=$(SrcFolder)
+        ;ToolsFolder=$(ToolsFolder)
+        ;BuildFolder=$(BuildFolder)
+        ;BinFolder=$(BinFolder)
+        ;BinSetupFolder=$(BinSetupFolder)
+        ;ArtifactsRootFolder=$(ArtifactsRootFolder)
+        ;ArtifactsFolder=$(ArtifactsFolder)
+        ;ProductName=$(ProductName)
+        ;Configuration=Release$(PlatformParam)
+        ;OutputPath=$(BinFolder)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;BuildTriggerType=$(BuildTriggerType)
+        ;Environment=$(Environment)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </Properties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="RunningCondition=$(RunningCondition);RunningStep=$(RunningStep);$(Properties)"
+             Targets="Hook" />
+
+  </Target>
+
+  <Target Name="PackagePreHook"
+          BeforeTargets="Package">
+
+    <PropertyGroup>
+      <RunningCondition>Pre</RunningCondition>
+      <RunningStep>Package</RunningStep>
+      <Properties>
+        ;RootFolder=$(RootFolder)
+        ;ExtFolder=$(ExtFolder)
+        ;LibFolder=$(LibFolder)
+        ;SrcFolder=$(SrcFolder)
+        ;ToolsFolder=$(ToolsFolder)
+        ;BuildFolder=$(BuildFolder)
+        ;BinFolder=$(BinFolder)
+        ;BinSetupFolder=$(BinSetupFolder)
+        ;ArtifactsRootFolder=$(ArtifactsRootFolder)
+        ;ArtifactsFolder=$(ArtifactsFolder)
+        ;ProductName=$(ProductName)
+        ;Configuration=Release$(PlatformParam)
+        ;OutputPath=$(BinFolder)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;BuildTriggerType=$(BuildTriggerType)
+        ;Environment=$(Environment)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </Properties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="RunningCondition=$(RunningCondition);RunningStep=$(RunningStep);$(Properties)"
+             Targets="Hook" />
+
+  </Target>
+
+  <Target Name="CheckinPreHook"
+          BeforeTargets="CheckinPreRelease;CheckinDefault">
+
+    <PropertyGroup>
+      <RunningCondition>Pre</RunningCondition>
+      <RunningStep>Checkin</RunningStep>
+      <Properties>
+        ;RootFolder=$(RootFolder)
+        ;ExtFolder=$(ExtFolder)
+        ;LibFolder=$(LibFolder)
+        ;SrcFolder=$(SrcFolder)
+        ;ToolsFolder=$(ToolsFolder)
+        ;BuildFolder=$(BuildFolder)
+        ;BinFolder=$(BinFolder)
+        ;BinSetupFolder=$(BinSetupFolder)
+        ;ArtifactsRootFolder=$(ArtifactsRootFolder)
+        ;ArtifactsFolder=$(ArtifactsFolder)
+        ;ProductName=$(ProductName)
+        ;Configuration=Release$(PlatformParam)
+        ;OutputPath=$(BinFolder)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;BuildTriggerType=$(BuildTriggerType)
+        ;Environment=$(Environment)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </Properties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="RunningCondition=$(RunningCondition);RunningStep=$(RunningStep);$(Properties)"
+             Targets="Hook" />
+
+  </Target>
+
+  <Target Name="NuGetPreHook"
+          BeforeTargets="NuGetBuild;NuGetPreRelease;NuGetDefault">
+
+    <PropertyGroup>
+      <RunningCondition>Pre</RunningCondition>
+      <RunningStep>NuGet</RunningStep>
+      <Properties>
+        ;RootFolder=$(RootFolder)
+        ;ExtFolder=$(ExtFolder)
+        ;LibFolder=$(LibFolder)
+        ;SrcFolder=$(SrcFolder)
+        ;ToolsFolder=$(ToolsFolder)
+        ;BuildFolder=$(BuildFolder)
+        ;BinFolder=$(BinFolder)
+        ;BinSetupFolder=$(BinSetupFolder)
+        ;ArtifactsRootFolder=$(ArtifactsRootFolder)
+        ;ArtifactsFolder=$(ArtifactsFolder)
+        ;ProductName=$(ProductName)
+        ;Configuration=Release$(PlatformParam)
+        ;OutputPath=$(BinFolder)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;BuildTriggerType=$(BuildTriggerType)
+        ;Environment=$(Environment)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </Properties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="RunningCondition=$(RunningCondition);RunningStep=$(RunningStep);$(Properties)"
+             Targets="Hook" />
+
+  </Target>
+
+  <!-- ## PostHook -->
+  <Target Name="SetVersionPostHook"
+          AfterTargets="SetVersion">
+
+    <PropertyGroup>
+      <RunningCondition>Post</RunningCondition>
+      <RunningStep>SetVersion</RunningStep>
+      <Properties>
+        ;RootFolder=$(RootFolder)
+        ;ExtFolder=$(ExtFolder)
+        ;LibFolder=$(LibFolder)
+        ;SrcFolder=$(SrcFolder)
+        ;ToolsFolder=$(ToolsFolder)
+        ;BuildFolder=$(BuildFolder)
+        ;BinFolder=$(BinFolder)
+        ;BinSetupFolder=$(BinSetupFolder)
+        ;ArtifactsRootFolder=$(ArtifactsRootFolder)
+        ;ArtifactsFolder=$(ArtifactsFolder)
+        ;ProductName=$(ProductName)
+        ;Configuration=Release$(PlatformParam)
+        ;OutputPath=$(BinFolder)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;BuildTriggerType=$(BuildTriggerType)
+        ;Environment=$(Environment)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </Properties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="RunningCondition=$(RunningCondition);RunningStep=$(RunningStep);$(Properties)"
+             Targets="Hook" />
+
+  </Target>
+
+  <Target Name="CompilePostHook"
+          AfterTargets="Compile">
+
+    <PropertyGroup>
+      <RunningCondition>Post</RunningCondition>
+      <RunningStep>Compile</RunningStep>
+      <Properties>
+        ;RootFolder=$(RootFolder)
+        ;ExtFolder=$(ExtFolder)
+        ;LibFolder=$(LibFolder)
+        ;SrcFolder=$(SrcFolder)
+        ;ToolsFolder=$(ToolsFolder)
+        ;BuildFolder=$(BuildFolder)
+        ;BinFolder=$(BinFolder)
+        ;BinSetupFolder=$(BinSetupFolder)
+        ;ArtifactsRootFolder=$(ArtifactsRootFolder)
+        ;ArtifactsFolder=$(ArtifactsFolder)
+        ;ProductName=$(ProductName)
+        ;Configuration=Release$(PlatformParam)
+        ;OutputPath=$(BinFolder)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;BuildTriggerType=$(BuildTriggerType)
+        ;Environment=$(Environment)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </Properties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="RunningCondition=$(RunningCondition);RunningStep=$(RunningStep);$(Properties)"
+             Targets="Hook" />
+
+  </Target>
+
+  <Target Name="IlMergePostHook"
+          AfterTargets="IlMerge">
+
+    <PropertyGroup>
+      <RunningCondition>Post</RunningCondition>
+      <RunningStep>IlMerge</RunningStep>
+      <Properties>
+        ;RootFolder=$(RootFolder)
+        ;ExtFolder=$(ExtFolder)
+        ;LibFolder=$(LibFolder)
+        ;SrcFolder=$(SrcFolder)
+        ;ToolsFolder=$(ToolsFolder)
+        ;BuildFolder=$(BuildFolder)
+        ;BinFolder=$(BinFolder)
+        ;BinSetupFolder=$(BinSetupFolder)
+        ;ArtifactsRootFolder=$(ArtifactsRootFolder)
+        ;ArtifactsFolder=$(ArtifactsFolder)
+        ;ProductName=$(ProductName)
+        ;Configuration=Release$(PlatformParam)
+        ;OutputPath=$(BinFolder)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;BuildTriggerType=$(BuildTriggerType)
+        ;Environment=$(Environment)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </Properties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="RunningCondition=$(RunningCondition);RunningStep=$(RunningStep);$(Properties)"
+             Targets="Hook" />
+
+  </Target>
+
+  <Target Name="Compile-MsiPostHook"
+          AfterTargets="Compile-Msi">
+
+    <PropertyGroup>
+      <RunningCondition>Post</RunningCondition>
+      <RunningStep>Compile-Msi</RunningStep>
+      <Properties>
+        ;RootFolder=$(RootFolder)
+        ;ExtFolder=$(ExtFolder)
+        ;LibFolder=$(LibFolder)
+        ;SrcFolder=$(SrcFolder)
+        ;ToolsFolder=$(ToolsFolder)
+        ;BuildFolder=$(BuildFolder)
+        ;BinFolder=$(BinFolder)
+        ;BinSetupFolder=$(BinSetupFolder)
+        ;ArtifactsRootFolder=$(ArtifactsRootFolder)
+        ;ArtifactsFolder=$(ArtifactsFolder)
+        ;ProductName=$(ProductName)
+        ;Configuration=Release$(PlatformParam)
+        ;OutputPath=$(BinFolder)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;BuildTriggerType=$(BuildTriggerType)
+        ;Environment=$(Environment)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </Properties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="RunningCondition=$(RunningCondition);RunningStep=$(RunningStep);$(Properties)"
+             Targets="Hook" />
+
+  </Target>
+
+  <Target Name="PackagePostHook"
+          AfterTargets="Package">
+
+    <PropertyGroup>
+      <RunningCondition>Post</RunningCondition>
+      <RunningStep>Package</RunningStep>
+      <Properties>
+        ;RootFolder=$(RootFolder)
+        ;ExtFolder=$(ExtFolder)
+        ;LibFolder=$(LibFolder)
+        ;SrcFolder=$(SrcFolder)
+        ;ToolsFolder=$(ToolsFolder)
+        ;BuildFolder=$(BuildFolder)
+        ;BinFolder=$(BinFolder)
+        ;BinSetupFolder=$(BinSetupFolder)
+        ;ArtifactsRootFolder=$(ArtifactsRootFolder)
+        ;ArtifactsFolder=$(ArtifactsFolder)
+        ;ProductName=$(ProductName)
+        ;Configuration=Release$(PlatformParam)
+        ;OutputPath=$(BinFolder)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;BuildTriggerType=$(BuildTriggerType)
+        ;Environment=$(Environment)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </Properties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="RunningCondition=$(RunningCondition);RunningStep=$(RunningStep);$(Properties)"
+             Targets="Hook" />
+
+  </Target>
+
+  <Target Name="CheckinPostHook"
+          AfterTargets="CheckinPreRelease;CheckinDefault">
+
+    <PropertyGroup>
+      <RunningCondition>Post</RunningCondition>
+      <RunningStep>Checkin</RunningStep>
+      <Properties>
+        ;RootFolder=$(RootFolder)
+        ;ExtFolder=$(ExtFolder)
+        ;LibFolder=$(LibFolder)
+        ;SrcFolder=$(SrcFolder)
+        ;ToolsFolder=$(ToolsFolder)
+        ;BuildFolder=$(BuildFolder)
+        ;BinFolder=$(BinFolder)
+        ;BinSetupFolder=$(BinSetupFolder)
+        ;ArtifactsRootFolder=$(ArtifactsRootFolder)
+        ;ArtifactsFolder=$(ArtifactsFolder)
+        ;ProductName=$(ProductName)
+        ;Configuration=Release$(PlatformParam)
+        ;OutputPath=$(BinFolder)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;BuildTriggerType=$(BuildTriggerType)
+        ;Environment=$(Environment)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </Properties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="RunningCondition=$(RunningCondition);RunningStep=$(RunningStep);$(Properties)"
+             Targets="Hook" />
+
+  </Target>
+
+  <Target Name="NuGetPostHook"
+          AfterTargets="NuGetBuild;NuGetPreRelease;NuGetDefault">
+
+    <PropertyGroup>
+      <RunningCondition>Post</RunningCondition>
+      <RunningStep>NuGet</RunningStep>
+      <Properties>
+        ;RootFolder=$(RootFolder)
+        ;ExtFolder=$(ExtFolder)
+        ;LibFolder=$(LibFolder)
+        ;SrcFolder=$(SrcFolder)
+        ;ToolsFolder=$(ToolsFolder)
+        ;BuildFolder=$(BuildFolder)
+        ;BinFolder=$(BinFolder)
+        ;BinSetupFolder=$(BinSetupFolder)
+        ;ArtifactsRootFolder=$(ArtifactsRootFolder)
+        ;ArtifactsFolder=$(ArtifactsFolder)
+        ;ProductName=$(ProductName)
+        ;Configuration=Release$(PlatformParam)
+        ;OutputPath=$(BinFolder)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;BuildTriggerType=$(BuildTriggerType)
+        ;Environment=$(Environment)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </Properties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="RunningCondition=$(RunningCondition);RunningStep=$(RunningStep);$(Properties)"
+             Targets="Hook" />
+
+  </Target>
+
+</Project>

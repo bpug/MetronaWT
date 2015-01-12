@@ -1,0 +1,399 @@
+/* Template-specific stuff
+ *
+ * Customizations just for the template; these are not necessary for anything
+ * with disabling the responsiveness.
+ */
+
+/* Account for fixed navbar */
+body {
+  min-width: 1200px;
+  padding-bottom: 30px;
+}
+
+/* Don't let the lead text change font-size. */
+.lead {
+  font-size: 16px;
+}
+
+/* Finesse the page header spacing */
+.page-header {
+  margin-bottom: 30px;
+}
+.page-header .lead {
+  margin-bottom: 10px;
+}
+
+
+/* Non-responsive overrides
+ *
+ * Utilitze the following CSS to disable the responsive-ness of the container,
+ * grid system, and navbar.
+ */
+
+/* Reset the container */
+.container {
+  width: 1200px;
+  max-width: none !important;
+}
+
+/* Demonstrate the grids */
+.col-xs-1 {
+  width: 290px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  padding-right: 0px;
+  background-color: #eee;
+  background-color: rgba(86,61,124,.15);
+}
+.col-xs-2 {
+  width: 900px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  padding-right: 0px;
+  background-color: #eee;
+  background-color: rgba(86,61,124,.15);
+}
+
+.container .navbar-header,
+.container .navbar-collapse {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/* Always float the navbar header */
+.navbar-header {
+  float: left;
+}
+
+/* Undo the collapsing navbar */
+.navbar-collapse {
+  display: block !important;
+  height: auto !important;
+  padding-bottom: 0;
+  overflow: visible !important;
+}
+
+.navbar-toggle {
+  display: none;
+}
+.navbar-collapse {
+  border-top: 0;
+}
+
+.navbar-brand {
+  margin-left: -15px;
+}
+
+/* Always apply the floated nav */
+.navbar-nav {
+  float: left;
+  margin: 0;
+}
+.navbar-nav > li {
+  float: left;
+}
+.navbar-nav > li > a {
+  padding: 15px;
+}
+
+/* Redeclare since we override the float above */
+.navbar-nav.navbar-right {
+  float: right;
+}
+
+/* Undo custom dropdowns */
+.navbar .navbar-nav .open .dropdown-menu {
+  position: absolute;
+  float: left;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-width: 0 1px 1px;
+  border-radius: 0 0 4px 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+  color: #333;
+}
+.navbar .navbar-nav .open .dropdown-menu > li > a:hover,
+.navbar .navbar-nav .open .dropdown-menu > li > a:focus,
+.navbar .navbar-nav .open .dropdown-menu > .active > a,
+.navbar .navbar-nav .open .dropdown-menu > .active > a:hover,
+.navbar .navbar-nav .open .dropdown-menu > .active > a:focus {
+  color: #fff !important;
+  background-color: #428bca !important;
+}
+.navbar .navbar-nav .open .dropdown-menu > .disabled > a,
+.navbar .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+.navbar .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+  color: #999 !important;
+  background-color: transparent !important;
+}
+
+/* BRUNATA CUSTOM */
+
+/* FONTS */
+
+@font-face{
+font-family:"UniversNW02-440XtdRegul";
+src:url("../fonts/1142531/c2d7163e-3681-423c-91eb-762d702e82f1.eot?#iefix");
+src:url("../fonts/1142531/c2d7163e-3681-423c-91eb-762d702e82f1.eot?#iefix") format("eot"),url("../fonts/1142531/af008295-8358-439d-b221-8e748c78eb0a.woff") format("woff"),url("../fonts/1142531/1fe2da64-94a7-4bf0-a6a2-384ffe8d6fe0.ttf") format("truetype"),url("../fonts/1142531/1a04211a-ec32-4575-ba24-6a5aa6d8b93d.svg#1a04211a-ec32-4575-ba24-6a5aa6d8b93d") format("svg");
+}
+@font-face{
+font-family:"Univers LT W02 55 Roman";
+src:url("../fonts/726294/f1999e78-ab0c-4adc-a7dc-51e567e6cf5e.eot?#iefix");
+src:url("../fonts/726294/f1999e78-ab0c-4adc-a7dc-51e567e6cf5e.eot?#iefix") format("eot"),url("../fonts/726294/4d1e8df3-6c45-428d-a522-84c8a6a4e533.woff") format("woff"),url("../fonts/726294/3c9abc50-742c-46dd-8af4-c50866112be0.ttf") format("truetype"),url("../fonts/726294/c6310aa0-a8a1-4afc-a747-091de3970894.svg#c6310aa0-a8a1-4afc-a747-091de3970894") format("svg");
+}
+
+@font-face {
+    font-family:"UniversLTW02-65BoldObli";
+    src:url("../fonts/726309/682d3989-9ade-4496-a49f-1600104ffd82.eot?#iefix");
+    src:url("../fonts/726309/682d3989-9ade-4496-a49f-1600104ffd82.eot?#iefix") format("eot"),url("../fonts/726309/8c36f695-edd7-4e12-a229-d93287988920.woff") format("woff"),url("../fonts/726309/d204c8cd-7155-4173-8b50-057cd793efcf.ttf") format("truetype"),url("../fonts/726309/43c9e65f-e37f-4b88-ab69-8d56790b4671.svg#43c9e65f-e37f-4b88-ab69-8d56790b4671") format("svg")
+}
+
+@font-face {
+    font-family:"UniversLTW0245Light";
+    src:url("../fonts/726277/34ecd7fc-f469-4e0c-980b-6d7fcec493da.eot?#iefix");
+    src:url("../fonts/726277/34ecd7fc-f469-4e0c-980b-6d7fcec493da.eot?#iefix") format("eot"),url("../fonts/726277/47a5b741-405e-4d03-ba4a-e50cc7716ddf.woff") format("woff"),url("../fonts/726277/6ef60ba5-712c-4ea5-9e57-0242591afed0.ttf") format("truetype"),url("../fonts/726277/ae2bbb03-6095-4a28-a333-555527bde8f6.svg#ae2bbb03-6095-4a28-a333-555527bde8f6") format("svg")
+}
+@font-face {
+    font-family:"UniversLTW0255Roman";
+    src:url("../fonts/726294/f1999e78-ab0c-4adc-a7dc-51e567e6cf5e.eot?#iefix");
+    src:url("../fonts/726294/f1999e78-ab0c-4adc-a7dc-51e567e6cf5e.eot?#iefix") format("eot"),url("../fonts/726294/4d1e8df3-6c45-428d-a522-84c8a6a4e533.woff") format("woff"),url("../fonts/726294/3c9abc50-742c-46dd-8af4-c50866112be0.ttf") format("truetype"),url("../fonts/726294/c6310aa0-a8a1-4afc-a747-091de3970894.svg#c6310aa0-a8a1-4afc-a747-091de3970894") format("svg")
+}
+@font-face {
+    font-family:"UniversLTW02-55Oblique";
+    src:url("../fonts/726291/ad1ceb5d-2387-4a19-b5fb-77e23dc3dbba.eot?#iefix");
+    src:url("../fonts/726291/ad1ceb5d-2387-4a19-b5fb-77e23dc3dbba.eot?#iefix") format("eot"),url("../fonts/726291/8c6202ce-67ee-4e51-ac6e-8bb432481057.woff") format("woff"),url("../fonts/726291/9e13046a-bab6-452d-8a22-0a2b57cc8d8c.ttf") format("truetype"),url("../fonts/726291/fe86a33b-3efb-4a83-a8f6-2be93288d293.svg#fe86a33b-3efb-4a83-a8f6-2be93288d293") format("svg")
+}
+@font-face {
+    font-family:"UniversLTW0265Bold";
+    src:url("../fonts/726306/f0e92d0d-9263-4203-b0e2-cb14138b04e8.eot?#iefix");
+    src:url("../fonts/726306/f0e92d0d-9263-4203-b0e2-cb14138b04e8.eot?#iefix") format("eot"),url("../fonts/726306/3145f7f3-577b-4fc5-b041-fd8a5b0b2d40.woff") format("woff"),url("../fonts/726306/f82194e4-e04b-4013-bb9b-4f587dc5f48b.ttf") format("truetype"),url("../fonts/726306/64433e35-936f-4806-b449-75ff58f8fc91.svg#64433e35-936f-4806-b449-75ff58f8fc91") format("svg")
+}
+@font-face {
+    font-family:"UniversLTW02-65BoldObli";
+    src:url("../fonts/726309/682d3989-9ade-4496-a49f-1600104ffd82.eot?#iefix");
+    src:url("../fonts/726309/682d3989-9ade-4496-a49f-1600104ffd82.eot?#iefix") format("eot"),url("../fonts/726309/8c36f695-edd7-4e12-a229-d93287988920.woff") format("woff"),url("../fonts/726309/d204c8cd-7155-4173-8b50-057cd793efcf.ttf") format("truetype"),url("../fonts/726309/43c9e65f-e37f-4b88-ab69-8d56790b4671.svg#43c9e65f-e37f-4b88-ab69-8d56790b4671") format("svg")
+}
+@font-face {
+    font-family:"UniversNW02-440XtdRegul";
+    src:url("../fonts/1142531/c2d7163e-3681-423c-91eb-762d702e82f1.eot?#iefix");
+    src:url("../fonts/1142531/c2d7163e-3681-423c-91eb-762d702e82f1.eot?#iefix") format("eot"),url("../fonts/1142531/af008295-8358-439d-b221-8e748c78eb0a.woff") format("woff"),url("../fonts/1142531/1fe2da64-94a7-4bf0-a6a2-384ffe8d6fe0.ttf") format("truetype"),url("../fonts/1142531/1a04211a-ec32-4575-ba24-6a5aa6d8b93d.svg#1a04211a-ec32-4575-ba24-6a5aa6d8b93d") format("svg")
+}
+body {
+	font-family:"UniversLTW0245Light";
+}
+
+.container {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.navbar {
+	min-height: 100px;
+}
+.navbar-default {
+    background-color: #ffffff;
+	border-top: 5px solid #ededed;
+	-webkit-box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.15);
+	-moz-box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.15);
+	box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.15);
+}
+
+.navbar-brand {
+	height: auto;
+	padding: 20px 0px 0px 0px;	
+	margin-left: 0px;
+}
+
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+	margin-left: 0px;
+}
+
+.nav.submenu > li {
+	padding: 5px 0px;
+}
+
+.nav.submenu > li > a {
+	display:inline;
+    font-size: 13px;
+    padding: 0px;
+}
+.nav.submenu > li > a:hover {
+	background-color: transparent;
+}
+
+.nav.submenu > .active > a, .nav.submenu > .active:hover > a, .nav.submenu > .active:focus > a {
+	color: #ea5906;
+}
+
+
+/* Demonstrate the grids */
+.col-xs-1 {
+  width: 290px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 0px;
+  padding-right: 0px;
+  background-color: none;
+  background-color: rgba(255,255,255,0);
+}
+.col-xs-2 {
+  width: 910px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+  padding-right: 0px;
+  background-color: none;
+  background-color: rgba(255,255,255,0);
+}
+.col-xs-all {
+  width: 1200px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 0px;
+  padding-right: 0px;
+  background-color: none;
+  background-color: rgba(255,255,255,0);
+}
+.breadcrumb {
+    background-color: transparent;
+	padding: 8px 0px;
+	font-size: 12px;
+}
+a:link {
+	color: #1898d5;
+}
+a:hover {
+	color: #ea5906;
+	text-decoration:none;
+}
+
+h1, .h1 {
+    font-size: 40px;
+	font-family:"UniversNW02-440XtdRegul";
+	color: #1898d5;
+}
+
+h1, .h1, h2, .h2, h3, .h3 {
+    margin-bottom: 50px;
+}
+
+label {
+	font-weight: normal;
+    font-size: 16px;
+}
+.form-horizontal .control-label {
+    padding-top: 14px;
+}
+
+.btn-default, .btn-default:focus, .btn-default.focus {
+	border-color: #1898d5;
+	background-color: #1898d5;
+	color: #fff;
+	font-size: 16px;
+}
+
+.btn-default:hover {
+	border-color: #ea5906;
+	background-color: #ea5906;
+    color: #fff;
+	font-size: 16px;
+}
+
+.btn {
+    padding: 10px 15px;   
+}
+
+.form-control, .form-control input {
+    height: 44px;
+    font-size: 16px;
+    color: #1898d5;
+}
+
+.form-horizontal .control-label {
+    text-align: left;
+}
+
+.form-control::-moz-placeholder {
+    color: #1898d5;
+}
+:-ms-input-placeholder.form-control {
+    color: #1898d5;
+}
+::-webkit-input-placeholder {
+    color: #1898d5;
+}
+
+
+
+/* CHOSEN Customizing*/
+
+.chosen-search {
+    display: none;
+}
+
+select.form-control + .chosen-container.chosen-container-single .chosen-single div {
+    top: 0px;
+}
+.chosen-container-single .chosen-single div {
+    width: 48px;
+}
+.chosen-container-active.chosen-with-drop .chosen-single div b {
+    background-position: -48px -5px;
+}
+.chosen-container-single .chosen-single div b {
+    background: url("chosen-sprite.png") no-repeat scroll 0 -2px rgba(0, 0, 0, 0);
+}
+select.form-control + .chosen-container.chosen-container-single .chosen-single {
+    height: 44px;
+}
+select.form-control + .chosen-container.chosen-container-single .chosen-single {
+    font-size: 16px;
+    padding: 12px;
+}
+select.form-control + .chosen-container.chosen-container-single .chosen-single {
+    color: #1898d5;
+}
+/*select.form-control + .chosen-container .chosen-results li, select.form-control + .chosen-container .chosen-results li.active-result {
+    color: #1898d5;
+}*/
+
+.form-control::-webkit-input-placeholder {
+     color: #1898d5;
+}
+
+.wt {
+	margin-top: 28px;
+}
+
+
+.ui-widget-content  {
+    border: none;
+    background: none
+}
+
+.chart-title {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    display: block;
+}
+
+.wt-description {
+    margin-top: 20px;
+    display: block;
+}
+
+.site-title {
+    color: #004D93;
+    margin-top: 27px;
+    font-family: UniversNW02-440XtdRegul;
+    font-size: 35px;
+}

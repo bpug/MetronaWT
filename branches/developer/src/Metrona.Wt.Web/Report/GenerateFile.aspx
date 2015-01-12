@@ -1,0 +1,1 @@
+﻿<%@ Page Async="true" Language="C#" AutoEventWireup="true" CodeBehind="GenerateFile.aspx.cs" Inherits="Metrona.Wt.Web.Report.GenerateFile" %>

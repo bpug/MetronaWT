@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+
+  <PropertyGroup>
+    <IsWebApp>false</IsWebApp>
+  </PropertyGroup>
+
+  <!-- # Coordinate targets -->
+  <Target Name="CleanOutput">
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="ArtifactsSrcFolder=$(BinFolder)"
+             Targets="CleanForStaging" />
+
+    <MSBuild Condition=" !Exists('$(SetupSolutionFileName)') "
+             Projects="$(MSBuildProjectFile)"
+             Properties="ArtifactsSrcFolder=$(BinSetupFolder)"
+             Targets="CleanForStaging" />
+  </Target>
+
+  <Target Name="Package"
+          DependsOnTargets="CleanOutput;CopyBinaryWebDeployFiles;PrecompileWebApp">
+
+    <PropertyGroup>
+      <CommonProperties>
+        ;AssemblyFileVersionMajor=$(AssemblyFileVersionMajor)
+        ;AssemblyFileVersionMinor=$(AssemblyFileVersionMinor)
+        ;AssemblyFileVersionBuild=$(AssemblyFileVersionBuild)
+        ;AssemblyFileVersionRevision=$(AssemblyFileVersionRevision)
+        ;AssemblyFileVersionMajorMinor=$(AssemblyFileVersionMajorMinor)
+        ;AssemblyFileVersion=$(AssemblyFileVersion)
+        ;AssemblyVersionMajor=$(AssemblyVersionMajor)
+        ;AssemblyVersionMinor=$(AssemblyVersionMinor)
+        ;AssemblyVersionBuild=$(AssemblyVersionBuild)
+        ;AssemblyVersionRevision=$(AssemblyVersionRevision)
+        ;AssemblyVersionMajorMinor=$(AssemblyVersionMajorMinor)
+        ;AssemblyVersion=$(AssemblyVersion)
+        ;AssemblyInformationalVersionMajor=$(AssemblyInformationalVersionMajor)
+        ;AssemblyInformationalVersionMinor=$(AssemblyInformationalVersionMinor)
+        ;AssemblyInformationalVersionPatch=$(AssemblyInformationalVersionPatch)
+        ;AssemblyInformationalVersionPreReleaseIdentifier=$(AssemblyInformationalVersionPreReleaseIdentifier)
+        ;AssemblyInformationalVersionBuildIdentifier=$(AssemblyInformationalVersionBuildIdentifier)
+        ;AssemblyInformationalVersionMajorMinor=$(AssemblyInformationalVersionMajorMinor)
+        ;AssemblyInformationalVersionMajorMinorPatch=$(AssemblyInformationalVersionMajorMinorPatch)
+        ;AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier=$(AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier)
+        ;AssemblyInformationalVersion=$(AssemblyInformationalVersion)
+        ;MainAssemblyVersion=$(MainAssemblyVersion)
+        ;BranchName=$(BranchName)
+        ;Changeset=$(Changeset)
+      </CommonProperties>
+    </PropertyGroup>
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="$(CommonProperties);ArtifactsSrcFolder=$(BinFolder);ArtifactsSubFolder=$(ArtifactsBinariesFolder)"
+             Targets="Publish" />
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Properties="$(CommonProperties);ArtifactsSrcFolder=$(BinSetupFolder);ArtifactsSubFolder=$(ArtifactsSetupFolder);AsZipArchive=false"
+             Targets="Publish" />
+
+  </Target>
+
+
+  <!-- # Main -->
+
+  <!-- ## CleanForStaging -->
+  <Target Name="CleanForStaging">
+    <PropertyGroup>
+      <ExcludeArtifactsFilePattern>@(ExcludeArtifactsFilePatterns-&gt;'$(ArtifactsSrcFolder)\%(Pattern)',';')</ExcludeArtifactsFilePattern>
+      <OutputFileNamesPattern Condition=" '$(MergeWithIlMerge)' != 'true' ">@(OutputFileNames-&gt;'$(ArtifactsSrcFolder)\%(Pattern)',';')</OutputFileNamesPattern>
+      <IlMergeOutputFileNamesPattern Condition=" '$(MergeWithIlMerge)' == 'true' AND '%(OutputFileNames.IlMergeIsMainFile)' == 'true' AND '%(OutputFileNames.IlMergeEnabled)' == 'true' AND '%(OutputFileNames.IlMergeOutputFileName)' == '' ">@(OutputFileNames-&gt;'$(ArtifactsSrcFolder)\%(Pattern)',';')</IlMergeOutputFileNamesPattern>
+      <IlMergeDifferentOutputFileNamesPattern Condition=" '$(MergeWithIlMerge)' == 'true' AND '%(OutputFileNames.IlMergeIsMainFile)' == 'true' AND '%(OutputFileNames.IlMergeEnabled)' == 'true' AND '%(OutputFileNames.IlMergeOutputFileName)' != '' ">@(OutputFileNames-&gt;'$(ArtifactsSrcFolder)\%(IlMergeOutputFileName)',';')</IlMergeDifferentOutputFileNamesPattern>
+      <IlMergeAdditionalOutputFileNamesPattern Condition=" '$(MergeWithIlMerge)' == 'true' AND '%(OutputFileNames.IlMergeEnabled)' != 'true' ">@(OutputFileNames-&gt;'$(ArtifactsSrcFolder)\%(Pattern)',';')</IlMergeAdditionalOutputFileNamesPattern>
+      <ExcludeFileNamesPattern>@(ExcludeFileNames-&gt;'$(ArtifactsSrcFolder)\%(Pattern)',';')</ExcludeFileNamesPattern>
+      <OutputDirectoriesPattern>@(OutputDirectories-&gt;'$(ArtifactsSrcFolder)\%(Pattern)',';')</OutputDirectoriesPattern>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <IncludeFiles Include="$(OutputFileNamesPattern);$(IlMergeOutputFileNamesPattern);$(IlMergeDifferentOutputFileNamesPattern);$(IlMergeAdditionalOutputFileNamesPattern)" />
+      <ExcludeFiles Include="$(ExcludeFileNamesPattern);$(ExcludeArtifactsFilePattern)" />
+    </ItemGroup>
+
+    <RemoveDuplicates Inputs="@(IncludeFiles)">
+      <Output ItemName="FilteredIncludeFiles"
+              TaskParameter="Filtered" />
+    </RemoveDuplicates>
+    <RemoveDuplicates Inputs="@(ExcludeFiles)">
+      <Output ItemName="FilteredExcludeFiles"
+              TaskParameter="Filtered" />
+    </RemoveDuplicates>
+
+    <ItemGroup>
+      <NormalizedExcludeFiles Exclude="@(FilteredIncludeFiles)"
+                              Include="@(FilteredExcludeFiles)" />
+      <OutputFiles Exclude="@(NormalizedExcludeFiles)"
+                   Include="@(FilteredIncludeFiles)" />
+      <RemoveFiles Exclude="@(OutputFiles, ';')"
+                   Include="$(ArtifactsSrcFolder)\**\*.*" />
+    </ItemGroup>
+
+    <Gapon.MSBuild.Tasks.FileSystem.DirectoryGroup Condition=" Exists('$(ArtifactsSrcFolder)') "
+                                                   Exclude="$(OutputDirectoriesPattern)"
+                                                   Include="$(ArtifactsSrcFolder)\**\*">
+      <Output ItemName="OutputDirectories"
+              TaskParameter="Directories" />
+    </Gapon.MSBuild.Tasks.FileSystem.DirectoryGroup>
+
+    <Delete Files="@(RemoveFiles)" />
+    <RemoveDir Directories="@(OutputDirectories)" />
+  </Target>
+
+  <!-- ## CopyBinaryWebDeployFiles -->
+  <Target Name="CopyBinaryWebDeployFiles"
+          Condition=" Exists('$(BinFolder)\_PublishedWebsites') ">
+
+    <PropertyGroup>
+      <ExcludeArtifactsFilePattern>@(ExcludeArtifactsFilePatterns-&gt;'$(BinFolder)\%(Pattern)',';')</ExcludeArtifactsFilePattern>
+      <ExcludeFileNamesValue>@(ExcludeFileNames-&gt;'$(BinFolder)\%(Pattern)',';')</ExcludeFileNamesValue>
+      <IsWebApp>true</IsWebApp>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <BinaryFiles Exclude="$(ExcludeFileNamesValue);$(ExcludeArtifactsFilePattern)"
+                   Include="$(BinFolder)\*.*" />
+    </ItemGroup>
+
+    <Gapon.MSBuild.Tasks.FileSystem.DirectoryGroup Include="$(BinFolder)\_PublishedWebsites\**\\bin">
+      <Output PropertyName="WebDeployBinaryFolder"
+              TaskParameter="Directories" />
+    </Gapon.MSBuild.Tasks.FileSystem.DirectoryGroup>
+
+    <Copy DestinationFolder="$(WebDeployBinaryFolder)\"
+          SkipUnchangedFiles="true"
+          SourceFiles="@(BinaryFiles)" />
+
+    <!-- Flatten BinFolder -->
+    <!-- Clear BinFolder -->
+    <Gapon.MSBuild.Tasks.FileSystem.DirectoryGroup Exclude="$(BinFolder)\_PublishedWebsites"
+                                                   Include="$(BinFolder)\*">
+      <Output ItemName="SatellitePublishedWebsitesFolders"
+              TaskParameter="Directories" />
+    </Gapon.MSBuild.Tasks.FileSystem.DirectoryGroup>
+
+    <ItemGroup>
+      <SatellitePublishedWebsitesFiles Include="$(BinFolder)\*.*" />
+    </ItemGroup>
+
+    <Delete Files="@(SatellitePublishedWebsitesFiles)" />
+    <RemoveDir Directories="@(SatellitePublishedWebsitesFolders)" />
+
+    <!-- Copy PublishedWebsites to BinFolder -->
+    <Gapon.MSBuild.Tasks.FileSystem.DirectoryGroup Include="$(BinFolder)\_PublishedWebsites\*">
+      <Output PropertyName="PublishedWebsitesFolder"
+              TaskParameter="Directories" />
+    </Gapon.MSBuild.Tasks.FileSystem.DirectoryGroup>
+
+    <Exec Command="xcopy &quot;$(PublishedWebsitesFolder)&quot; &quot;$(BinFolder)\&quot; /E /Y" />
+    <RemoveDir Directories="$(BinFolder)\_PublishedWebsites" />
+
+  </Target>
+
+  <!-- ## PrecompileWebApp -->
+  <Target Name="PrecompileWebApp"
+          Condition=" '$(PrecompileWebApp)' == 'true' AND '$(IsWebApp)' == 'true' ">
+
+    <PropertyGroup>
+      <PrecompiledBinFolder>$(BuildFolder)\bin\precompiledrelease</PrecompiledBinFolder>
+    </PropertyGroup>
+
+    <MakeDir Directories="$(PrecompiledBinFolder)" />
+
+    <AspNetCompiler
+      AllowPartiallyTrustedCallers="$(PrecompileWebAppAllowPartiallyTrustedCallers)"
+      Clean="$(PrecompileWebAppClean)"
+      Debug="$(PrecompileWebAppDebug)"
+      DelaySign="$(PrecompileWebAppDelaySign)"
+      FixedNames="$(PrecompileWebAppFixedNames)"
+      Force="$(PrecompileWebAppForce)"
+      KeyContainer="$(PrecompileWebAppKeyContainer)"
+      KeyFile="$(PrecompileWebAppKeyFile)"
+      PhysicalPath="$(BinFolder)"
+      TargetFrameworkMoniker="$(PrecompileWebAppTargetFrameworkMoniker)"
+      TargetPath="$(PrecompiledBinFolder)"
+      Updateable="$(PrecompileWebAppUpdateable)"
+      VirtualPath="$(PrecompileWebAppVirtualPath)" />
+
+    <RemoveDir Directories="$(BinFolder)" />
+    <MakeDir Directories="$(BinFolder)" />
+
+    <Exec Command="xcopy &quot;$(PrecompiledBinFolder)&quot; &quot;$(BinFolder)\&quot; /E /Y" />
+
+    <RemoveDir Directories="$(PrecompiledBinFolder)" />
+
+  </Target>
+
+  <!-- ## Publish -->
+  <Target Name="Publish">
+    <PropertyGroup>
+      <VersionFolderName>$(MainAssemblyVersion)</VersionFolderName>
+      <ArtifactsVersionFolder Condition=" '$(ArtifactsSubFolder)' != '' ">$(ArtifactsFolder)\$(VersionFolderName)\$(ArtifactsSubFolder)</ArtifactsVersionFolder>
+      <ArtifactsVersionFolder Condition=" '$(ArtifactsSubFolder)' == '' ">$(ArtifactsFolder)\$(VersionFolderName)</ArtifactsVersionFolder>
+      <ArtifactsCurrentFolder Condition=" '$(ArtifactsSubFolder)' != '' ">$(ArtifactsFolder)\$(ArtifactsCurrentFolderName)\$(ArtifactsSubFolder)</ArtifactsCurrentFolder>
+      <ArtifactsCurrentFolder Condition=" '$(ArtifactsSubFolder)' == '' ">$(ArtifactsFolder)\$(ArtifactsCurrentFolderName)</ArtifactsCurrentFolder>
+      <ArchiveName Condition=" '$(ZipArchiveOutputName)' == '$[ProductName]' ">$(ProductName)</ArchiveName>
+      <ArchiveName Condition=" '$(ZipArchiveOutputName)' == '$[IlMergeOutputFileName]' ">$(IlMergeOutputFileName)</ArchiveName>
+      <ArchiveName>$(ArchiveName.Replace(' ', $(ZipArchiveOutputNameReplaceWhiteSpacesWith)))</ArchiveName>
+      <ArchiveName Condition=" '$(ZipArchiveOutputNameReplaceDots)' == 'true' ">$(ArchiveName.Replace('.', $(ZipArchiveOutputNameReplaceDotsWith)))</ArchiveName>
+      <_AssemblyVersion Condition=" '$(ZipArchiveOutputNameWithVersion)' == 'true' AND '$(ZipArchiveOutputNameVersionScheme)' == 'AssemblyFileVersion' ">$(AssemblyFileVersion)</_AssemblyVersion>
+      <_AssemblyVersion Condition=" '$(ZipArchiveOutputNameWithVersion)' == 'true' AND '$(ZipArchiveOutputNameVersionScheme)' == 'AssemblyVersion' ">$(AssemblyVersion)</_AssemblyVersion>
+      <_AssemblyVersion Condition=" '$(ZipArchiveOutputNameWithVersion)' == 'true' AND '$(ZipArchiveOutputNameVersionScheme)' == 'AssemblyInformationalVersion' ">$(AssemblyInformationalVersion)</_AssemblyVersion>
+      <ArchiveFileName Condition=" '$(ZipArchiveOutputNameWithVersion)' == 'true' ">$(ArchiveName).$(_AssemblyVersion)</ArchiveFileName>
+    </PropertyGroup>
+
+    <RemoveDir Condition=" Exists('$(ArtifactsVersionFolder)') "
+               Directories="$(ArtifactsVersionFolder)" />
+    <MakeDir Condition=" !Exists('$(ArtifactsVersionFolder)') "
+             Directories="$(ArtifactsVersionFolder)" />
+
+    <RemoveDir Condition=" Exists('$(ArtifactsCurrentFolder)') "
+               Directories="$(ArtifactsCurrentFolder)" />
+    <MakeDir Condition=" !Exists('$(ArtifactsCurrentFolder)') "
+             Directories="$(ArtifactsCurrentFolder)" />
+
+    <Exec Condition=" '$(AsZipArchive)' == 'false' AND Exists('$(ArtifactsSrcFolder)') "
+          Command="xcopy &quot;$(ArtifactsSrcFolder)&quot; &quot;$(ArtifactsVersionFolder)&quot; /E /Y" />
+    <Exec Condition=" '$(AsZipArchive)' == 'false' AND Exists('$(ArtifactsSrcFolder)') "
+          Command="xcopy &quot;$(ArtifactsSrcFolder)&quot; &quot;$(ArtifactsCurrentFolder)&quot; /E /Y" />
+
+    <Gapon.MSBuild.Tasks.Compression.Zip Condition=" '$(AsZipArchive)' == 'true' AND Exists('$(ArtifactsSrcFolder)') "
+                                         CompressionLevel="BestCompression"
+                                         CompressPath="$(ArtifactsSrcFolder)"
+                                         RemoveRoot="$(ArtifactsSrcFolder)"
+                                         TaskAction="Create"
+                                         ZipFileName="$(ArtifactsVersionFolder)\$(ArchiveFileName).zip" />
+    <Exec Condition=" '$(AsZipArchive)' == 'true' AND Exists('$(ArtifactsSrcFolder)') "
+          Command="xcopy &quot;$(ArtifactsVersionFolder)\$(ArchiveFileName).zip&quot; &quot;$(ArtifactsCurrentFolder)&quot; /E /Y" />
+  </Target>
+
+</Project>
