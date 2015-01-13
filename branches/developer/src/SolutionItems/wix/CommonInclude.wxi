@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+  <?include $(sys.CURRENTDIR)\..\..\SolutionItems\wix\CommonPaths.wxi?>
+  <?include $(var.RootFolder)\src\SolutionItems\Version.wxi?>
+  <?include $(var.RootFolder)\src\SolutionItems\wix\CommonWix.project.setup.wxi?>
+  <?include $(var.RootFolder)\src\SolutionItems\wix\CommonInfo.wxi?>
+
+</Include>

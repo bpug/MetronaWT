@@ -40,9 +40,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Infragistics4.WebUI.Documents.Core.v14.2, Version=14.2.20142.2146, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
-      <HintPath>C:\Program Files (x86)\Infragistics\2014.2\ASP.NET\CLR4.0\Bin\Infragistics4.WebUI.Documents.Core.v14.2.dll</HintPath>
-      <Name>Infragistics4.WebUI.Documents.Core.v14.2</Name>
+    <Reference Include="Infragistics45.WebUI.Documents.Core.v14.2, Version=14.2.20142.2146, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <Private>True</Private>
     </Reference>
     <Reference Include="Infragistics45.WebUI.UltraWebChart.v14.2, Version=14.2.20142.2146, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>

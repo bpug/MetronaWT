@@ -3,29 +3,29 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
 
-    <AssemblyFileVersionMajor>3</AssemblyFileVersionMajor>
-    <AssemblyFileVersionMinor>2</AssemblyFileVersionMinor>
-    <AssemblyFileVersionBuild>41202</AssemblyFileVersionBuild>
+    <AssemblyFileVersionMajor>1</AssemblyFileVersionMajor>
+    <AssemblyFileVersionMinor>0</AssemblyFileVersionMinor>
+    <AssemblyFileVersionBuild>50113</AssemblyFileVersionBuild>
     <AssemblyFileVersionRevision>1</AssemblyFileVersionRevision>
-    <AssemblyFileVersionMajorMinor>3.2</AssemblyFileVersionMajorMinor>
-    <AssemblyFileVersion>3.2.41202.1</AssemblyFileVersion>
+    <AssemblyFileVersionMajorMinor>1.0</AssemblyFileVersionMajorMinor>
+    <AssemblyFileVersion>1.0.50113.1</AssemblyFileVersion>
 
-    <AssemblyVersionMajor>3</AssemblyVersionMajor>
-    <AssemblyVersionMinor>2</AssemblyVersionMinor>
+    <AssemblyVersionMajor>1</AssemblyVersionMajor>
+    <AssemblyVersionMinor>0</AssemblyVersionMinor>
     <AssemblyVersionBuild>0</AssemblyVersionBuild>
     <AssemblyVersionRevision>0</AssemblyVersionRevision>
-    <AssemblyVersionMajorMinor>3.2</AssemblyVersionMajorMinor>
-    <AssemblyVersion>3.2.0.0</AssemblyVersion>
+    <AssemblyVersionMajorMinor>1.0</AssemblyVersionMajorMinor>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
 
-    <AssemblyInformationalVersionMajor>3</AssemblyInformationalVersionMajor>
-    <AssemblyInformationalVersionMinor>2</AssemblyInformationalVersionMinor>
+    <AssemblyInformationalVersionMajor>1</AssemblyInformationalVersionMajor>
+    <AssemblyInformationalVersionMinor>0</AssemblyInformationalVersionMinor>
     <AssemblyInformationalVersionPatch>0</AssemblyInformationalVersionPatch>
-    <AssemblyInformationalVersionPreReleaseIdentifier></AssemblyInformationalVersionPreReleaseIdentifier>
+    <AssemblyInformationalVersionPreReleaseIdentifier>0build.2</AssemblyInformationalVersionPreReleaseIdentifier>
     <AssemblyInformationalVersionBuildIdentifier></AssemblyInformationalVersionBuildIdentifier>
-    <AssemblyInformationalVersionMajorMinor>3.2</AssemblyInformationalVersionMajorMinor>
-    <AssemblyInformationalVersionMajorMinorPatch>3.2.0</AssemblyInformationalVersionMajorMinorPatch>
-    <AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier></AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier>
-    <AssemblyInformationalVersion>3.2.0</AssemblyInformationalVersion>
+    <AssemblyInformationalVersionMajorMinor>1.0</AssemblyInformationalVersionMajorMinor>
+    <AssemblyInformationalVersionMajorMinorPatch>1.0.0</AssemblyInformationalVersionMajorMinorPatch>
+    <AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier>0build.2</AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier>
+    <AssemblyInformationalVersion>1.0.0-0build.2</AssemblyInformationalVersion>
 
   </PropertyGroup>
 </Project>

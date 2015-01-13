@@ -33,6 +33,32 @@
              Targets="Clean" />
   </Target>
 
+  <!-- ## Web Deploy package-->
+  <Target Name="BuildWebPackage">
+    <PropertyGroup>
+      <ArchiveName Condition=" '$(ZipArchiveOutputName)' == '$[ProductName]' ">$(ProductName)</ArchiveName>
+      <ArchiveName>$(ArchiveName.Replace(' ', $(ZipArchiveOutputNameReplaceWhiteSpacesWith)))</ArchiveName>
+      <ArchiveName Condition=" '$(ZipArchiveOutputNameReplaceDots)' == 'true' ">$(ArchiveName.Replace('.', $(ZipArchiveOutputNameReplaceDotsWith)))</ArchiveName>
+      <_AssemblyVersion Condition=" '$(ZipArchiveOutputNameWithVersion)' == 'true' AND '$(ZipArchiveOutputNameVersionScheme)' == 'AssemblyFileVersion' ">$(AssemblyFileVersion)</_AssemblyVersion>
+      <_AssemblyVersion Condition=" '$(ZipArchiveOutputNameWithVersion)' == 'true' AND '$(ZipArchiveOutputNameVersionScheme)' == 'AssemblyVersion' ">$(AssemblyVersion)</_AssemblyVersion>
+      <_AssemblyVersion Condition=" '$(ZipArchiveOutputNameWithVersion)' == 'true' AND '$(ZipArchiveOutputNameVersionScheme)' == 'AssemblyInformationalVersion' ">$(AssemblyInformationalVersion)</_AssemblyVersion>
+      <ArchiveFileName Condition=" '$(ZipArchiveOutputNameWithVersion)' == 'true' ">$(ArchiveName).$(_AssemblyVersion)</ArchiveFileName>
+      <PackageLocation>$(BuildFolder)\$(ArchiveFileName).$(Configuration).zip</PackageLocation>
+    </PropertyGroup>
+    <ItemGroup>
+      <AllProjectFiles Exclude="$(SrcFolder)\**\*.wixproj;$(SrcFolder)\**\*.crproj"
+                       Include="$(SrcFolder)\**\*.*proj" />
+    </ItemGroup>
+
+    <MSBuild Projects="@(AllProjectFiles)"
+             ContinueOnError="false"
+             Properties="Configuration=$(Configuration);
+                         DeployOnBuild=true;
+                         DeployTarget=Package;                      
+                         PackageLocation=$(PackageLocation);
+                         PublishProfile=$(PublishProfile);"/>
+  </Target>
+  
   <!-- ## Compile -->
   <Target Name="Compile">
     <ItemGroup>

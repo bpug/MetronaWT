@@ -39,7 +39,7 @@
     <PrecompileWebAppForce>true</PrecompileWebAppForce>
     <PrecompileWebAppKeyContainer></PrecompileWebAppKeyContainer>
     <PrecompileWebAppKeyFile></PrecompileWebAppKeyFile>
-    <PrecompileWebAppUpdateable>false</PrecompileWebAppUpdateable>
+    <PrecompileWebAppUpdateable>true</PrecompileWebAppUpdateable>
 
     <!-- # Publishing/Packaging properties -->
     <UseSemanticVersionNaming Condition=" '$(UseSemanticVersionNaming)' == '' ">true</UseSemanticVersionNaming>

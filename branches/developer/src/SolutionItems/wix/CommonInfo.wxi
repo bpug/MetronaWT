@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+  <?ifndef ProductCode?>
+    <?define ProductCode            = "*"?>
+  <?endif?>
+  <?ifndef UpgradeCode?>
+    <?define UpgradeCode            = "*"?>
+  <?endif?>
+
+  <?define ProductVersion           = "$(var.AssemblyInformationalVersion)"?>
+  <?define ProductNameShort         = "App"?>
+  <?define ProductManufacturerShort = "Company"?>
+  <?define ProductNameComplete      = "App Light"?>
+  <?define ProductDescription       = "$(var.ProductNameShort) $(var.ProductVersion)"?>
+  <?define ProductManufacturer      = "Company Inc."?>
+  <?define ProductCopyright         = "Copyright © 2013 $(var.ProductManufacturer). All rights reserved."?>
+  <?define Keywords                 = "$(var.ProductManufacturerShort), $(var.ProductNameShort)"?>
+
+  <?define ARPAUTHORIZEDCDFPREFIX   = "https://update.company.com/beta-channel/"?>
+  <?define ARPCOMMENTS              = "$(var.ProductNameShort) Version $(var.ProductVersion) for Microsoft Windows."?>
+  <?define ARPCONTACT               = "$(var.ProductManufacturer)"?>
+  <?define ARPHELPLINK              = "https://company.com/support.html"?>
+  <?define ARPHELPTELEPHONE         = "https://company.com/contact.html"?>
+  <?define ARPREADME                = "https://company.com/readme.html"?>
+  <?define ARPURLINFOABOUT          = "https://company.com/update.html"?>
+  <?define ARPURLUPDATEINFO         = "https://company.com/"?>
+
+</Include>

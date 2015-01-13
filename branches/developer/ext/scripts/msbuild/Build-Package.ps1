@@ -4,9 +4,11 @@ Param (
     [alias('p')]
     [string] $BuildParams   = $null,
     [alias('t')]
-    [string] $BuildTarget   = 'Build',
+    [string] $BuildTarget   = 'Build', #'WebPackage', #
     [alias('c')]
-    [switch] $ForceCleanup  = $false
+    [switch] $ForceCleanup  = $false,
+	[alias('co')]
+    [string] $Configuration   = $null
 )
 
 # Core refs
@@ -32,7 +34,6 @@ if ($BuildParams)
     $BuildParams = "/property:${BuildParams}"
 }
 
-
 # Main
 if ($ForceCleanup)
 {
@@ -44,9 +45,8 @@ if (-not (Test-Path -Path $buildFolder))
     New-Item -Path $buildFolder -ItemType Directory | Out-Null
 }
 
-#& $msbuildExecutable $BuildFile $BuildTarget $BuildParams /maxcpucount /verbosity:minimal /fileLogger $buildLogFileParam /nodeReuse:false
-# msbuild mysln.sln /p:DeployOnBuild=true /p:PublishProfile=<profile-name>
-& $msbuildExecutable $sln /p:DeployOnBuild=true /p:PublishProfile=$publishProfile /p:Configuration=$publishProfile
+& $msbuildExecutable $BuildFile $BuildTarget $BuildParams /maxcpucount /fileLogger $buildLogFileParam /nodeReuse:false
+# & $msbuildExecutable $sln /p:DeployOnBuild=true /p:PublishProfile=$publishProfile /p:Configuration=$publishProfile
 if($LASTEXITCODE -ne 0)
 {
     Throw 'Build failed'

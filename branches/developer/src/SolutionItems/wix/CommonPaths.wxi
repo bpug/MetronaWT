@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+  <?ifndef RootFolder?>
+    <?ifdef $(env.RootFolder) != ""?>
+      <?define RootFolder = $(env.RootFolder)?>
+    <?else?>
+      <?define RootFolder = "$(sys.CURRENTDIR)..\..\.."?>
+    <?endif?>
+  <?endif?>
+
+  <?ifndef BinFolder?>
+    <?ifdef $(var.RootFolder) != ""?>
+      <?define BinFolder = $(var.RootFolder)\build\bin\release?>
+    <?else?>
+      <?define BinFolder = "$(sys.CURRENTDIR)..\..\..\build\bin\release"?>
+    <?endif?>
+  <?endif?>
+
+  <?ifndef BinSetupFolder?>
+    <?ifdef $(var.RootFolder) != ""?>
+      <?define BinSetupFolder = $(var.RootFolder)\build\bin\setup?>
+    <?else?>
+      <?define BinSetupFolder = "$(sys.CURRENTDIR)..\..\..\build\bin\setup"?>
+    <?endif?>
+  <?endif?>
+
+</Include>

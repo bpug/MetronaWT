@@ -5,17 +5,17 @@
   <?ifdef AssemblyFileVersionMajor?>
     <?error AssemblyFileVersionMajor variable is already defined?>
   <?endif?>
-  <?define AssemblyFileVersionMajor = "3"?>
+  <?define AssemblyFileVersionMajor = "1"?>
 
   <?ifdef AssemblyFileVersionMinor?>
     <?error AssemblyFileVersionMinor variable is already defined?>
   <?endif?>
-  <?define AssemblyFileVersionMinor = "2"?>
+  <?define AssemblyFileVersionMinor = "0"?>
 
   <?ifdef AssemblyFileVersionBuild?>
     <?error AssemblyFileVersionBuild variable is already defined?>
   <?endif?>
-  <?define AssemblyFileVersionBuild = "41202"?>
+  <?define AssemblyFileVersionBuild = "50113"?>
 
   <?ifdef AssemblyFileVersionRevision?>
     <?error AssemblyFileVersionRevision variable is already defined?>
@@ -25,23 +25,23 @@
   <?ifdef AssemblyFileVersionMajorMinor?>
     <?error AssemblyFileVersionMajorMinor variable is already defined?>
   <?endif?>
-  <?define AssemblyFileVersionMajorMinor = "3.2"?>
+  <?define AssemblyFileVersionMajorMinor = "1.0"?>
 
   <?ifdef AssemblyFileVersion?>
     <?error AssemblyFileVersion variable is already defined?>
   <?endif?>
-  <?define AssemblyFileVersion = "3.2.41202.1"?>
+  <?define AssemblyFileVersion = "1.0.50113.1"?>
 
 
   <?ifdef AssemblyVersionMajor?>
     <?error AssemblyVersionMajor variable is already defined?>
   <?endif?>
-  <?define AssemblyVersionMajor = "3"?>
+  <?define AssemblyVersionMajor = "1"?>
 
   <?ifdef AssemblyVersionMinor?>
     <?error AssemblyVersionMinor variable is already defined?>
   <?endif?>
-  <?define AssemblyVersionMinor = "2"?>
+  <?define AssemblyVersionMinor = "0"?>
 
   <?ifdef AssemblyVersionBuild?>
     <?error AssemblyVersionBuild variable is already defined?>
@@ -56,23 +56,23 @@
   <?ifdef AssemblyVersionMajorMinor?>
     <?error AssemblyVersionMajorMinor variable is already defined?>
   <?endif?>
-  <?define AssemblyVersionMajorMinor = "3.2"?>
+  <?define AssemblyVersionMajorMinor = "1.0"?>
 
   <?ifdef AssemblyVersion?>
     <?error AssemblyVersion variable is already defined?>
   <?endif?>
-  <?define AssemblyVersion = "3.2.0.0"?>
+  <?define AssemblyVersion = "1.0.0.0"?>
 
 
   <?ifdef AssemblyInformationalVersionMajor?>
     <?error AssemblyInformationalVersionMajor variable is already defined?>
   <?endif?>
-  <?define AssemblyInformationalVersionMajor = "3"?>
+  <?define AssemblyInformationalVersionMajor = "1"?>
 
   <?ifdef AssemblyInformationalVersionMinor?>
     <?error AssemblyInformationalVersionMinor variable is already defined?>
   <?endif?>
-  <?define AssemblyInformationalVersionMinor = "2"?>
+  <?define AssemblyInformationalVersionMinor = "0"?>
 
   <?ifdef AssemblyInformationalVersionPatch?>
     <?error AssemblyInformationalVersionPatch variable is already defined?>
@@ -82,7 +82,7 @@
   <?ifdef AssemblyInformationalVersionPreReleaseIdentifier?>
     <?error AssemblyInformationalVersionPreReleaseIdentifier variable is already defined?>
   <?endif?>
-  <?define AssemblyInformationalVersionPreReleaseIdentifier = ""?>
+  <?define AssemblyInformationalVersionPreReleaseIdentifier = "0build.2"?>
 
   <?ifdef AssemblyInformationalVersionBuildIdentifier?>
     <?error AssemblyInformationalVersionBuildIdentifier variable is already defined?>
@@ -92,22 +92,22 @@
   <?ifdef AssemblyInformationalVersionMajorMinor?>
     <?error AssemblyInformationalVersionMajorMinor variable is already defined?>
   <?endif?>
-  <?define AssemblyInformationalVersionMajorMinor = "3.2"?>
+  <?define AssemblyInformationalVersionMajorMinor = "1.0"?>
 
   <?ifdef AssemblyInformationalVersionMajorMinorPatch?>
     <?error AssemblyInformationalVersionMajorMinorPatch variable is already defined?>
   <?endif?>
-  <?define AssemblyInformationalVersionMajorMinorPatch = "3.2.0"?>
+  <?define AssemblyInformationalVersionMajorMinorPatch = "1.0.0"?>
 
   <?ifdef AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier?>
     <?error AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier variable is already defined?>
   <?endif?>
-  <?define AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier = ""?>
+  <?define AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier = "0build.2"?>
 
   <?ifdef AssemblyInformationalVersion?>
     <?error AssemblyInformationalVersion variable is already defined?>
   <?endif?>
-  <?define AssemblyInformationalVersion = "3.2.0"?>
+  <?define AssemblyInformationalVersion = "1.0.0-0build.2"?>
 
 
 </Include>

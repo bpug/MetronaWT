@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+  <Property Id="ARPAUTHORIZEDCDFPREFIX"
+            Value="$(var.ARPAUTHORIZEDCDFPREFIX)" />
+
+  <Property Id="ARPCOMMENTS"
+            Value="$(var.ARPCOMMENTS)" />
+
+  <Property Id="ARPCONTACT"
+            Value="$(var.ARPCONTACT)" />
+
+  <Property Id="ARPHELPLINK"
+            Value="$(var.ARPHELPLINK)" />
+
+  <Property Id="ARPHELPTELEPHONE"
+            Value="$(var.ARPHELPTELEPHONE)" />
+
+  <SetProperty Id="ARPINSTALLLOCATION"
+               After="CostFinalize"
+               Value="[ApplicationFolder]" />
+
+  <!--<Property Id="ARPNOMODIFY"
+            Value="1" />
+
+  <Property Id="ARPNOREMOVE"
+            Value="1" />
+
+  <Property Id="ARPNOREPAIR"
+            Value="1" />-->
+
+  <Property Id="ARPPRODUCTICON"
+            Value="I.MainIcon" />
+
+  <Property Id="ARPREADME"
+            Value="$(var.ARPREADME)" />
+
+  <!--<Property Id="ARPSIZE"
+            Value="0" />-->
+
+  <!--<Property Id="ARPSYSTEMCOMPONENT"
+            Value="1" />-->
+
+  <Property Id="ARPURLINFOABOUT"
+            Value="$(var.ARPURLINFOABOUT)" />
+
+  <Property Id="ARPURLUPDATEINFO"
+            Value="$(var.ARPURLUPDATEINFO)" />
+
+</Include>

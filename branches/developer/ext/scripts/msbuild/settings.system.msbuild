@@ -3,6 +3,8 @@
          ToolsVersion="4.0">
 
   <PropertyGroup>
+    
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
 
     <!-- # Project properties -->
     <Version>$(BUILD_NUMBER)</Version>
@@ -17,6 +19,10 @@
     <BinFolder>$(BuildFolder)\bin\release</BinFolder>
     <BinSetupFolder>$(BuildFolder)\bin\setup</BinSetupFolder>
     <ArtifactsRootFolder>$(RootFolder)\_artifacts</ArtifactsRootFolder>
+
+    <!-- # Web Package (Web Deploy) properties -->
+    <SolutionFile>$(SrcFolder)\$(MSBuildProjectName).sln</SolutionFile>
+    <PublishProfile Condition=" '$(PublishProfile)' == '' ">$(Configuration)</PublishProfile>
 
     <!-- # Hooks properties -->
     <PsHookScriptPath>$(ExtFolder)\scripts\pshooks</PsHookScriptPath>

@@ -27,7 +27,12 @@
   <Import Project="hooks.msbuild" />
 
   <!-- # Coordinate targets -->
-  <Target Name="Build">
+  <Target Name="WebPackage">
+    <CallTarget Targets="Clean" />
+    <CallTarget Targets="BuildWebPackage" />
+  </Target>
+  
+ <Target Name="Build">
     <CallTarget Targets="Clean" />
     <CallTarget Targets="Compile" />
     <CallTarget Targets="IlMerge" />
