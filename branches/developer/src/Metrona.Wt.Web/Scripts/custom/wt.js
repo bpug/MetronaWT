@@ -1,5 +1,8 @@
 var dialogSelector = '#loadDialog';
 $(function () {
+
+    $.scrollToTop();
+
     $(dialogSelector)
         .removeClass("hidden")
         .dialog(

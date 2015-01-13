@@ -14,7 +14,6 @@
     </asp:PlaceHolder>
     <webopt:bundlereference ID="Bundlereference1" runat="server" path="~/Content/themes/base/all.css" />
     <webopt:bundlereference runat="server" path="~/Content/css" />
-
     <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon; charset=binary">
 </head>
 <body>
@@ -37,6 +36,8 @@
                 <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
                 <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
                 <asp:ScriptReference Name="WebFormsBundle" />
+                <asp:ScriptReference  Path="~/Scripts/custom/scroll2top.js" />
+               
                 <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
