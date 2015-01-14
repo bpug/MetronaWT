@@ -10,7 +10,8 @@
 				.addClass("scroll-to-top")
 				.attr({
 				    "href": "#",
-				    "id": "scrollToTop"
+				    "id": "scrollToTop",
+                    "title": "nach oben"
 				})
 				.append(
 					$("<i aria-hidden='true'/>")

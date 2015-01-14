@@ -4,7 +4,7 @@ Param (
     [alias('p')]
     [string] $BuildParams   = $null,
     [alias('t')]
-    [string] $BuildTarget   = 'Build', #'WebPackage', #
+    [string] $BuildTarget   = 'Build',  #'WebPackage', #
     [alias('c')]
     [switch] $ForceCleanup  = $false,
 	[alias('co')]

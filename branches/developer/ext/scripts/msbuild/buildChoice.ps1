@@ -16,7 +16,7 @@ $scriptRoot             =   (Split-Path -Parent $MyInvocation.MyCommand.Definiti
 # Refs
 $buildScript            =   (Join-Path $scriptRoot 'build-package.ps1')
 $setVcsInfoBuildTarget  =   'SetVcsInfo'
-$defaultBuildTarget     =   'Build' #'WebPackage'
+$defaultBuildTarget     =   'WebPackage' #'Build'
 $caption                =   'Select build type'
 $message                =   'Do you want to: '
 $choices                =   @(

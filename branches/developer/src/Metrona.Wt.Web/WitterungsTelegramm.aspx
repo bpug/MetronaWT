@@ -99,7 +99,7 @@
                 <asp:AsyncPostBackTrigger controlid="fwRequest" eventname="ItemUpdated" />
             </Triggers>
             <ContentTemplate>
-                <strong>Einleitung:</strong>
+                <h5>Einleitung</h5>
                 <p>
                     Um Heizenergieverbräuche und die damit verbundenen Kosten beurteilen zu können muss die Witterung während der Erfassungsperiode als bedeutsamer Einflussfaktor berücksichtigt werden. Dabei sind sowohl starke regionale Unterschiede als auch Unterschiede im zeitlichen Verlauf von einer Heizperiode zur anderen möglich. 
                     Mit dem Witterungstelegramm erhalten Sie Informationen zum ortsgenauen Klimaverlauf  über mehrere Jahre bis hin zu tagesgenauen Temperaturwerten. 
@@ -113,7 +113,7 @@
                 </p>--%>
 
                 <asp:Panel ID="pnlJahresbetrachtung" runat="server" Visible="False">
-                    <asp:Label ID="lblChartVergleichJahrTitle" Font-Bold="true" runat="server" CssClass="h4 chart-title" />
+                    <asp:Label ID="lblChartVergleichJahrTitle" runat="server" CssClass="h4 chart-title" />
                     <asp:Panel ID="pnlVergleichJahrChart" runat="server" />
                     <div>
                         <p>
@@ -133,20 +133,21 @@
             </Triggers>
             <ContentTemplate>
                 <asp:Panel ID="pnlRelativeVerteilungJahr" runat="server" Visible="False">
-                    <asp:Label ID="lblChartRelativeVerteilungJahrTitle" Font-Bold="true" runat="server" CssClass="h4 chart-title" />
+                    <asp:Label ID="lblChartRelativeVerteilungJahrTitle" runat="server" CssClass="h4 chart-title" />
                     <asp:Panel ID="pnlMonatssbetrachtungChart" runat="server" />
-                    <div style="margin-bottom: 10px; margin-top: 10px;">
-                        <strong>Erläuterung:</strong><br/>
+                    
+                    <h5>Erläuterung</h5>
+                    <p>
                         Das Langzeitmittel stellt die Nulllinie dar.
-                    </div>
-                    <p style="margin-bottom: 10px;">
+                    </p>
+                    <p>
                         Negativer Prozentwert (Balken zeigt nach unten) in dem jeweiligen Monat des Vorjahres / Aktuellen Jahres war es kälter als im gleichen Monats des Langzeitmittels.
                     </p>
-                    <p style="margin-bottom: 10px;">
+                    <p>
                         Positiver Prozentwert (Balken zeigt nach oben) in dem jeweiligen Monat des Vorjahres / Aktuellen Jahres war es wärmer als im gleichen Monats des Langzeitmittels.
                     </p>
                     <p>
-                        <strong>Beispiel:</strong><br/>
+                        <h5>Beispiel</h5>
                         Für die gewählte Region war es - bezogen auf das Langzeitmittel im Monat <asp:Label ID="lblMonatBedarf" runat="server"  />
                         <ul style="margin: 0px 10px;">
                             <li>
@@ -168,7 +169,7 @@
             </Triggers>
             <ContentTemplate>
                 <asp:Panel ID="pnlChartTemperatur" runat="server" Visible="False">
-                    <asp:Label ID="lblChartTemperaturTitle" Font-Bold="true" runat="server" CssClass="h4 chart-title" />
+                    <asp:Label ID="lblChartTemperaturTitle" runat="server" CssClass="h4 chart-title" />
                     <igchart:UltraChart ID="ChartTemperatur" runat="server" OnChartDataClicked="ChartOnChartDataClicked" Version="14.2" >
                         <Effects>
                             <Effects>
@@ -285,21 +286,21 @@
                     </asp:Panel>
                     <div>
                         <hr />
-                        <p><strong>Erläuterungen</strong></p>
+                        <h4>Erläuterungen</h4>
                         <p>
-                            <strong><sup>1</sup> Langzeitmittel:</strong> <br />
+                            <h5><sup>1</sup> Langzeitmittel:</h5>
                             Beim Langzeitmittel werden die seit 1993 vorliegenden Klimadaten der gewählten Region in Abhängigkeit des jeweiligen Abrechnungszeitraums zugrunde gelegt.
                         </p>
                         <p>
-                            <strong><sup>2</sup> Tagesmitteltemperatur:</strong>   <br />
+                            <h5><sup>2</sup> Tagesmitteltemperatur:</h5> 
                             Die Tagesmitteltemperatur ist die Durchschnittstemperatur im Zeitraum von 0 bis 0 Uhr des jeweiligen Tages.
                         </p>
                         <p>
-                            <strong><sup>3</sup> Heizgrenztemperatur:</strong>   <br />
+                            <h5><sup>3</sup> Heizgrenztemperatur:</h5> 
                             Die Heizgrenztemperatur liegt bei 15 ° C. Bei Unterschreitung von 15 ° C wird normativ davon ausgegangen, dass die Heizanlage in Betrieb genommen werden soll.
                         </p>
                         <p>
-                            <strong><sup>4</sup> Gradtagszahlen:</strong>  <br />
+                            <h5><sup>4</sup> Gradtagszahlen:</h5>
                             Klimatische Grundlage für die Ermittlung sind jeweils die so genannten Gradtagszahlen der gewählten Region in Abhängigkeit des jeweiligen 
                             Abrechnungszeitraums. Diese dient zur Normierung (Witterungsbereinigung) von Heizenergieverbräuchen.
                             Die Gradtagzahl wird errechnet, sobald die Außentemperatur unter der Heizgrenztemperatur von 15 ° C liegt. 

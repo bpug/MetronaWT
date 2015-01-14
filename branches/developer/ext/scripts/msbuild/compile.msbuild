@@ -50,7 +50,7 @@
                        Include="$(SrcFolder)\**\*.*proj" />
     </ItemGroup>
 
-    <MSBuild Projects="@(AllProjectFiles)"
+    <MSBuild Projects="$(SolutionFile)"
              ContinueOnError="false"
              Properties="Configuration=$(Configuration);
                          DeployOnBuild=true;

@@ -5,10 +5,10 @@
 
     <AssemblyFileVersionMajor>1</AssemblyFileVersionMajor>
     <AssemblyFileVersionMinor>0</AssemblyFileVersionMinor>
-    <AssemblyFileVersionBuild>50113</AssemblyFileVersionBuild>
-    <AssemblyFileVersionRevision>1</AssemblyFileVersionRevision>
+    <AssemblyFileVersionBuild>50114</AssemblyFileVersionBuild>
+    <AssemblyFileVersionRevision>2</AssemblyFileVersionRevision>
     <AssemblyFileVersionMajorMinor>1.0</AssemblyFileVersionMajorMinor>
-    <AssemblyFileVersion>1.0.50113.1</AssemblyFileVersion>
+    <AssemblyFileVersion>1.0.50114.2</AssemblyFileVersion>
 
     <AssemblyVersionMajor>1</AssemblyVersionMajor>
     <AssemblyVersionMinor>0</AssemblyVersionMinor>
@@ -20,12 +20,12 @@
     <AssemblyInformationalVersionMajor>1</AssemblyInformationalVersionMajor>
     <AssemblyInformationalVersionMinor>0</AssemblyInformationalVersionMinor>
     <AssemblyInformationalVersionPatch>0</AssemblyInformationalVersionPatch>
-    <AssemblyInformationalVersionPreReleaseIdentifier>0build.2</AssemblyInformationalVersionPreReleaseIdentifier>
+    <AssemblyInformationalVersionPreReleaseIdentifier>beta.2</AssemblyInformationalVersionPreReleaseIdentifier>
     <AssemblyInformationalVersionBuildIdentifier></AssemblyInformationalVersionBuildIdentifier>
     <AssemblyInformationalVersionMajorMinor>1.0</AssemblyInformationalVersionMajorMinor>
     <AssemblyInformationalVersionMajorMinorPatch>1.0.0</AssemblyInformationalVersionMajorMinorPatch>
-    <AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier>0build.2</AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier>
-    <AssemblyInformationalVersion>1.0.0-0build.2</AssemblyInformationalVersion>
+    <AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier>beta.2</AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier>
+    <AssemblyInformationalVersion>1.0.0-beta.2</AssemblyInformationalVersion>
 
   </PropertyGroup>
 </Project>
