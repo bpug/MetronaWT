@@ -16,7 +16,7 @@ namespace Metrona.Wt.Model
 
         public DateTime End { get; set; }
 
-        public string Raum
+        public string Interval
         {
             get
             {

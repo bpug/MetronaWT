@@ -164,7 +164,7 @@ namespace Metrona.Wt.Web
                     break;
             }
 
-            lblAbrechnungszeitraum.Text = Utils.GetZeitraume(calculateRequest.Stichtag).OrderByDescending(p => p.Start).FirstOrDefault().Raum;
+            lblAbrechnungszeitraum.Text = Utils.GetZeitraume(calculateRequest.Stichtag).OrderByDescending(p => p.Start).FirstOrDefault().Interval;
             lblregion.Text = region;
        }
        private void ShowPanels(bool visible)

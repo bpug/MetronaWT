@@ -42,7 +42,7 @@
                         <asp:DropDownList ID="cmbZeitraum" runat="server" 
                                           CssClass="form-control chzn-select"
                                           SelectMethod="GetZeitraeume"
-                                          DataTextField = "Raum"
+                                          DataTextField = "Interval"
                                           DataValueField = "End"
                                           SelectedValue="<%# BindItem.Date %>"  
                                           AppendDataBoundItems="true">
