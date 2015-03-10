@@ -17,8 +17,8 @@ namespace Metrona.Wt.Web.Extensions
         {
             var result = new CalculateRequest
             {
-                Stichtag = firstDayOfMonth ? source.Date.GetFirstDayOfMonth() : source.Date,
-                RequestType = source.RequestType,
+                Stichtag = firstDayOfMonth ? source.Date.GetValueOrDefault().GetFirstDayOfMonth() : source.Date.GetValueOrDefault(),
+                RequestType = source.RequestType.GetValueOrDefault(),
                 Value = source.RequestType == RequestType.Bundesland ? source.BundeslandId.GetValueOrDefault() : source.Plz.GetValueOrDefault()
             };
             return result;

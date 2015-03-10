@@ -12,7 +12,6 @@ namespace Metrona.Wt.Database
     using Metrona.Wt.Database.Models;
 
     using MySql.Data.MySqlClient;
-    using MySql.Data.Entity;
 
     public class KlimaContextInitializer : IDatabaseInitializer<KlimaContext>
     {

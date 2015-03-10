@@ -58,12 +58,12 @@ namespace Metrona.Wt.Web {
         protected global::System.Web.UI.WebControls.CustomValidator DateValidator;
         
         /// <summary>
-        /// DateFormatValidator control.
+        /// DateFormatValidator1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator DateFormatValidator;
+        protected global::System.Web.UI.WebControls.CompareValidator DateFormatValidator1;
     }
 }

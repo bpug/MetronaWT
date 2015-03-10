@@ -19,10 +19,10 @@ namespace Metrona.Wt.Reports.Excel
     public class ExcelExporter : IExcelExporter
     {
         private const string Title1 =
-            "Jahresbetrachtung der Temperatur des Aktuellen Jahres im Vergleich zu den Vorjahren und Langzeitmittel";
+            "Jahresbetrachtung der Temperatur des aktuellen Jahres im Vergleich zu den Vorjahren und Langzeitmittel";
 
         private const string Title2 =
-            "Monatssbetrachtung der Temperatur des Aktuellen Jahres im Vergleich zum Vorjahr und Langzeitmittel";
+            "Monatsbetrachtung der Temperatur des aktuellen Jahres im Vergleich zum Vorjahr und Langzeitmittel";
 
         private CalculateRequest calculateRequest;
 
@@ -49,26 +49,26 @@ namespace Metrona.Wt.Reports.Excel
         {
             this.calculateRequest = calculateRequest;
             //InitOldData();
-            var grid1 = new WebDataGrid
+
+           var grid1 = new WebDataGrid
             {
                 //DataSource = this.chartService.GetJahresbetrachtungProzentual(IntervalType.M36)
-                DataSource = (await meteoGtzService.GetYearsDataRelativeToCurrentYear(calculateRequest, true)).ToDataTable()
+                DataSource = (await meteoGtzService.GetYearsDataRelativeToCurrentYear(calculateRequest, true)).ToDataTable(p => p.Period1)
             };
+            grid1.DataBind();
 
             var grid2 = new WebDataGrid
             {
                 //DataSource = ChartService.CalculateSum(this.chartService.GetMonatsRelativeVerteilungJahr(false))
                 DataSource = (await meteoGtzService.GetRelativeVerteilung(calculateRequest, false)).ToDataTable().CalculateSum()
             };
+            grid2.DataBind();
 
             var grid3 = new WebDataGrid
             {
                 //DataSource = ChartService.CalculateSum(this.chartService.MonatsSummenGtzJahr)
                 DataSource = (await meteoGtzService.GetGtzByPeriods(calculateRequest)).ToDataTable().CalculateSum()
             };
-
-            grid1.DataBind();
-            grid2.DataBind();
             grid3.DataBind();
 
             var wb = new Workbook();
@@ -152,7 +152,7 @@ namespace Metrona.Wt.Reports.Excel
                     title = "Bundesland: " + bl.Name;
                     break;
                 case RequestType.Deutschland:
-                    title = "Deutscland";
+                    title = "Deutschland";
                     break;
             }
 

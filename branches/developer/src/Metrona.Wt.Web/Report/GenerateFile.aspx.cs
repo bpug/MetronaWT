@@ -33,7 +33,8 @@ namespace Metrona.Wt.Web.Report
 
         protected async void Page_Load(object sender, EventArgs e)
         {
-            if (this.calculateRequest == null || !this.User.Identity.IsAuthenticated)
+            //if (this.calculateRequest == null || !this.User.Identity.IsAuthenticated)
+            if (this.calculateRequest == null)
             {
                 return;
             }

@@ -18,6 +18,10 @@ namespace Metrona.Wt.Service
     {
         event EventHandler<EventArgs> OnError;
 
+        Task<DateTime?> GetDataLastDate();
+
+        Task<IEnumerable<Zeitraum>> GetAktuelleZeitraeme(int lastMonths);
+
         Task<bool> CheckPlz(CalculateRequest calculateRequest);
 
         Task<IEnumerable<MeteoGtzData>> GetMeteoGtz(

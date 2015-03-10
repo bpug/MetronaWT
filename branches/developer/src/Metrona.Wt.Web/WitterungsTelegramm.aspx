@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Async="true" Title="Witterungstelegramm" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="WitterungsTelegramm.aspx.cs" Inherits="Metrona.Wt.Web.WitterungsTelegramm" %>
+﻿<%@ Page Language="C#" Async="true" Title="Witterungstelegramm:Klimadaten - Auswirkungen auf den Heizenergieverbrauch" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="WitterungsTelegramm.aspx.cs" Inherits="Metrona.Wt.Web.WitterungsTelegramm" %>
 <%@ Register Assembly="Infragistics45.WebUI.UltraWebChart.v14.2, Version=14.2.20142.2146, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" Namespace="Infragistics.WebUI.UltraWebChart" TagPrefix="igchart" %>
 <%@ Register Assembly="Infragistics45.WebUI.UltraWebChart.v14.2, Version=14.2.20142.2146, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.UltraChart.Resources.Appearance" tagprefix="igchartprop" %>
 <%@ Register Assembly="Infragistics45.WebUI.UltraWebChart.v14.2, Version=14.2.20142.2146, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.UltraChart.Data" tagprefix="igchartdata" %>
@@ -15,7 +15,16 @@
         </div>
     </div>
     
-    
+    <h2>Witterungstelegramm</h2>
+    <h4>Klimadaten - Auswirkungen auf den Heizenergieverbrauch</h4>
+    <h6>
+        Um Heizenergieverbräuche und die damit verbundenen Kosten beurteilen zu können, muss die Witterung während der Erfassungsperiode als bedeutsamer Einflussfaktor berücksichtigt werden. Dabei sind sowohl starke regionale Unterschiede als auch Unterschiede im zeitlichen Verlauf von einer Heizperiode zur anderen möglich. 
+        Mit dem Witterungstelegramm erhalten Sie Informationen zum ortsgenauen Klimaverlauf  über mehrere Jahre bis hin zu tagesgenauen Temperaturwerten. 
+    </h6>
+    <h6>
+        Hinweise zu einem möglichen Heizmehr- oder Heizminderbedarf im aktuellen Jahr im Vergleich zum Vorjahr schließen sich daran an.
+    </h6>
+
     <asp:FormView ID="fwRequest" 
                   runat="server"
                   RenderOuterTable="False"
@@ -26,10 +35,21 @@
                   InsertMethod="Calculate" >
         <EditItemTemplate>
             <div role="form" class="row">
-                <div class="col-xs-3">
+                 <h4>Ihre Auswahl</h4>
+                <div class="col-xs-3 col-first">
                     <div class="form-group">
-                        <label for="txtDate" class="control-label">Ende Abz. (Stichtag)</label>
-                        <asp:DynamicControl ID="txtDate" runat="server" DataField="Date" Mode="Edit" ValidationGroup="vgKlima" />
+                        <label for="txtDate" class="control-label">Abrechnungszeitraum des aktuellen Jahres</label>
+                        <asp:DropDownList ID="cmbZeitraum" runat="server" 
+                                          CssClass="form-control chzn-select"
+                                          SelectMethod="GetZeitraeume"
+                                          DataTextField = "Raum"
+                                          DataValueField = "End"
+                                          SelectedValue="<%# BindItem.Date %>"  
+                                          AppendDataBoundItems="true">
+                            <asp:ListItem Value="">Bitte wählen</asp:ListItem>
+                        </asp:DropDownList>
+
+                        <%--<asp:DynamicControl ID="txtDate" runat="server" DataField="Date" Mode="Edit" ValidationGroup="vgKlima" />--%>
                         <%--<asp:CompareValidator ID="cvlStartDate" runat="server" ControlToValidate="txtDate"
                                               CssClass="text-danger" Display="Dynamic" ErrorMessage="Geben Sie bitte ein Startdatum ein" Operator="DataTypeCheck"
                                               SetFocusOnError="True" ToolTip="Geben Sie bitte ein Startdatum ein" Type="Date"
@@ -39,36 +59,42 @@
                 </div>
                 <div class="col-xs-3">
                     <div class="form-group">
-                        <label for="cmbRequestType" class="control-label">Auswahl Region</label>
+                        <label for="cmbRequestType" class="control-label">Region</label>
                         <%--<asp:DynamicControl ID="DynamicControl1" runat="server" DataField="Date" Mode="Edit" ValidationGroup="vgKlima" />--%>
                         <asp:DropDownList ID="cmbRequestType" runat="server" CssClass="form-control chzn-select" ClientIDMode="Static"
                                           SelectMethod="GetRequestTypes"
                                           SelectedValue="<%# BindItem.RequestType %>"  
                                           DataTextField="Text"
-                                          DataValueField="Value" />
+                                          DataValueField="Value" 
+                                          AppendDataBoundItems="true">
+                            <asp:ListItem Value="">Bitte wählen</asp:ListItem>
+                        </asp:DropDownList>
                     </div>
                 </div>
                 <div class="col-xs-3" >
-                    <div class="form-group" id="PLZ" >
-                        <label for="txtPlz" class="control-label">PLZ</label>
+                    <div class="form-group wt-hidden" id="PLZ" >
+                        <label for="txtPlz" class="control-label">Postleitzahl</label>
                         <asp:TextBox ID="txtPlz" runat="server" CssClass="form-control" placeholder="PLZ"  Text='<%# BindItem.Plz %>'></asp:TextBox>
                         <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtPlz"
-                                              CssClass="text-danger" Display="Dynamic" ErrorMessage="Geben Sie bitte ein PLZ ein" Operator="DataTypeCheck"
-                                              SetFocusOnError="True" ToolTip="Geben Sie bitte ein PLZ ein" Type="Integer"
+                                              CssClass="text-danger" Display="None" ErrorMessage="Geben Sie bitte eine gültige Postleitzahl ein." Operator="DataTypeCheck"
+                                              SetFocusOnError="True" ToolTip="Geben Sie bitte eine gültige Postleitzahl ein." Type="Integer"
                                               ValidationGroup="vgKlima" />
                         <%-- <asp:RequiredFieldValidator ID="rvPlz" runat="server" ControlToValidate="txtPlz" Display="Dynamic"  CssClass="text-danger"
                                             ErrorMessage="Geben Sie bitte ein PLZ ein" ToolTip="Geben Sie bitte ein PLZ ein" ValidationGroup="vgKlima"></asp:RequiredFieldValidator>--%>
                         <%-- <asp:ModelErrorMessage ID="ModelErrorMessage1" runat="server" ModelStateKey="PLZ" AssociatedControlID="txtPlz"
                                        CssClass="text-danger" SetFocusOnError="true" />--%>
                     </div>
-                    <div class="form-group" id="Bundesland">
+                    <div class="form-group wt-hidden" id="Bundesland">
                         <label for="cmbBundesland" class="control-label">Bundesland</label>
                         <asp:DropDownList ID="cmbBundesland" runat="server" 
                                           CssClass="form-control chzn-select"
                                           SelectMethod="GetBundeslands"
                                           SelectedValue="<%# BindItem.BundeslandId %>" 
                                           DataTextField = "Name"
-                                          DataValueField = "Id"/>
+                                          DataValueField = "Id"
+                                          AppendDataBoundItems="true">
+                            <asp:ListItem Value="">Bitte wählen</asp:ListItem>
+                        </asp:DropDownList>
                     </div>
                 </div>
                 <div class="col-xs-3">
@@ -93,36 +119,52 @@
     </asp:UpdatePanel>
 
     
-    <div  class="row">
+    <div class="row">
+        
+        <asp:UpdatePanel runat="server" id="upInfoHinweis" updatemode="Conditional">
+            <Triggers>
+                <asp:AsyncPostBackTrigger controlid="fwRequest" eventname="ItemUpdated" />
+            </Triggers>
+            <ContentTemplate>
+                <asp:Panel ID="pnlInfoHinweis" runat="server" Visible="False">
+                    <h4>Hinweis</h4>
+                    <h6>
+                        Der gewählte Abrechnungszeitraum wird mit den Vorjahreszeiträumen und dem Langzeitmittel verglichen.<br/>
+                        Alle Angaben sind immer konkret bezogen auf die durch Sie getroffene Auswahl (Abrechnungszeitraum und Region).<br/>
+                        Betrachtet werden immer die Heizperioden<sup>1</sup> des gewählten Abrechnungszeitraums. Basis sind dabei immer die Tagesmitteltemperaturen<sup>3</sup>.
+                    </h6>
+                    <div  class="row">
+                        <h4>Ihre aktuelle Auswahl:</h4>
+                        <div class="col-xs-3">
+                            <h6 style="margin-bottom: 0px;"><strong>Abrechnungszeitraum</strong></h6>
+                            <asp:Label ID="lblAbrechnungszeitraum" CssClass="h6" runat="server" />
+                        </div>
+                        <div class="col-xs-9">
+                             <h6 style="margin-bottom: 0px;"><strong>Region</strong><h6/>
+                            <asp:Label ID="lblregion" CssClass="h6" runat="server" />
+                        </div>
+                    </div>
+                </asp:Panel>
+            </ContentTemplate>
+        </asp:UpdatePanel >
+
         <asp:UpdatePanel runat="server" id="upJahresbetrachtung" updatemode="Conditional">
             <Triggers>
                 <asp:AsyncPostBackTrigger controlid="fwRequest" eventname="ItemUpdated" />
             </Triggers>
             <ContentTemplate>
-                <h5>Einleitung</h5>
-                <p>
-                    Um Heizenergieverbräuche und die damit verbundenen Kosten beurteilen zu können muss die Witterung während der Erfassungsperiode als bedeutsamer Einflussfaktor berücksichtigt werden. Dabei sind sowohl starke regionale Unterschiede als auch Unterschiede im zeitlichen Verlauf von einer Heizperiode zur anderen möglich. 
-                    Mit dem Witterungstelegramm erhalten Sie Informationen zum ortsgenauen Klimaverlauf  über mehrere Jahre bis hin zu tagesgenauen Temperaturwerten. 
-                    Die Auswahl des Abrechnungszeitraums und der Region welche Sie betrachten möchten können Sie ganz individuell vornehmen.
-                </p>
-                <%--<strong>Hinweis:</strong>
-                <p>
-                    Der gewählte Zeitraum wird mit den Vorjahreszeiträumen und dem Langzeitmittel verglichen. 
-                    Alle Angaben sind immer konkret bezogen auf die durch Sie getroffene Auswahl (Ende Abrechnungszeitraum und Region). 
-                    Betrachtet werden immer die Heizperioden der ganzjährigen Abrechnungszeiträume.
-                </p>--%>
-
                 <asp:Panel ID="pnlJahresbetrachtung" runat="server" Visible="False">
-                    <asp:Label ID="lblChartVergleichJahrTitle" runat="server" CssClass="h4 chart-title" />
-                    <asp:Panel ID="pnlVergleichJahrChart" runat="server" />
-                    <div>
-                        <p>
-                            <asp:Label ID="lblVorjahrBedarf" runat="server"  /> 
-                        </p>
-                        <p>
-                            <asp:Label ID="lblLGTZBedarf" runat="server"  />
-                        </p>
-                    </div>
+                    <asp:Label ID="lblChartVergleichJahrTitle" runat="server" CssClass="h4" />
+                    <asp:Panel ID="pnlJahresbetrachtungChart" runat="server" >
+                        <asp:Panel ID="chartVergleichJahr" runat="server" />
+                        <div>
+                            <h6>
+                                <asp:Label ID="lblVorjahrBedarf" runat="server"  />
+                                <asp:Label ID="lblLGTZBedarf" runat="server"  />
+                            </h6>
+                        </div>
+                    </asp:Panel>
+                    <asp:Label ID="lblahresbetrachtungNoData" runat="server" Text="Keine Daten vorhanden." CssClass="text-danger"  Visible="False"/>
                 </asp:Panel>
             </ContentTemplate>
         </asp:UpdatePanel >
@@ -133,31 +175,31 @@
             </Triggers>
             <ContentTemplate>
                 <asp:Panel ID="pnlRelativeVerteilungJahr" runat="server" Visible="False">
-                    <asp:Label ID="lblChartRelativeVerteilungJahrTitle" runat="server" CssClass="h4 chart-title" />
-                    <asp:Panel ID="pnlMonatssbetrachtungChart" runat="server" />
+                    <asp:Label ID="lblChartRelativeVerteilungJahrTitle" runat="server" CssClass="h4" />
+                    <asp:Panel ID="pnlMonatsbetrachtungChart" runat="server">
+                        <asp:Panel ID="chartMonatsbetrachtung" runat="server" />
                     
-                    <h5>Erläuterung</h5>
-                    <p>
-                        Das Langzeitmittel stellt die Nulllinie dar.
-                    </p>
-                    <p>
-                        Negativer Prozentwert (Balken zeigt nach unten) in dem jeweiligen Monat des Vorjahres / Aktuellen Jahres war es kälter als im gleichen Monats des Langzeitmittels.
-                    </p>
-                    <p>
-                        Positiver Prozentwert (Balken zeigt nach oben) in dem jeweiligen Monat des Vorjahres / Aktuellen Jahres war es wärmer als im gleichen Monats des Langzeitmittels.
-                    </p>
-                    <p>
-                        <h5>Beispiel</h5>
-                        Für die gewählte Region war es - bezogen auf das Langzeitmittel im Monat <asp:Label ID="lblMonatBedarf" runat="server"  />
-                        <ul style="margin: 0px 10px;">
-                            <li>
-                                <asp:Label ID="lblVorjahrBedarf2" runat="server"  />
-                            </li>
-                            <li>
-                                <asp:Label ID="lblLGTZBedarf2" runat="server"  />
-                            </li>
-                        </ul>
-                    </p>
+                        <h4>Erläuterung</h4>
+                        <h6>
+                            Das Langzeitmittel stellt die Nulllinie dar.<br/>
+                            Negativer Prozentwert (Balken zeigt nach unten): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es kälter als im gleichen Monats des Langzeitmittels.<br/>
+                            Positiver Prozentwert (Balken zeigt nach oben): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es wärmer als im gleichen Monats des Langzeitmittels.
+                         </h6>
+                       
+                        <h4>Beispiel</h4>
+                        <h6>
+                            Für die gewählte Region war es bezogen auf das Langzeitmittel
+                            <ul style="margin: 0px 10px;">
+                                <li>
+                                    <asp:Label ID="lblVorjahrBedarf2" runat="server"  />
+                                </li> 
+                                <li>
+                                    <asp:Label ID="lblAktuelJahrBedarf2" runat="server"  />
+                                </li>
+                            </ul>
+                        </h6>
+                    </asp:Panel>
+                     <asp:Label ID="lblRelativeVerteilungJahrNoData" runat="server" Text="Keine Daten vorhanden." CssClass="text-danger"  Visible="False"/>
                 </asp:Panel>
             </ContentTemplate>
         </asp:UpdatePanel >
@@ -169,7 +211,7 @@
             </Triggers>
             <ContentTemplate>
                 <asp:Panel ID="pnlChartTemperatur" runat="server" Visible="False">
-                    <asp:Label ID="lblChartTemperaturTitle" runat="server" CssClass="h4 chart-title" />
+                    <asp:Label ID="lblChartTemperaturTitle" runat="server" CssClass="h4" />
                     <igchart:UltraChart ID="ChartTemperatur" runat="server" OnChartDataClicked="ChartOnChartDataClicked" Version="14.2" >
                         <Effects>
                             <Effects>
@@ -256,15 +298,22 @@
                     </igchart:UltraChart>
                     <asp:Button ID="btnDrillBack" runat="server" Text="Jahresansicht" Visible="False" CssClass="btn btn-default" onclick="OnBtnDrillBackClick" />
                     <%--<asp:Panel ID="pnlChartTemperaturChart" runat="server" />--%>
+                    
+                    <h4>Hinweis</h4>
+                    <h6>
+                        Mit dem Ziehen der Maus auf einen Punkt der Temperaturkurve wird Ihnen der genaue Temperaturwert mit Datum angezeigt.<br/>
+                        Durch Doppelklicken auf einen der Punkte der Temperaturverlaufskurve erhalten Sie einen Zeitraum von 3 Monaten in vergrößerter Darstellung angezeigt.
+                    </h6>
                 </asp:Panel> 
+               
             </ContentTemplate>
         </asp:UpdatePanel>
         
         <asp:UpdatePanel runat="server" id="upDescription" updatemode="Conditional" > 
             <Triggers>
                 <asp:AsyncPostBackTrigger controlid="fwRequest" eventname="ItemUpdated" />
-               <%-- <asp:PostBackTrigger ControlID="btnPrintPDF"/>--%>
-               <%-- <asp:PostBackTrigger ControlID="btnExport"/>--%>
+                <%-- <asp:PostBackTrigger ControlID="btnPrintPDF"/>--%>
+                <%-- <asp:PostBackTrigger ControlID="btnExport"/>--%>
             </Triggers>
             <ContentTemplate> 
                 <asp:Panel ID="pnlWDS" runat="server"  Visible="False" CssClass="wt-description">
@@ -287,26 +336,22 @@
                     <div>
                         <hr />
                         <h4>Erläuterungen</h4>
-                        <p>
-                            <h5><sup>1</sup> Langzeitmittel:</h5>
-                            Beim Langzeitmittel werden die seit 1993 vorliegenden Klimadaten der gewählten Region in Abhängigkeit des jeweiligen Abrechnungszeitraums zugrunde gelegt.
-                        </p>
-                        <p>
-                            <h5><sup>2</sup> Tagesmitteltemperatur:</h5> 
-                            Die Tagesmitteltemperatur ist die Durchschnittstemperatur im Zeitraum von 0 bis 0 Uhr des jeweiligen Tages.
-                        </p>
-                        <p>
-                            <h5><sup>3</sup> Heizgrenztemperatur:</h5> 
-                            Die Heizgrenztemperatur liegt bei 15 ° C. Bei Unterschreitung von 15 ° C wird normativ davon ausgegangen, dass die Heizanlage in Betrieb genommen werden soll.
-                        </p>
-                        <p>
-                            <h5><sup>4</sup> Gradtagszahlen:</h5>
-                            Klimatische Grundlage für die Ermittlung sind jeweils die so genannten Gradtagszahlen der gewählten Region in Abhängigkeit des jeweiligen 
-                            Abrechnungszeitraums. Diese dient zur Normierung (Witterungsbereinigung) von Heizenergieverbräuchen.
-                            Die Gradtagzahl wird errechnet, sobald die Außentemperatur unter der Heizgrenztemperatur von 15 ° C liegt. 
-                            Diese ist nach VDI 2067 die Summe aus den Differenzen einer angenommenen Rauminnentemperatur von 20 °C und dem jeweiligen Tagesmittelwert der 
-                            Außentemperatur über alle Tage eines Zeitraums, an denen diese unter der Heizgrenztemperatur des Gebäudes liegt.
-                        </p>
+                        <h6>
+                            <h5><sup>1</sup> Heizperiode:</h5>
+                            Als Heizperiode werden üblicherweise die Monate September bis Mai angesehen. Nicht zur Heizperiode gehören die Monate Juni bis August eines Jahres.
+                        </h6>
+                        <h6>
+                            <h5><sup>2</sup> Langzeitmittel:</h5>
+                            Beim Langzeitmittel werden die seit 1993 vorliegenden Klimadaten der gewählten Region in Abhängigkeit des jeweiligen Abrechnungszeitraums zugrunde gelegt. 
+                        </h6>
+                        <h6>
+                            <h5><sup>3</sup> Tagesmitteltemperatur:</h5> 
+                            Die Tagesmitteltemperatur ist die Durchschnittstemperatur im Zeitraum von 0 bis 0 Uhr des jeweiligen Tages. 
+                        </h6>
+                        <h6>
+                            <h5><sup>4</sup> Heizgrenztemperatur:</h5> 
+                            Die Heizgrenztemperatur liegt bei 15° C. Bei Temperaturen von unter 15° C wird normativ  von der Inbetriebnahme der Heizanlage ausgegangen. 
+                        </h6>
                     </div>
                 </asp:Panel>     
             </ContentTemplate>

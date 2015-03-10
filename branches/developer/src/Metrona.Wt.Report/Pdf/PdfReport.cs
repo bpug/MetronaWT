@@ -45,18 +45,19 @@ namespace Metrona.Wt.Reports.Pdf
         {
             this.calculateRequest = calcRequest;
             var report = new Reporter();
+            var periods = Utils.GetZeitraume(calculateRequest.Stichtag);
 
             report.AddNewSection();
             report = await this.CreateHeader(report, logoPath);
             report.AddInfo();
             report.AddJahresbetrachtung(await meteoGtzService.GetGtzYearsSum(this.calculateRequest, true));
-            report.AddMonatssbetrachtung((await meteoGtzService.GetRelativeVerteilung(this.calculateRequest, false)).ToList().ToDataTable());
+            report.AddMonatsbetrachtung((await meteoGtzService.GetRelativeVerteilung(this.calculateRequest, false)).ToList().ToDataTable(), periods);
 
             var tempData = drillMonth > 0 ?
                 await this.klimaService.GetTemperaturMohtsDrill(calculateRequest, drillMonth) :
                 await this.klimaService.GetTemperaturGroupedByPeriods(calculateRequest);
 
-            var periods = Utils.GetPeriode(calculateRequest.Stichtag);
+            
             report.AddTagesmitteltemperaturen(tempData.ToList(), periods);
 
             report.AddSpacing(30);
@@ -77,7 +78,7 @@ namespace Metrona.Wt.Reports.Pdf
                     requestLabel = "Bundesland: " +  bl.Name;
                     break;
                 case RequestType.Deutschland:
-                    requestLabel = "Deutscland";
+                    requestLabel = "Deutschland";
                     break;
             }
 

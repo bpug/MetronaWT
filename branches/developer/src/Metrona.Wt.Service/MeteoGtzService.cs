@@ -40,6 +40,37 @@ namespace Metrona.Wt.Service
             return true;
         }
 
+        public async Task<DateTime?> GetDataLastDate()
+        {
+            var result = await this.meteoGtzRepository.GetDataLastDate();
+            return result;
+        }
+
+        public async Task<IEnumerable<Zeitraum>> GetAktuelleZeitraeme(int lastMonths)
+        {
+            var lastDate = await this.meteoGtzRepository.GetDataLastDate();
+
+            var zeitraeme = new List<Zeitraum>();
+
+            if (!lastDate.HasValue)
+            {
+                return zeitraeme;
+            }
+
+            for (int i = 0; i < lastMonths; i++)
+            {
+                var stichTag = lastDate.Value.AddMonths(-i);
+                zeitraeme.Add(
+                    new Zeitraum
+                    {
+                        End = stichTag,
+                        Start = stichTag.AddYears(-1).AddMonths(1)
+                    }
+                );
+            }
+            return zeitraeme;
+        }
+
         public async Task<IEnumerable<MeteoGtzPeriod>> GetGtzByPeriods(
             CalculateRequest calculateRequest,
             IntervalType intervalType = IntervalType.M36)
@@ -163,6 +194,11 @@ namespace Metrona.Wt.Service
             source = isHeizperiode ? source.Where(p => p.Monat.IsHeizMonat()) : source;
 
             var meteoGtzPeriods = source.ToList();
+
+            if (meteoGtzPeriods.Count == 0)
+            {
+                return null;
+            }
 
             var result = new MeteoGtzYear
             {

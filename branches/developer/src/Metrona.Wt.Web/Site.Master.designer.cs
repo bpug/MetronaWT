@@ -22,15 +22,6 @@ namespace Metrona.Wt.Web {
         protected global::Microsoft.AspNet.Web.Optimization.WebForms.BundleReference Bundlereference1;
         
         /// <summary>
-        /// siteTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl siteTitle;
-        
-        /// <summary>
         /// LoginView1 control.
         /// </summary>
         /// <remarks>
@@ -38,6 +29,15 @@ namespace Metrona.Wt.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LoginView LoginView1;
+        
+        /// <summary>
+        /// siteTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl siteTitle;
         
         /// <summary>
         /// MainContent control.

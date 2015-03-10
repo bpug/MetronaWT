@@ -82,8 +82,8 @@ namespace Metrona.Wt.Service
                 .Select((gr, index) => new KlimaTemperaturPeriod
                 {
                     Datum = dayCounter.AddDays(index),
-                    Period1 = gr.Where(p => p.Datum.IsBetween(datumVon1, datumBis1)).Select(p => p.Temperatur).FirstOrDefault(),
-                    Period2 = gr.Where(p => p.Datum.IsBetween(datumVon2, datumBis2)).Select(p => p.Temperatur).FirstOrDefault(),
+                    Period2 = gr.Where(p => p.Datum.IsBetween(datumVon1, datumBis1)).Select(p => p.Temperatur).FirstOrDefault(),
+                    Period1= gr.Where(p => p.Datum.IsBetween(datumVon2, datumBis2)).Select(p => p.Temperatur).FirstOrDefault(),
                     Heizgrenztemperatur = 15
                 });
             return  result;

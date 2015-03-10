@@ -6,29 +6,34 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Reflection;
 
     using Metrona.Wt.Model.Meteo;
 
     public static class DataTableExtensions
     {
-        public static DataTable ToDataTable(this MeteoGtzYear source)
+        public static DataTable ToDataTable(this MeteoGtzYear source, params Expression<Func<MeteoGtzYear, object>>[] excludeProperties)
         {
             var list = new List<MeteoGtzYear>
             {
                 source
             };
-            return list.ToDataTable();
+            return list.ToDataTable(excludeProperties);
         }
-        public static DataTable ToDataTable<TSource>(this IEnumerable<TSource> source)
+        public static DataTable ToDataTable<TSource>(this IEnumerable<TSource> source, params Expression<Func<TSource, object>>[] excludeProperties)
         {
             var dataTable = new DataTable(typeof(TSource).Name);
             var propertyInfos = typeof(TSource).GetProperties();
 
-            var colums = GetHeaderSorted(propertyInfos).ToArray();
+            var excludeProp = new List<string>();
+            excludeProp.AddRange(excludeProperties.Select(GetPropertyName));
+
+
+            var colums = GetHeaderSorted(propertyInfos, excludeProp).ToArray();
             dataTable.Columns.AddRange(colums);
 
-            source.ForEach(d => dataTable.Rows.Add(GetDataRowSorted(d, propertyInfos).ToArray()));
+            source.ForEach(d => dataTable.Rows.Add(GetDataRowSorted(d, propertyInfos, excludeProp).ToArray()));
             
             //foreach (PropertyInfo prop in props)
             //{
@@ -63,9 +68,30 @@
             return dataTable;
         }
 
-        private static IEnumerable<DataColumn> GetHeaderSorted(IEnumerable<PropertyInfo> propertyInfos)
+        private static string GetPropertyName<T>(Expression<Func<T, object>> expression)
         {
-            var headersSorted = propertyInfos.Select(
+            var memberExpr = expression.Body as MemberExpression;
+            if (memberExpr != null)
+            {
+                //throw new ArgumentException("Expression body must be a member expression");
+                return memberExpr.Member.Name;
+            }
+
+            var unaryrExpr = expression.Body as UnaryExpression;
+            if (unaryrExpr != null)
+            {
+                var me = unaryrExpr.Operand as MemberExpression;
+                if (me != null)
+                {
+                    return me.Member.Name;
+                }
+            }
+            return null;
+        }
+
+        private static IEnumerable<DataColumn> GetHeaderSorted(IEnumerable<PropertyInfo> propertyInfos, ICollection<string> excludeProperties)
+        {
+            var headersSorted = propertyInfos.Where(p => !excludeProperties.Contains(p.Name)).Select(
                 propertyInfo => new
                 {
                     propertyInfo.Name,
@@ -96,9 +122,9 @@
         }
 
 
-        private static IEnumerable<object> GetDataRowSorted<T>(T csvDataObject, IEnumerable<PropertyInfo> propertyInfos)
+        private static IEnumerable<object> GetDataRowSorted<T>(T csvDataObject, IEnumerable<PropertyInfo> propertyInfos, ICollection<string> excludeProperties)
         {
-            var valuesSorted = propertyInfos.Select(
+            var valuesSorted = propertyInfos.Where(p => !excludeProperties.Contains(p.Name)).Select(
                 x => new
                 {
                     Value = x.GetValue(csvDataObject, null),

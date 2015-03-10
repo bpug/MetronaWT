@@ -62,6 +62,7 @@
     <Compile Include="Bundesland.cs" />
     <Compile Include="BundeslandPlz.cs" />
     <Compile Include="CalculateRequest.cs" />
+    <Compile Include="Zeitraum.cs" />
     <Compile Include="Meteo\MeteoGtzPeriodRelative.cs" />
     <Compile Include="Meteo\MeteoGtzYear.cs" />
     <Compile Include="Meteo\MeteoLangGtzDeutschland.cs" />

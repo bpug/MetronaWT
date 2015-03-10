@@ -86,6 +86,8 @@ function ChangeRequestType(oList) {
             plz.hide();
             bundesland.hide();
         default:
+            plz.hide();
+            bundesland.hide();
             break;
     }
 }

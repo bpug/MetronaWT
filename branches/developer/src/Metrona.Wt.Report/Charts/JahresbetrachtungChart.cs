@@ -162,7 +162,7 @@ namespace Metrona.Wt.Reports.Charts
             titleLeft.Extent = 15;
             titleLeft.Font = new Font("Arial", 9.75f, FontStyle.Bold, GraphicsUnit.Point);
             titleLeft.HorizontalAlign = StringAlignment.Center;
-            //titleLeft.Text = "Monat im Vergleich zum Langzeitmittel war wärmer / kälter [%]";
+            //titleLeft.Text = "Monat war im Vergleich zum Langzeitmittel kälter / wärmer [%]";
             var titleLeftmargins = titleLeft.Margins;
             titleLeftmargins.Bottom = 1;
             titleLeftmargins.Top = 1;

@@ -31,9 +31,40 @@ body {
  */
 
 /* Reset the container */
+
 .container {
   width: 1200px;
   max-width: none !important;
+}
+
+.container {
+	padding-left: 0px;
+	/*padding-right: 0px;*/
+}
+
+
+
+/*@media all and (min-width:1200px) {
+   .container {
+        width: 1200px;
+    } 
+}
+
+@media all and (min-width:992px) {
+   .container {
+        width: 970px;
+    } 
+}
+
+@media all and (min-width:768px) {
+   .container {
+        width: 750px;
+    } 
+}*/
+
+.content {
+    padding: 0px 15px;
+    position: relative;
 }
 
 /* Demonstrate the grids */
@@ -56,10 +87,16 @@ body {
   background-color: rgba(86,61,124,.15);
 }
 
+
+
 .container .navbar-header,
 .container .navbar-collapse {
   margin-right: 0;
   margin-left: 0;
+}
+
+.navbar-collapse {
+  padding-right: 0;
 }
 
 /* Always float the navbar header */
@@ -95,12 +132,13 @@ body {
   float: left;
 }
 .navbar-nav > li > a {
-  padding: 15px;
+    padding: 15px 0 15px 30px;
 }
 
 /* Redeclare since we override the float above */
 .navbar-nav.navbar-right {
   float: right;
+    margin-top: 44px;
 }
 
 /* Undo custom dropdowns */
@@ -206,10 +244,7 @@ h5 {
     font-weight: 600;
 }
 
-.container {
-	padding-left: 0px;
-	padding-right: 0px;
-}
+
 .row {
     margin-left: 0px;
     margin-right: 0px;
@@ -222,7 +257,7 @@ h5 {
 	border-top: 5px solid #ededed;
 	-webkit-box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.15);
 	-moz-box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.15);
-	box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.15);
+	/*box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.15);*/
 }
 
 .navbar-brand {
@@ -288,10 +323,13 @@ h5 {
   background-color: none;
   background-color: rgba(255,255,255,0);
 }
+.col-first {
+    padding-left: 0px;
+}
 .breadcrumb {
     background-color: transparent;
-	padding: 8px 0px;
-	font-size: 12px;
+	padding: 8px 15px;
+	font-size: 14px;
 }
 a:link {
 	color: #1898d5;
@@ -307,13 +345,63 @@ h1, .h1 {
 	color: #1898d5;
 }
 
+/*
 h1, .h1, h2, .h2, h3, .h3 {
     margin-bottom: 50px;
+}
+*/
+
+h2 {
+    color: rgb(7, 79, 149);
+    display: block;
+    font-family: UniversNW02-440XtdRegul, sans-serif;
+    font-size: 35px;
+    font-weight: 300;
+    letter-spacing: -1px;
+    line-height: 42px;
+    margin-bottom:20px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    text-transform: none;
+}
+
+h4, .h4 {
+    box-sizing: border-box;
+    color: rgb(7, 79, 149);
+    display: block;
+    font-family: UniversLTW0255Roman, arial, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    letter-spacing: normal;
+    line-height: 27px;
+    margin-bottom: 14px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    text-transform: none;
+    zoom: 1;
+}
+
+h6, .h6 {
+    box-sizing: border-box;
+    color: rgb(102, 102, 102);
+    display: block;
+    font-family: UniversLTW0245Light, arial, sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    letter-spacing: normal;
+    line-height: 28px;
+    margin-bottom: 14px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    text-transform: none;
 }
 
 label {
 	font-weight: normal;
-    font-size: 16px;
+    font-size: 14px;
 }
 .form-horizontal .control-label {
     padding-top: 14px;
@@ -360,7 +448,9 @@ label {
 
 
 /* CHOSEN Customizing*/
-
+.chosen-container {
+    width: 100% !important;
+}
 .chosen-search {
     display: none;
 }
@@ -396,23 +486,26 @@ select.form-control + .chosen-container.chosen-container-single .chosen-single {
 }
 
 .wt {
-	margin-top: 28px;
+	margin-top: 25px;
 }
 
+.wt-hidden {
+	display: none;
+}
 
 .ui-widget-content  {
     border: none;
     background: none
 }
 
-.chart-title {
+/*.chart-title {
     margin-bottom: 20px;
     margin-top: 20px;
     display: block;
     font-family:"UniversLTW0255Roman";
     font-size: 20px;
     color: #074f95 !important;
-}
+}*/
 
 .wt-description {
     margin-top: 20px;
@@ -420,11 +513,16 @@ select.form-control + .chosen-container.chosen-container-single .chosen-single {
 }
 
 .site-title {
-    color: #004D93;
-    margin-top: 27px;
-    font-family: UniversNW02-440XtdRegul;
-    font-size: 35px;
+    margin-top: 10px;
 }
+
+.site-subtitle {
+    color: #004D93;
+    margin-top: 2px;
+    font-family: UniversNW02-440XtdRegul;
+    font-size: 17px;
+}
+
 
 .scroll-to-top {
     font-size: 20px;

@@ -19,8 +19,9 @@ namespace Metrona.Wt.Web.UI
     {
         public static SelectList ToSelectList(
             this Enum enumeration,
-            object selectedValue = null,
-            string defaultItem = null)
+            string defaultItem = null,
+            object selectedValue = null
+            )
         {
             bool isAuthenticated = HttpContext.Current.User.Identity.IsAuthenticated;
 

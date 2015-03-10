@@ -7,6 +7,7 @@
 namespace Metrona.Wt.Web
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Mvc;
@@ -29,9 +30,6 @@ namespace Metrona.Wt.Web
     using Metrona.Wt.Web.Models;
     using Metrona.Wt.Web.UI;
 
-    using Microsoft.Practices.Unity;
-   
-
     public partial class WitterungsTelegramm : PageBase
     {
         private CalculateRequest calculateRequest
@@ -41,33 +39,31 @@ namespace Metrona.Wt.Web
                 return SessionData.CalculateRequest;
             }
         }
-
-        //private ChartService chartService;
-
-        [Dependency]
+        
+        [Microsoft.Practices.Unity.Dependency]
         public IBundeslandService BundeslandService { get; set; }
 
-        [Dependency]
+        [Microsoft.Practices.Unity.Dependency]
         public IKlimaService KlimaService { get; set; }
 
-        [Dependency]
+        [Microsoft.Practices.Unity.Dependency]
         public IMeteoGtzService MeteoGtzService { get; set; }
 
-        [Dependency]
+        [Microsoft.Practices.Unity.Dependency]
         public IExcelExporter ExcelExporter { get; set; }
 
-        [Dependency]
+        [Microsoft.Practices.Unity.Dependency]
         public IPdfReport PdfReport { get; set; }
         
 
         private const string Chart1Title =
-            "1. Jahresbetrachtung der Temperatur des Aktuellen Jahres im Vergleich zu den Vorjahren und Langzeitmittel<sup>1</sup>";
+            "1. Jahresbetrachtung der Temperatur des aktuellen Jahres im Vergleich zu den Vorjahren und Langzeitmittel<sup>2</sup>";
 
         private const string Chart2Title =
-            "2. Monatssbetrachtung der Temperatur des Aktuellen Jahres im Vergleich zum Vorjahr und Langzeitmittel<sup>1</sup>";
+            "2. Monatsbetrachtung der Temperatur des aktuellen Jahres im Vergleich zum Vorjahr und Langzeitmittel<sup>2</sup>";
 
         private const string Chart3Title =
-            "3. Tagesmitteltemperaturen<sup>2</sup> des gewählten Abrechnungszeitraumes und des Vorjahres";
+            "3. Tagesmitteltemperaturen<sup>3</sup> des gewählten Abrechnungszeitraumes und des Vorjahres";
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -88,6 +84,12 @@ namespace Metrona.Wt.Web
            return bl;
         }
 
+        public IEnumerable<Zeitraum> GetZeitraeume()
+        {
+            var zr = AsyncHelper.RunSync(() => MeteoGtzService.GetAktuelleZeitraeme(24));
+            return zr;
+        }
+
         public SelectList GetRequestTypes()
         {
             var result = new RequestType().ToSelectList();
@@ -98,8 +100,7 @@ namespace Metrona.Wt.Web
         {
             var result = new CalculateRequestViewModel
             {
-                Date = new DateTime(2009, 2, 3),
-                RequestType = User.Identity.IsAuthenticated ? RequestType.Plz: RequestType.Bundesland
+               //RequestType = RequestType.None, //User.Identity.IsAuthenticated ? RequestType.Plz : RequestType.Bundesland
             };
             return result;
         }
@@ -110,9 +111,24 @@ namespace Metrona.Wt.Web
 
             if (ModelState.IsValid)
             {
+                if (request.RequestType == RequestType.Bundesland && request.BundeslandId == null)
+                {
+                    ShowPanels(false);
+                    ModelState.AddModelError("", "Bitte treffen Sie beim Bundesland Ihre Auswahl.");
+                    return;
+                }
+
+                if (request.RequestType == RequestType.Plz && request.Plz == null)
+                {
+                    ShowPanels(false);
+                    ModelState.AddModelError("", "Geben Sie bitte eine Postleitzahl ein.");
+                    return;
+                }
+
                 if (await this.MeteoGtzService.CheckPlz(calculateRequest))
                 {
                     ShowPanels(true);
+                    ShowCurrentAuswahl();
                     await GetJahresbetrachtungChart();
                     await GetMonatsRelativeVerteilungJahr();
                     await this.GetChartTemperatur();
@@ -127,42 +143,57 @@ namespace Metrona.Wt.Web
             }
             else
             {
-                ModelState.AddModelError("", "Überprüfen Sie bitte Ihre Eingabe.");
+                ShowPanels(false);
             }
         }
 
-        //private void InitOldData()
-        //{
-        //    chartService = new ChartService(calculateRequest.Stichtag, calculateRequest.Value, calculateRequest.RequestType);
+        private async void ShowCurrentAuswahl()
+        {
+            var region = string.Empty;
+            switch (calculateRequest.RequestType)
+            {
+                case RequestType.Plz:
+                    region = "PLZ: " + calculateRequest.Value;
+                    break;
+                case RequestType.Bundesland:
+                    var bl = await BundeslandService.GetById(calculateRequest.Value);
+                    region = "Bundesland: " + bl.Name;
+                    break;
+                case RequestType.Deutschland:
+                    region = "Deutschland";
+                    break;
+            }
 
-        //    if (!chartService.HasGtzData)
-        //    {
-        //        ModelState.AddModelError("", "Überprüfen Sie bitte Ihre Eingabe. ");
-
-        //    }
-        //}
-
-        
+            lblAbrechnungszeitraum.Text = Utils.GetZeitraume(calculateRequest.Stichtag).OrderByDescending(p => p.Start).FirstOrDefault().Raum;
+            lblregion.Text = region;
+       }
        private void ShowPanels(bool visible)
        {
            this.pnlWDS.Visible = visible;
            pnlJahresbetrachtung.Visible = visible;
-           pnlRelativeVerteilungJahr.Visible= visible;
+           pnlRelativeVerteilungJahr.Visible = visible;
            pnlChartTemperatur.Visible = visible;
+           pnlInfoHinweis.Visible = visible;
        }
 
         private async Task GetJahresbetrachtungChart()
         {
-            pnlJahresbetrachtung.Visible = false;
+            pnlJahresbetrachtungChart.Visible = false;
+            lblahresbetrachtungNoData.Visible = false;
             
             //chartService = new ChartService(calculateRequest.Stichtag, calculateRequest.Value, calculateRequest.RequestType);
             //var dt2 = chartService.GetJahresSummenGtz(IntervalType.M36);
             var gtzYearsSum = await MeteoGtzService.GetGtzYearsSum(this.calculateRequest, true);
+            if (gtzYearsSum == null)
+            {
+                lblahresbetrachtungNoData.Visible = true;
+                return;
+            }
 
             lblChartVergleichJahrTitle.Text = Chart1Title;
 
             UltraChart myChart = JahresbetrachtungChart.GetChart(gtzYearsSum, 710, 300);
-            this.pnlVergleichJahrChart.Controls.Add(myChart);
+            this.chartVergleichJahr.Controls.Add(myChart);
                 
             //var dt2 = chartService.GetJahresbetrachtungProzentual();
             var relativeData = gtzYearsSum.ToRelativeData(); // await MeteoGtzService.GetYearsDataRelativeToCurrentYear(this.calculateRequest, true);
@@ -174,19 +205,26 @@ namespace Metrona.Wt.Web
             lblVorjahrBedarf.Text = string.Format(
                         @"In der gewählten Region war es im gleichen Zeitraum des Vorjahres {0}% {1} als im
                         betrachtenten Zeiraum des aktuellen Jahres.<br/>
-                        Entsprechend ist im Aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem Heiz{2}bedarf zu rechnen",
+                        Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem Heiz{2}bedarf zu rechnen",
                 Math.Abs(Math.Round(vorjahrBedarf, 2)), (vorjahrBedarf > 0 ? "wärmer" : "kälter"), (vorjahrBedarf > 0 ? "mehr" : "minder"));
             lblLGTZBedarf.Text = string.Format("In der gewählten Region ist das Langzeitmittel {0}% {1} als das aktuellen Jahr.", Math.Abs(Math.Round(lgtzBedarf, 2)), (lgtzBedarf > 0 ? "wärmer" : "kälter"));
-                
-            pnlJahresbetrachtung.Visible = true;
+
+            pnlJahresbetrachtungChart.Visible = true;
         }
 
         private async Task GetMonatsRelativeVerteilungJahr()
         {
-            pnlRelativeVerteilungJahr.Visible = false;
+            pnlMonatsbetrachtungChart.Visible = false;
+            lblRelativeVerteilungJahrNoData.Visible = false;
            
             //var dt2 = chartService.GetMonatsRelativeVerteilungJahr(false);
             var results = ( await MeteoGtzService.GetRelativeVerteilung(this.calculateRequest, false)).ToList();
+            if (results.Count == 0)
+            {
+                lblRelativeVerteilungJahrNoData.Visible = true;
+                return;
+            }
+
             var dt = results.ToDataTable();
 
             lblChartRelativeVerteilungJahrTitle.Text = Chart2Title;
@@ -198,8 +236,11 @@ namespace Metrona.Wt.Web
             };
             dt.Columns.Add(column);
 
-            var myChart = MonatsRelativeVerteilungJahrChart.GetChart(dt, 800, 400);
-            this.pnlMonatssbetrachtungChart.Controls.Add(myChart);
+            var columnsLabels = Utils.GetZeitraume(calculateRequest.Stichtag).OrderBy(p => p.Start).GetFormatted(true);
+            columnsLabels.Add("Langzeitmittel (Nulllinie)");
+
+            var myChart = MonatsRelativeVerteilungJahrChart.GetChart(dt, 800, 400, columnsLabels.ToArray());
+            this.chartMonatsbetrachtung.Controls.Add(myChart);
 
             var row = results.LastOrDefault();
             if (row != null)
@@ -207,11 +248,11 @@ namespace Metrona.Wt.Web
                 var vorjahr = row.Period1;
                 var aktuellJqahr = row.Period2;
 
-                this.lblMonatBedarf.Text = Utils.GetMonthName(row.Monat.ConvertTo<int>(), "MMMM");
-                this.lblVorjahrBedarf2.Text = string.Format("des Vorjahres ca. {0}% {1}", Math.Abs(Math.Round(vorjahr, 2)), (vorjahr > 0 ? "wärmer" : "kälter"));
-                this.lblLGTZBedarf2.Text = string.Format("des Aktuellen Jahres ca. {0}% {1}", Math.Abs(Math.Round(aktuellJqahr, 2)), (aktuellJqahr > 0 ? "wärmer" : "kälter"));
+                var monat = Utils.GetMonthName(row.Monat.ConvertTo<int>(), "MMMM");
+                this.lblVorjahrBedarf2.Text = string.Format("im Monat {2} des Vorjahres ca. {0}% {1}", Math.Abs(Math.Round(vorjahr, 2)), (vorjahr > 0 ? "wärmer" : "kälter"), monat);
+                this.lblAktuelJahrBedarf2.Text = string.Format("im Monat {2} des aktuellen Jahres ca. {0}% {1}", Math.Abs(Math.Round(aktuellJqahr, 2)), (aktuellJqahr > 0 ? "wärmer" : "kälter"), monat);
             }
-            pnlRelativeVerteilungJahr.Visible = true;
+            pnlMonatsbetrachtungChart.Visible = true;
         }
 
         private async Task GetChartTemperatur()
@@ -223,8 +264,9 @@ namespace Metrona.Wt.Web
             ////this.ChartTemperatur = TemperaturChart.GetChart(this.ChartTemperatur, dt, 800, 520);
 
             lblChartTemperaturTitle.Text = Chart3Title;
-            var columnsLabels = Utils.GetPeriode(calculateRequest.Stichtag);
-            columnsLabels.Add("Heizgrenztemperatur³");
+            var columnsLabels = Utils.GetZeitraume(calculateRequest.Stichtag).OrderBy(p => p.Start).GetFormatted(true);
+
+            columnsLabels.Add("Heizgrenztemperatur⁴");
 
             var ds = await KlimaService.GetTemperaturGroupedByPeriods(calculateRequest);
             this.ChartTemperatur = TemperaturChart.GetChart(this.ChartTemperatur, ds.ToList(), 800, 520, columnsLabels.ToArray());
@@ -270,5 +312,17 @@ namespace Metrona.Wt.Web
         {
            await ExcelExporter.Export(calculateRequest);
         }
+
+
+        //protected void BundeslandOnDataBound(object sender, EventArgs e)
+        //{
+        //    var ddlBundesland = sender as DropDownList;
+        //    if (ddlBundesland != null)
+        //    {
+        //        ddlBundesland.Items.Insert(0, new ListItem("Bitte wählen", "0"));
+        //        ddlBundesland.SelectedIndex = 0;
+        //    }
+        //}
+       
     }
 }

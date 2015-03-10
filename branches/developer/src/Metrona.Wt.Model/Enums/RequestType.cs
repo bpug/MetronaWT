@@ -12,8 +12,11 @@ namespace Metrona.Wt.Model.Enums
 
     public enum RequestType
     {
-        [Display(Name = "PLZ")]
+        //[Display(Name = "Bitte wählen")]
+        //None = 0,
+
         [Authorize]
+        [Display(Name = "PLZ")]
         Plz = 1,
 
         Bundesland = 2,

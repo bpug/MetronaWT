@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.IO;
+    using System.Linq;
     using System.Web;
 
     using Infragistics.Documents.Reports.Graphics;
@@ -18,6 +19,7 @@
 
     using Metrona.Wt.Core;
     using Metrona.Wt.Core.Extensions;
+    using Metrona.Wt.Model;
     using Metrona.Wt.Model.Meteo;
     using Metrona.Wt.Reports.Charts;
     using Metrona.Wt.Service.Extensions;
@@ -134,6 +136,12 @@
             // Add new section to the document
             ISection newSection = this.document.AddSection();
 
+            var footer = newSection.AddFooter();
+            footer.Height = 20;
+            var text = footer.AddText(20, 0);
+            text.Style.Font = this.pdfFonts[PdfFont.DefaultSmallerReg];
+            text.AddContent("Erzeugungsdatum: " + DateTime.Now.ToShortDateString());
+
             // Set page size and paddings
             newSection.PageSize = PageSizes.A4;
             newSection.PagePaddings.Left = 20;
@@ -143,7 +151,7 @@
 
             //Add page numbering
             PageNumbering pageNumber = newSection.PageNumbering;
-            pageNumber.Style = new  Infragistics.Documents.Reports.Report.Text.Style(this.pdfFonts[PdfFont.DefaultSmallReg], Brushes.Black);
+            pageNumber.Style = new  Style(this.pdfFonts[PdfFont.DefaultSmallReg], Brushes.Black);
             pageNumber.Template = "Seite [Page #]";
             // von [LastPageInSection]"
             pageNumber.SkipFirst = false;
@@ -156,7 +164,6 @@
             // Add a new band to the newly created section
             this.currentBand = newSection.AddBand();
         }
-
 
 
         public void AddHeader(DateTime startDate, string requestText, string logoPath)
@@ -259,7 +266,7 @@ Mit dem Witterungstelegramm erhalten Sie Informationen zum ortsgenauen Klimaverl
         public void AddJahresbetrachtung( MeteoGtzYear meteoGtzYear)
         {
             
-            this.CreateHeading("1. Jahresbetrachtung der Temperatur des Aktuellen Jahres im Vergleich zu den Vorjahren und Langzeitmittel¹");
+            this.CreateHeading("1. Jahresbetrachtung der Temperatur des aktuellen Jahres im Vergleich zu den Vorjahren und Langzeitmittel²");
 
             // Add grid 
             IGrid grid = this.currentBand.AddGrid();
@@ -331,7 +338,7 @@ Mit dem Witterungstelegramm erhalten Sie Informationen zum ortsgenauen Klimaverl
             double lgtzBedarf = relativeData.Lgtz;
             var vorjahrBedarfText = string.Format(
                         @"In der gewählten Region war es im gleichen Zeitraum des Vorjahres {0}% {1} als im betrachtenten Zeiraum des aktuellen Jahres.
-Entsprechend ist im Aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem Heiz{2}bedarf zu rechnen",
+Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem Heiz{2}bedarf zu rechnen",
                 Math.Abs(Math.Round(vorjahrBedarf, 2)), (vorjahrBedarf > 0 ? "wärmer" : "kälter"), (vorjahrBedarf > 0 ? "mehr" : "minder"));
             var lgtzBedarfText = string.Format("In der gewählten Region ist das Langzeitmittel {0}% {1} als das aktuellen Jahr.", Math.Abs(Math.Round(lgtzBedarf, 2)), (lgtzBedarf > 0 ? "wärmer" : "kälter"));
 
@@ -344,13 +351,16 @@ Entsprechend ist im Aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
         }
 
 
-        public void AddMonatssbetrachtung(DataTable chartData)
+        public void AddMonatsbetrachtung(DataTable chartData, List<Zeitraum> zeitraums)
         {
             if ((chartData == null))
             {
                 return;
             }
-            this.CreateHeading("2. Monatssbetrachtung der Temperatur des Aktuellen Jahres im Vergleich zum Vorjahr und Langzeitmittel¹");
+
+            var periods = zeitraums.OrderBy(p => p.Start).GetFormatted(true);
+
+            this.CreateHeading("2. Monatsbetrachtung der Temperatur des aktuellen Jahres im Vergleich zum Vorjahr und Langzeitmittel²");
 
             //Dim flow As Infragistics.Documents.Report.Flow.IFlow = currentBand.AddFlow()
             //flow.Borders.All = New Border(New Pen(Colors.Black))
@@ -387,7 +397,7 @@ Entsprechend ist im Aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
             IGrid legendGrid = gridCell.AddGrid();
             IGridCell legendCell;
 
-            legendGrid.Width = new FixedWidth(300);
+            legendGrid.Width = new FixedWidth(450);
             column = legendGrid.AddColumn();
             column.Width = new FixedWidth(7);
             column = legendGrid.AddColumn();
@@ -414,7 +424,7 @@ Entsprechend ist im Aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
             cellPattern.Apply(legendCell);
             text = legendCell.AddText();
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
-            text.AddContent("Vorjahr");
+            text.AddContent(periods[0]);
 
             //Langzeitmittel 
             legendCell = gridRow.AddCell();
@@ -429,7 +439,7 @@ Entsprechend ist im Aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
             cellPattern.Apply(legendCell);
             text = legendCell.AddText();
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
-            text.AddContent("Aktuelles Jahr");
+            text.AddContent(periods[1]);
 
             //Ausgangbasis 
             legendCell = gridRow.AddCell();
@@ -457,10 +467,10 @@ Entsprechend ist im Aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
             canvas.Height = new FixedHeight(250);
             using (System.Drawing.Graphics g = canvas.CreateGraphics())
             {
-                UltraChart myChart = MonatsRelativeVerteilungJahrChart.GetChart(chartData, 500, 250);
+                UltraChart myChart = MonatsRelativeVerteilungJahrChart.GetChart(chartData, 500, 250, periods.ToArray());
                 //myChart.ColumnChart.ChartText(0).Visible = True
                 myChart.Legend.Visible = false;
-                myChart.RenderPdfFriendlyGraphics(g);
+               myChart.RenderPdfFriendlyGraphics(g);
             }
 
             //gridCell.AddStretcher()
@@ -494,10 +504,10 @@ Entsprechend ist im Aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
                 text.AddContent("Das Langzeitmittel stellt die Nulllinie dar.");
                 text.AddLineBreak();
                 text.AddLineBreak();
-                text.AddContent("Negativer Prozentwert (Balken zeigt nach unten) in dem jeweiligen Monat des Vorjahres / Aktuellen Jahres war es kälter als im gleichen Monats des Langzeitmittels.");
+                text.AddContent("Negativer Prozentwert (Balken zeigt nach unten): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es kälter als im gleichen Monats des Langzeitmittels.");
                 text.AddLineBreak();
                 text.AddLineBreak();
-                text.AddContent("Positiver Prozentwert (Balken zeigt nach oben) in dem jeweiligen Monat des Vorjahres / Aktuellen Jahres war es wärmer als im gleichen Monats des Langzeitmittels.");
+                text.AddContent("Positiver Prozentwert (Balken zeigt nach oben): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es wärmer als im gleichen Monats des Langzeitmittels.");
                 text.AddLineBreak();
                 text.AddLineBreak();
                 text.AddContent(string.Format("Für die gewählte Region war es - bezogen auf das Langzeitmittel im Monat {0}", monat));
@@ -507,7 +517,7 @@ Entsprechend ist im Aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
                 list.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
                 list.Interval = 1;
                 list.AddItem(string.Format("des Vorjahres ca. {0}% {1}", Math.Abs(Math.Round(VorjahrBedarf, 2)), (VorjahrBedarf > 0 ? "wärmer" : "kälter")));
-                list.AddItem(string.Format("des Aktuellen Jahres ca. {0}% {1}",   Math.Abs(Math.Round(aktuellJqahr, 2)), (aktuellJqahr > 0 ? "wärmer" : "kälter")));
+                list.AddItem(string.Format("des aktuellen Jahres ca. {0}% {1}",   Math.Abs(Math.Round(aktuellJqahr, 2)), (aktuellJqahr > 0 ? "wärmer" : "kälter")));
                 //gridCell.AddStretcher();
 
             }
@@ -519,9 +529,11 @@ Entsprechend ist im Aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
 
 
 
-        public void AddTagesmitteltemperaturen(object chartData, List<string> periods )
+        public void AddTagesmitteltemperaturen(object chartData, List<Zeitraum> zeitraums )
         {
-            this.CreateHeading("3. Tagesmitteltemperaturen² des gewählten Abrechnungszeitraumes und des Vorjahres");
+            var periods = zeitraums.OrderBy(p => p.Start).GetFormatted(true);
+
+            this.CreateHeading("3. Tagesmitteltemperaturen³ des gewählten Abrechnungszeitraumes und des Vorjahres");
             ICanvas legendCanvas = default(ICanvas);
             IText text = default(IText);
 
@@ -544,9 +556,9 @@ Entsprechend ist im Aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
             //Add Legend
             gridCell.Alignment = new ContentAlignment(Alignment.Center, Alignment.Middle);
             IGrid legendGrid = gridCell.AddGrid();
-            IGridCell legendCell = default(IGridCell);
+            IGridCell legendCell;
 
-            legendGrid.Width = new FixedWidth(300);
+            legendGrid.Width = new FixedWidth(450);
             column = legendGrid.AddColumn();
             column.Width = new FixedWidth(7);
             column = legendGrid.AddColumn();
@@ -566,7 +578,7 @@ Entsprechend ist im Aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
             legendCanvas.Paddings.All = 0;
             legendCanvas.Margins.All = 0;
             legendCanvas.Height = new FixedHeight(5);
-            legendCanvas.Pen = new Infragistics.Documents.Reports.Graphics.Pen(new Infragistics.Documents.Reports.Graphics.Color(65, 69, 120), 1);
+            legendCanvas.Pen = new Pen(new Color(65, 69, 120), 2);
             legendCanvas.DrawLine(0, 2.5f, 5, 2.5f);
 
             legendCell = gridRow.AddCell();
@@ -581,7 +593,7 @@ Entsprechend ist im Aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
             legendCanvas = legendCell.AddCanvas();
             legendCanvas.Width = new FixedWidth(5);
             legendCanvas.Height = new FixedHeight(5);
-            legendCanvas.Pen = new Pen(new Color(204, 76, 24), 1);
+            legendCanvas.Pen = new Pen(new Color(204, 76, 24), 2);
             legendCanvas.DrawLine(0, 2.5f, 5, 2.5f);
 
             legendCell = gridRow.AddCell();
@@ -596,14 +608,15 @@ Entsprechend ist im Aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
             legendCanvas = legendCell.AddCanvas();
             legendCanvas.Width = new FixedWidth(5);
             legendCanvas.Height = new FixedHeight(5);
-            legendCanvas.Pen = new Pen(Colors.Green, 1);
+            legendCanvas.Pen = new Pen(Colors.Green, 2);
             legendCanvas.DrawLine(0, 2.5f, 5, 2.5f);
 
             legendCell = gridRow.AddCell();
             cellPattern.Apply(legendCell);
             text = legendCell.AddText();
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
-            text.AddContent("Heizgrenztemperatur³");
+            text.AddContent("Heizgrenztemperatur");
+            //text.AddContent("Heizgrenztemperatur⁴");
 
             //Add Chart
             //chartData.Columns("Heizgrenztemperatur").ColumnName = "Heizgrenztemperatur³"
@@ -659,37 +672,39 @@ Entsprechend ist im Aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
             IText text = gridCell.AddText();
             //text.Style.Font = pdfFonts(PdfFont.DefaultLargeBold)
             //text.Style.Font.Bold = True
+
             text.AddContent("¹ ", style3);
+            text.AddContent("Heizperiode:", style1);
+            text.AddLineBreak();
+            text.AddContent("Als Heizperiode werden üblicherweise die Monate September bis Mai angesehen. Nicht zur Heizperiode gehören die Monate Juni bis August eines Jahres.", style2);
+            text.AddLineBreak();
+            text.AddLineBreak();
+
+            text.AddContent("² ", style3);
             text.AddContent("Langzeitmittel:", style1);
             text.AddLineBreak();
 
             text = gridCell.AddText();
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
-            text.AddContent("Beim Langzeitmittel werden die seit 1993 vorliegenden Klimadaten der gewählten Region in Abhängigkeit des jeweiligen Abrechnungszeitraums zugrunde gelegt.");
+            text.AddContent("Beim Langzeitmittel werden die seit 1993 vorliegenden Klimadaten der gewählten Region in Abhängigkeit des jeweiligen Abrechnungszeitraums zugrunde gelegt.", style2);
             text.AddLineBreak();
             text.AddLineBreak();
 
-            text.AddContent("²", style3);
+            text.AddContent("³", style3);
             text.AddContent(" Tagesmitteltemperatur:", style1);
             text.AddLineBreak();
             text.AddContent("Die Tagesmitteltemperatur ist die Durchschnittstemperatur im Zeitraum von 0 bis 0 Uhr des jeweiligen Tages.", style2);
             text.AddLineBreak();
             text.AddLineBreak();
 
-            text.AddContent("³ ", style3);
+            text.AddContent("⁴ ", style3);
             text.AddContent("Heizgrenztemperatur:", style1);
             text.AddLineBreak();
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
-            text.AddContent("Die Heizgrenztemperatur liegt bei 15 ° C. Bei Unterschreitung von 15 ° C wird normativ davon ausgegangen," + " dass die Heizanlage in Betrieb genommen werden soll.", style2);
+            text.AddContent("Die Heizgrenztemperatur liegt bei 15° C. Bei Temperaturen von unter 15° C wird normativ  von der Inbetriebnahme der Heizanlage ausgegangen.", style2);
             text.AddLineBreak();
             text.AddLineBreak();
-
-            text.AddContent("⁴ ", style3);
-            text.AddContent("Gradtagszahlen:", style1);
-            text.AddLineBreak();
-            text.AddContent("Klimatische Grundlage für die Ermittlung sind jeweils die so genannten Gradtagszahlen der gewählten Region in Abhängigkeit" + " des jeweiligen Abrechnungszeitraums. Diese dient zur Normierung (Witterungsbereinigung) von Heizenergieverbräuchen." + " Die Gradtagzahl wird errechnet, sobald die Außentemperatur unter der Heizgrenztemperatur von 15 ° C liegt. " + " Diese ist nach VDI 2067 die Summe aus den Differenzen einer angenommenen Rauminnentemperatur von 20 °C und " + " den Differenzen einer angenommenen Rauminnentemperatur von 20 °C und dem jeweiligen Tagesmittelwert der Außentemperatur " + " dem jeweiligen Tagesmittelwert der Außentemperatur über alle Tage eines Zeitraums, an denen diese unter der Heizgrenztemperatur des Gebäudes liegt.", style2);
-            text.AddLineBreak();
-            text.AddLineBreak();
+           
         }
 
         public void GetStream(Stream stream)

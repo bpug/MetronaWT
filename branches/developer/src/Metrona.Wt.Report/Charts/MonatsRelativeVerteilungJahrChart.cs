@@ -12,6 +12,7 @@ namespace Metrona.Wt.Reports.Charts
 
     using Infragistics.UltraChart.Core;
     using Infragistics.UltraChart.Core.Primitives;
+    using Infragistics.UltraChart.Core.Util;
     using Infragistics.UltraChart.Resources;
     using Infragistics.UltraChart.Resources.Appearance;
     using Infragistics.UltraChart.Shared.Events;
@@ -35,11 +36,12 @@ namespace Metrona.Wt.Reports.Charts
             deploymentScenario.Scenario = ImageDeploymentScenario.Session;
         }
 
-        public static UltraChart GetChart(object datasource, int width, int height)
+        public static UltraChart GetChart(object datasource, int width, int height, params string[] columnLabels)
         {
             var chart = new UltraChart();
 
-            chart.FillSceneGraph += ChartOnFillSceneGraph;
+
+           chart.FillSceneGraph += ChartOnFillSceneGraph;
             //.ID = "ChartVergleichJahr"
             chart.DeploymentScenario = deploymentScenario;
             chart.Width = width;
@@ -61,14 +63,7 @@ namespace Metrona.Wt.Reports.Charts
             chart.ChartType = ChartType.ColumnChart;
             chart.ImagePipePageName = Constants.ImagePipePageName;
 
-            var data = chart.Data;
-            data.SetColumnLabels(new string[] {
-		        "Vorjahr",
-		        "Aktuelles Jahr",
-		        "Langzeitmittel (Nulllinie)"
-	        });
-            data.UseRowLabelsColumn = true;
-            data.ZeroAligned = true;
+            
 
             var cta = new ChartTextAppearance();
             cta.ItemFormatString = "<DATA_VALUE:#0.00>";
@@ -156,7 +151,7 @@ namespace Metrona.Wt.Reports.Charts
             titleLeft.Extent = 30;
             titleLeft.Font = new Font("Arial", 9.75f, FontStyle.Bold, GraphicsUnit.Point);
             titleLeft.HorizontalAlign = StringAlignment.Center;
-            titleLeft.Text = "Monat im Vergleich zum Langzeitmittel war" + Environment.NewLine + " wärmer / kälter [%]";
+            titleLeft.Text = "Monat war im Vergleich zum Langzeitmittel" + Environment.NewLine + "  kälter / wärmer [%]";
             var titleLeftmargins = titleLeft.Margins;
             titleLeftmargins.Bottom = 1;
             titleLeftmargins.Top = 1;
@@ -187,9 +182,22 @@ namespace Metrona.Wt.Reports.Charts
             var tooltips = chart.Tooltips;
             tooltips.FormatString = "<DATA_VALUE:0.000000>";
 
-            //var _with16 = chart.Data;
+            var data = chart.Data;
+
+            if (columnLabels != null)
+            {
+                data.SetColumnLabels(columnLabels);
+            }
+            //data.SetColumnLabels(new string[] {
+            //    "Vorjahr",
+            //    "Aktuelles Jahr",
+            //    "Langzeitmittel (Nulllinie)"
+            //});
+            data.UseRowLabelsColumn = true;
+            data.ZeroAligned = true;
             data.DataSource = datasource;
             data.DataBind();
+
             try
             {
                 data.IncludeColumn("Promille", false);
@@ -200,7 +208,6 @@ namespace Metrona.Wt.Reports.Charts
             catch (Exception ex)
             {
             }
-
 
             return chart;
         }
@@ -215,6 +222,9 @@ namespace Metrona.Wt.Reports.Charts
 
             int xStart = Convert.ToInt32(axisX.MapMinimum);
             int xEnd = Convert.ToInt32(axisX.MapMaximum);
+            int yStart = Convert.ToInt32(axisY.MapMinimum);
+            int yEnd = Convert.ToInt32(axisY.MapMaximum);
+
             Line targetLine = new Line(new Point(xStart, targetYCoord), new Point(xEnd, targetYCoord))
             {
                 PE =
@@ -228,8 +238,21 @@ namespace Metrona.Wt.Reports.Charts
                      
                 }
             };
-            
             e.SceneGraph.Add(targetLine);
+
+            var waermerLabel = new Text();
+            waermerLabel.SetTextString("wärmer");
+            waermerLabel.SetLabelStyle(new LabelStyle { FontColor = Color.Black, Font = new Font("Verdana", 8, FontStyle.Regular, GraphicsUnit.Point) });
+            Size waermerLabelSize = Size.Ceiling(Platform.GetLabelSizePixels(waermerLabel.GetTextString(), waermerLabel.labelStyle));
+            waermerLabel.bounds = new Rectangle(xStart + 5, yEnd - waermerLabelSize.Height, waermerLabelSize.Width, waermerLabelSize.Height);
+            e.SceneGraph.Add(waermerLabel);
+
+            var kaelterLabel = new Text();
+            kaelterLabel.SetTextString("kälter");
+            kaelterLabel.SetLabelStyle(new LabelStyle { FontColor = Color.Black, Font = new Font("Verdana", 8, FontStyle.Regular, GraphicsUnit.Point) });
+            Size kaelterLabelSize = Size.Ceiling(Platform.GetLabelSizePixels(kaelterLabel.GetTextString(), kaelterLabel.labelStyle));
+            kaelterLabel.bounds = new Rectangle(xStart + 5, yStart - kaelterLabelSize.Height , kaelterLabelSize.Width, kaelterLabelSize.Height);
+            e.SceneGraph.Add(kaelterLabel);
         }
 
        

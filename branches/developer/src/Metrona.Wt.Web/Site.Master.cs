@@ -71,16 +71,22 @@ namespace Metrona.Wt.Web
 
         }
 
+        protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
+        {
+            Context.GetOwinContext().Authentication.SignOut();
+        }
+
         public string SiteTitle
         {
             get { return siteTitle.InnerHtml; }
             set { siteTitle.InnerHtml = value; }
         }
 
-        protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
-        {
-            Context.GetOwinContext().Authentication.SignOut();
-        }
+        //public string SiteSubTitle
+        //{
+        //    get { return siteSubTitle.InnerHtml; }
+        //    set { siteSubTitle.InnerHtml = value; }
+        //}
     }
 
 }

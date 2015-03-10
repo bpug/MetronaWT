@@ -27,6 +27,17 @@ namespace Metrona.Wt.Database.Repositories
             : base(entities)
         {
         }
+        
+        public async Task<DateTime?> GetDataLastDate()
+        {
+            var result = await 
+                this.DbSet.OrderByDescending(p => p.Jahr).ThenByDescending(p => p.Monat).FromCacheFirstOrDefaultAsync();
+            if (result == null)
+            {
+                return null;
+            }
+            return new DateTime(result.Jahr, result.Monat, 1);
+        }
 
         public async Task<IEnumerable<MeteoGtzBundesland>> GetGtzByBundesland(
             long bundeslandId,

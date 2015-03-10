@@ -15,6 +15,8 @@ namespace Metrona.Wt.Database.Repositories
 
     public interface IMeteoGtzRepository : IEntityAsyncRepository<MeteoGtz>
     {
+        Task<DateTime?> GetDataLastDate();
+
         Task<IEnumerable<MeteoGtzBundesland>> GetGtzByBundesland(long bundeslandId, DateTime startDate, DateTime endDate);
 
         //IEnumerable<MeteoGtzData> GetGtzByBundesland2(long bundeslandId, DateTime startDate, DateTime endDate);

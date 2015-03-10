@@ -82,18 +82,18 @@
                 <div class="row">
                     <div class="col-xs-3">
                         <div class="navbar-header">
-                            <a class="navbar-brand" href="#">
+                            <a title="BRUNATA - METRONA" href="https://www.brunata-metrona.de/brunata-metrona.html" class="navbar-brand">
                                 <img src="/img/bm_logo.jpg">
                             </a>
                         </div> 
                     </div>
-                    <div class="col-xs-5">
-                        <div runat="server" id="siteTitle" class="site-title text-center">
-                        </div>
+                    <div class="col-xs-6">
+                        <%--<h2 runat="server" id="siteTitle" class="site-title text-center" />
+                        <h4 runat="server" id="siteSubTitle" class="text-center" />--%>
                     </div>
                     <div class="col-xs-3">
                         <div class="navbar-collapse collapse">
-                            <asp:LoginView ID="LoginView1" runat="server" ViewStateMode="Disabled">
+                            <asp:LoginView ID="LoginView1" runat="server" ViewStateMode="Disabled" Visible="true">
                                 <AnonymousTemplate>
                                     <ul class="nav navbar-nav navbar-right">
                                         <%--<li><a id="A1" runat="server" href="~/Account/Register">Register</a></li>--%>
@@ -116,8 +116,21 @@
                 </div>
             </div>
         </div>
-
-        <div class="container body-content">
+        <div class="container bradcrumb-area">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="https://www.brunata-metrona.de/brunata-metrona.html" target="_self" title="Home">Home</a>
+                </li>
+                <li>
+                    <a href="https://www.brunata-metrona.de/infocenter.html" target="_self" title="Infocenter">Infocenter</a>
+                </li>
+                <li>
+                    <a href="https://www.brunata-metrona.de/infocenter/tipps-hilfsmittel.html" target="_self" title="Tipps &amp; Hilfsmittel">Tipps und Hilfsmittel</a>
+                </li>
+                <li class="active" runat="server" id="siteTitle"></li>
+            </ul>
+        </div>
+        <div class="content container">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />

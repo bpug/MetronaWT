@@ -238,7 +238,7 @@ namespace Metrona.Wt.Reports.Charts
         //    return chart;
         //}
 
-        public static UltraChart GetChart(UltraChart chart, object datasource, int width, int height, string [] columnLabels = null)
+        public static UltraChart GetChart(UltraChart chart, object datasource, int width, int height, params string[] columnLabels)
         {
             
             if ((chart == null))
@@ -285,7 +285,7 @@ namespace Metrona.Wt.Reports.Charts
                 
             };
             lineApp1.IconAppearance.Icon = SymbolIcon.None;
-            
+            lineApp1.IconAppearance.IconSize = SymbolIconSize.Small;
 
             var lineApp2 = new LineAppearance
             {
@@ -297,6 +297,7 @@ namespace Metrona.Wt.Reports.Charts
                 },
                 Thickness = 2
             };
+            lineApp2.IconAppearance.IconSize = SymbolIconSize.Small;
             //LineAppearance END
 
             var lineChart = ultraChart.LineChart;
@@ -538,6 +539,7 @@ namespace Metrona.Wt.Reports.Charts
             int targetYCoord = Convert.ToInt32(axisY.Map(target));
             int xStart = Convert.ToInt32(axisX.MapMinimum);
             int xEnd = Convert.ToInt32(axisX.MapMaximum);
+
             Line targetLine = new Line(new Point(xStart, targetYCoord), new Point(xEnd, targetYCoord));
 
             targetLine.PE.Stroke = Color.Green;
@@ -550,12 +552,8 @@ namespace Metrona.Wt.Reports.Charts
             targetLabel.SetTextString("Heizgrenztemperatur");
             Size targetLabelSize = Size.Ceiling(Platform.GetLabelSizePixels(targetLabel.GetTextString(), targetLabel.labelStyle));
             targetLabel.bounds = new Rectangle(xStart + 10, targetYCoord - targetLabelSize.Height, targetLabelSize.Width, targetLabelSize.Height);
-
             e.SceneGraph.Add(targetLabel);
         }
-
-      
-
 
     }
 }

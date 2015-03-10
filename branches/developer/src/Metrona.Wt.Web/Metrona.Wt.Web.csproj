@@ -339,13 +339,13 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\chosen\chosen-init.js" />
-    <Content Include="Scripts\chosen\chosen.jquery.min.js" />
     <Content Include="fonts\1142531\1fe2da64-94a7-4bf0-a6a2-384ffe8d6fe0.ttf" />
     <Content Include="fonts\1142531\af008295-8358-439d-b221-8e748c78eb0a.woff" />
     <Content Include="fonts\1142531\c2d7163e-3681-423c-91eb-762d702e82f1.eot" />
     <Content Include="fonts\726294\3c9abc50-742c-46dd-8af4-c50866112be0.ttf" />
     <Content Include="fonts\726294\4d1e8df3-6c45-428d-a522-84c8a6a4e533.woff" />
     <Content Include="fonts\726294\f1999e78-ab0c-4adc-a7dc-51e567e6cf5e.eot" />
+    <Content Include="Scripts\chosen\chosen.jquery.min.js" />
     <Content Include="Scripts\custom\scroll2top.js" />
     <Content Include="Scripts\custom\wt.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

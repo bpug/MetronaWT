@@ -40,6 +40,42 @@ namespace Metrona.Wt.Web {
         protected global::System.Web.UI.WebControls.ValidationSummary FormValidationSummary;
         
         /// <summary>
+        /// upInfoHinweis control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upInfoHinweis;
+        
+        /// <summary>
+        /// pnlInfoHinweis control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlInfoHinweis;
+        
+        /// <summary>
+        /// lblAbrechnungszeitraum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAbrechnungszeitraum;
+        
+        /// <summary>
+        /// lblregion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblregion;
+        
+        /// <summary>
         /// upJahresbetrachtung control.
         /// </summary>
         /// <remarks>
@@ -67,13 +103,22 @@ namespace Metrona.Wt.Web {
         protected global::System.Web.UI.WebControls.Label lblChartVergleichJahrTitle;
         
         /// <summary>
-        /// pnlVergleichJahrChart control.
+        /// pnlJahresbetrachtungChart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlVergleichJahrChart;
+        protected global::System.Web.UI.WebControls.Panel pnlJahresbetrachtungChart;
+        
+        /// <summary>
+        /// chartVergleichJahr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel chartVergleichJahr;
         
         /// <summary>
         /// lblVorjahrBedarf control.
@@ -92,6 +137,15 @@ namespace Metrona.Wt.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblLGTZBedarf;
+        
+        /// <summary>
+        /// lblahresbetrachtungNoData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblahresbetrachtungNoData;
         
         /// <summary>
         /// upMonatsBetrachtung control.
@@ -121,22 +175,22 @@ namespace Metrona.Wt.Web {
         protected global::System.Web.UI.WebControls.Label lblChartRelativeVerteilungJahrTitle;
         
         /// <summary>
-        /// pnlMonatssbetrachtungChart control.
+        /// pnlMonatsbetrachtungChart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlMonatssbetrachtungChart;
+        protected global::System.Web.UI.WebControls.Panel pnlMonatsbetrachtungChart;
         
         /// <summary>
-        /// lblMonatBedarf control.
+        /// chartMonatsbetrachtung control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMonatBedarf;
+        protected global::System.Web.UI.WebControls.Panel chartMonatsbetrachtung;
         
         /// <summary>
         /// lblVorjahrBedarf2 control.
@@ -148,13 +202,22 @@ namespace Metrona.Wt.Web {
         protected global::System.Web.UI.WebControls.Label lblVorjahrBedarf2;
         
         /// <summary>
-        /// lblLGTZBedarf2 control.
+        /// lblAktuelJahrBedarf2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLGTZBedarf2;
+        protected global::System.Web.UI.WebControls.Label lblAktuelJahrBedarf2;
+        
+        /// <summary>
+        /// lblRelativeVerteilungJahrNoData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRelativeVerteilungJahrNoData;
         
         /// <summary>
         /// upTemperatur control.
