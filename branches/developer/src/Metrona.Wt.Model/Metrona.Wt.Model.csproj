@@ -86,7 +86,6 @@
     <Compile Include="Meteo\MeteoFaktor.cs" />
     <Compile Include="Promille.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StationOld.cs" />
     <Compile Include="TestData.cs" />
     <Compile Include="WetterStation.cs" />
     <Compile Include="WetterStationPlz.cs" />

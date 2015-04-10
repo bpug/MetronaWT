@@ -222,6 +222,21 @@ namespace Metrona.Wt.Service
             return result;
         }
 
+        //public async Task<MeteoGtzYear> GetYearsDataRelativeToCurrentYearForChart(
+        //    CalculateRequest calculateRequest,
+        //    bool isHeizperiode,
+        //    IntervalType intervalType = IntervalType.M36)
+        //{
+        //    var relativ = await this.GetYearsDataRelativeToCurrentYear(calculateRequest, isHeizperiode, intervalType);
+
+        //    relativ.Period1 = 100;
+        //    relativ.Period2 = 100 + relativ.Period2;
+        //    relativ.Period3 = 100 + relativ.Period3;
+        //    relativ.Lgtz = 100 + relativ.Lgtz;
+
+        //    return relativ;
+        //}
+
         //public MeteoGtzYear GetYearsDataRelativeToCurrentYear(MeteoGtzYear meteoGtzSumYears)
         //{
         //    var relVorJahr = Utils.GetProzentual(meteoGtzSumYears.Period2, meteoGtzSumYears.Period1);

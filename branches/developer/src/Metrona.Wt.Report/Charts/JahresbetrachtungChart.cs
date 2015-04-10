@@ -51,7 +51,8 @@ namespace Metrona.Wt.Reports.Charts
         {
             isPdf = pdf;
 
-            var datasource = meteoGtzYear.ToDataTable();
+            var relativeDataForChart = meteoGtzYear.ToRelativeDataForChart();
+            var datasource = relativeDataForChart.ToDataTable();
 
             var chart = new UltraChartEx();
             chart.ExtraData = meteoGtzYear;
@@ -63,6 +64,7 @@ namespace Metrona.Wt.Reports.Charts
             chart.Width = width;
             chart.Height = height;
             chart.Border.Thickness = 0;
+            
 
             var colorModel = chart.ColorModel;
             colorModel.ModelStyle = ColorModels.CustomLinear;
@@ -133,7 +135,7 @@ namespace Metrona.Wt.Reports.Charts
             axisX.Labels.Orientation = TextOrientation.Horizontal;
             axisX.Labels.HorizontalAlign = StringAlignment.Near;
             axisX.Labels.VerticalAlign = StringAlignment.Center;
-            axisX.Labels.Font = new Font("Verdana", 7, FontStyle.Regular, GraphicsUnit.Point);
+            axisX.Labels.Font = new Font("Verdana", 8, FontStyle.Regular, GraphicsUnit.Point);
             axisX.Labels.FontColor = Color.Black;
 
             
@@ -148,13 +150,13 @@ namespace Metrona.Wt.Reports.Charts
             axisY.Extent = 65;
             axisY.LineThickness = 1;
             axisY.TickmarkInterval =2;
-            axisY.TickmarkStyle = Infragistics.UltraChart.Shared.Styles.AxisTickStyle.Smart;            
+            axisY.TickmarkStyle = AxisTickStyle.Percentage;            
             axisY.Labels.Visible = false;
             axisY.MajorGridLines.Visible = false;
             axisY.MinorGridLines.Visible = false;   
             axisY.LineEndCapStyle = LineCapStyle.ArrowAnchor;
             axisY.RangeType = AxisRangeType.Custom;
-            axisY.RangeMax = 4300;
+            axisY.RangeMax = 130;
           
 
             var titleLeft = chart.TitleLeft;
@@ -162,7 +164,8 @@ namespace Metrona.Wt.Reports.Charts
             titleLeft.Extent = 15;
             titleLeft.Font = new Font("Arial", 9.75f, FontStyle.Bold, GraphicsUnit.Point);
             titleLeft.HorizontalAlign = StringAlignment.Center;
-            //titleLeft.Text = "Monat war im Vergleich zum Langzeitmittel kälter / wärmer [%]";
+            titleLeft.VerticalAlign = StringAlignment.Center;
+            //titleLeft.Text = "Temperatur";
             var titleLeftmargins = titleLeft.Margins;
             titleLeftmargins.Bottom = 1;
             titleLeftmargins.Top = 1;
@@ -170,13 +173,14 @@ namespace Metrona.Wt.Reports.Charts
             titleLeftmargins.Right = 1;
 
             var titleTop = chart.TitleTop;
-            titleTop.Extent = 33;
-            titleTop.Font = new Font("Arial", 8, FontStyle.Bold, GraphicsUnit.Point);
+            titleTop.Extent = 25;
+            titleTop.Font = new Font("Verdana", 9, FontStyle.Regular, GraphicsUnit.Point);
+            titleTop.Text = " ";
 
             var titleTopMargins = titleTop.Margins;
-            titleTopMargins.Bottom = 10;
+            titleTopMargins.Bottom = 15;
             titleTopMargins.Top = 0;
-            titleTopMargins.Left = 15;
+            titleTopMargins.Left = 25;
             titleTopMargins.Right = 0;
 
             var titleBottom = chart.TitleBottom;
@@ -191,7 +195,7 @@ namespace Metrona.Wt.Reports.Charts
             titleBottomMargins.Right = 1;
 
             var tooltips = chart.Tooltips;
-            tooltips.FormatString = "<DATA_VALUE:0.000000>";
+            tooltips.FormatString = "<DATA_VALUE:#0.00>%";
 
             data.DataSource = datasource;
             data.DataBind();
@@ -213,7 +217,7 @@ namespace Metrona.Wt.Reports.Charts
 
             var textStyle = new LabelStyle
             {
-                Font = new Font("Verdana", pdf ? 6.5f : 7.5f, FontStyle.Italic, GraphicsUnit.Point),
+                Font = new Font("Verdana", pdf ? 6.5f : 8.5f, FontStyle.Italic, GraphicsUnit.Point),
                 FontColor = Constants.YearsChartColors[1],
                 HorizontalAlign = StringAlignment.Center,
                 FontSizeBestFit = false,
@@ -295,10 +299,11 @@ als das aktuelle Jahr",
 
 
             var relativeData = data.ToRelativeData();
+            var relativeDataForChart = data.ToRelativeDataForChart();
            
             //Aktuelles Jahr
-            var aktuellJahr = data.Period1; 
-            var lgtz = data.Lgtz; 
+            var aktuellJahr = relativeDataForChart.Period1;
+            var lgtz = relativeDataForChart.Lgtz; 
 
             var axisY = e.Grid["Y"] as IAdvanceAxis;
             var axisX = e.Grid["X"] as IAdvanceAxis;
@@ -309,7 +314,7 @@ als das aktuelle Jahr",
 
             int nullY = Convert.ToInt32(axisY.Map(0));
 
-            var margin = MarginX * 3.1;
+            var margin = MarginX * 3.5;
             if (!isPdf)
             {
                 margin = MarginX * 6.2;
@@ -336,7 +341,7 @@ als das aktuelle Jahr",
 
             var annLabel = new Text();
             annLabel.SetTextString(GetAnnotationText(relativeData.Lgtz, "das Langzeitmittel" + Environment.NewLine + "ist"));
-            annLabel.SetLabelStyle(new LabelStyle { FontColor = Color.FromArgb(236, 98, 42), Font = new Font("Verdana", isPdf ? 5.6f : 7.5f, FontStyle.Italic, GraphicsUnit.Point) });
+            annLabel.SetLabelStyle(new LabelStyle { FontColor = Color.FromArgb(236, 98, 42), Font = new Font("Verdana", isPdf ? 6f : 8.5f, FontStyle.Italic, GraphicsUnit.Point) });
             Size annLabelSize = Size.Ceiling(Platform.GetLabelSizePixels(annLabel.GetTextString(), annLabel.labelStyle));
             annLabel.bounds = new Rectangle(xEnd - annLabelSize.Width, targetYCoord - annLabelSize.Height / 2, annLabelSize.Width, annLabelSize.Height);
             e.SceneGraph.Add(annLabel);
@@ -393,6 +398,15 @@ als das aktuelle Jahr",
             targetLabel2.bounds = new Rectangle(xStart - targetLabelSize2.Width , aktuellJahrY - targetLabelSize2.Height/2, targetLabelSize2.Width, targetLabelSize2.Height);
 
             e.SceneGraph.Add(targetLabel2);
+
+            int yEnd = Convert.ToInt32(axisY.MapMaximum);
+
+            var waermerLabel = new Text();
+            waermerLabel.SetTextString("Temperatur");
+            waermerLabel.SetLabelStyle(new LabelStyle { FontColor = Color.Black, Font = new Font("Verdana", 9, FontStyle.Regular, GraphicsUnit.Point) });
+            Size waermerLabelSize = Size.Ceiling(Platform.GetLabelSizePixels(waermerLabel.GetTextString(), waermerLabel.labelStyle));
+            waermerLabel.bounds = new Rectangle(xStart - (waermerLabelSize.Width / 2), yEnd - waermerLabelSize.Height, waermerLabelSize.Width, waermerLabelSize.Height);
+            e.SceneGraph.Add(waermerLabel);
         }
 
      

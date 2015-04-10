@@ -97,7 +97,7 @@ namespace Metrona.Wt.Reports.Charts
             Hashtable labelHash = new Hashtable();
             labelHash.Add("MY_MONTH_LABEL", new MonthLabelRenderer());
             chart.LabelHash = labelHash;
-            chart.Axis.X.Labels.SeriesLabels.Format = Infragistics.UltraChart.Shared.Styles.AxisSeriesLabelFormat.Custom;
+            chart.Axis.X.Labels.SeriesLabels.Format = AxisSeriesLabelFormat.Custom;
             chart.Axis.X.Labels.SeriesLabels.FormatString = "<MY_MONTH_LABEL>";
             //'*** END Implementierungs IRenderLabel-Interface für die Labels-Formatierung
 
@@ -109,40 +109,41 @@ namespace Metrona.Wt.Reports.Charts
             axisX.TickmarkInterval = 1;
             axisX.Labels.Visible = false;
             //.Labels.ItemFormatString = "<ITEM_LABEL>"
-            axisX.Labels.Orientation = Infragistics.UltraChart.Shared.Styles.TextOrientation.VerticalLeftFacing;
+            axisX.Labels.Orientation = TextOrientation.VerticalLeftFacing;
             axisX.Labels.HorizontalAlign = StringAlignment.Near;
             axisX.Labels.VerticalAlign = StringAlignment.Center;
-            axisX.Labels.Font = new Font("Verdana", 7, FontStyle.Regular, GraphicsUnit.Point);
-            axisX.Labels.FontColor = Color.DimGray;
+            axisX.Labels.Font = new Font("Verdana", 9, FontStyle.Regular, GraphicsUnit.Point);
+            axisX.Labels.FontColor = Color.Black;
 
             //.Labels.SeriesLabels.Format = Infragistics.UltraChart.Shared.Styles.AxisSeriesLabelFormat.Custom
             //.Labels.SeriesLabels.FormatString = "<MY_MONTH_LABEL>"
-            axisX.Labels.SeriesLabels.Font = new Font("Verdana", 7, FontStyle.Regular, GraphicsUnit.Point);
-            axisX.Labels.SeriesLabels.Orientation = Infragistics.UltraChart.Shared.Styles.TextOrientation.Horizontal;
-            axisX.Labels.SeriesLabels.FontColor = Color.DimGray;
+            axisX.Labels.SeriesLabels.Font = new Font("Verdana", 9, FontStyle.Regular, GraphicsUnit.Point);
+            axisX.Labels.SeriesLabels.Orientation = TextOrientation.Horizontal;
+            axisX.Labels.SeriesLabels.FontColor = Color.Black;
             axisX.Labels.SeriesLabels.HorizontalAlign = StringAlignment.Far;
             axisX.Labels.SeriesLabels.VerticalAlign = StringAlignment.Center;
             axisX.MajorGridLines.Visible = false;
             axisX.MinorGridLines.Visible = false;
 
             var axisY = chart.Axis.Y;
-            axisY.Extent = 15;
+            axisY.Extent = 20;
             axisY.LineThickness = 1;
             axisY.TickmarkInterval = 1;
-            axisY.TickmarkStyle = Infragistics.UltraChart.Shared.Styles.AxisTickStyle.Smart;
+            axisY.TickmarkStyle = AxisTickStyle.Smart;
             //.RangeType = AxisRangeType.Custom
             //.RangeMin = -3
             //.RangeMax = 2
             //.Margin.Near.Value = 20 'New Infragistics.UltraChart.Resources.Appearance.AxisMargin(
             //.Margin.Far.Value = 20
 
-            axisY.Labels.Orientation = Infragistics.UltraChart.Shared.Styles.TextOrientation.Horizontal;
+            axisY.Labels.Orientation = TextOrientation.Horizontal;
             axisY.Labels.HorizontalAlign = StringAlignment.Far;
-            axisY.Labels.ItemFormatString = "<DATA_VALUE:0.######>";
+            axisY.Labels.ItemFormatString = "<DATA_VALUE:0.##>";
 
-            axisY.Labels.SeriesLabels.Font = new Font("Verdana", 7, FontStyle.Regular, GraphicsUnit.Point);
+            axisY.Labels.Font = new Font("Verdana", 9, FontStyle.Regular, GraphicsUnit.Point);
+            axisY.Labels.SeriesLabels.Font = new Font("Verdana", 9, FontStyle.Regular, GraphicsUnit.Point);
             axisY.Labels.SeriesLabels.Orientation = TextOrientation.VerticalLeftFacing;
-            axisY.Labels.SeriesLabels.FontColor = Color.DimGray;
+            axisY.Labels.SeriesLabels.FontColor = Color.Black;
             axisY.Labels.SeriesLabels.HorizontalAlign = StringAlignment.Far;
             axisY.Labels.SeriesLabels.VerticalAlign = StringAlignment.Center;
 

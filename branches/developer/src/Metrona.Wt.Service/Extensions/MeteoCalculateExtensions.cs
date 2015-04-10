@@ -6,12 +6,7 @@
 
 namespace Metrona.Wt.Service.Extensions
 {
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
-
     using Metrona.Wt.Core;
-    using Metrona.Wt.Core.Extensions;
     using Metrona.Wt.Model.Meteo;
 
     public static class MeteoCalculateExtensions
@@ -19,9 +14,9 @@ namespace Metrona.Wt.Service.Extensions
 
         public static MeteoGtzYear ToRelativeData(this MeteoGtzYear meteoGtzSumYears)
         {
-            var relVorJahr = Utils.GetProzentual(meteoGtzSumYears.Period2, meteoGtzSumYears.Period1);
-            var relVorVorJahr = Utils.GetProzentual(meteoGtzSumYears.Period3, meteoGtzSumYears.Period1);
-            var relLgtz = Utils.GetProzentual(meteoGtzSumYears.Lgtz, meteoGtzSumYears.Period1);
+            var relVorJahr = Utils.GetProzentual(meteoGtzSumYears.Period1, meteoGtzSumYears.Period2);
+            var relVorVorJahr = Utils.GetProzentual(meteoGtzSumYears.Period1, meteoGtzSumYears.Period3);
+            var relLgtz = Utils.GetProzentual(meteoGtzSumYears.Period1, meteoGtzSumYears.Lgtz);
 
             var result = new MeteoGtzYear
             {
@@ -32,6 +27,19 @@ namespace Metrona.Wt.Service.Extensions
                 Lgtz = relLgtz
             };
             return result;
+        }
+
+
+        public static MeteoGtzYear ToRelativeDataForChart(this MeteoGtzYear meteoGtzSumYears)
+        {
+            var relativ = meteoGtzSumYears.ToRelativeData();
+
+            relativ.Period1 = 100;
+            relativ.Period2 = 100 + relativ.Period2;
+            relativ.Period3 = 100 + relativ.Period3;
+            relativ.Lgtz = 100 + relativ.Lgtz;
+
+            return relativ;
         }
 
         //public static IEnumerable<MeteoGtzPeriodRelative> GetRelativeVerteilung(this IEnumerable<MeteoGtzPeriod> source, bool isHeizperiode)

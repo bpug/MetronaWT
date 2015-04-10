@@ -265,8 +265,8 @@ Mit dem Witterungstelegramm erhalten Sie Informationen zum ortsgenauen Klimaverl
 
         public void AddJahresbetrachtung( MeteoGtzYear meteoGtzYear)
         {
-            
-            this.CreateHeading("1. Jahresbetrachtung der Temperatur des aktuellen Jahres im Vergleich zu den Vorjahren und Langzeitmittel²");
+
+            this.CreateHeading("1. Jahresbetrachtung der heizwirksamen Temperatur des aktuellen Jahres im Vergleich zu den Vorjahren und Langzeitmittel²");
 
             // Add grid 
             IGrid grid = this.currentBand.AddGrid();
@@ -314,11 +314,11 @@ Mit dem Witterungstelegramm erhalten Sie Informationen zum ortsgenauen Klimaverl
             gridCell = gridRow.AddCell();
 
             ICanvas canvas = gridCell.AddCanvas();
-            canvas.Width = new FixedWidth(400);
+            canvas.Width = new FixedWidth(440);
             canvas.Height = new FixedHeight(190);
             using (System.Drawing.Graphics g = canvas.CreateGraphics())
             {
-                UltraChart myChart = JahresbetrachtungChart.GetChart(meteoGtzYear, 400, 190, true);
+                UltraChart myChart = JahresbetrachtungChart.GetChart(meteoGtzYear, 440, 190, true);
                 //myChart.ColumnChart.ChartText(0).Visible = True
                 myChart.Legend.Visible = false;
                 myChart.RenderPdfFriendlyGraphics(g);
@@ -358,7 +358,14 @@ Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
                 return;
             }
 
-            var periods = zeitraums.OrderBy(p => p.Start).GetFormatted(true);
+            //Dummy Column für Legende Langzeitmittel
+            var columnDummy = new DataColumn
+            {
+                DataType = typeof(double)
+            };
+            chartData.Columns.Add(columnDummy);
+
+            var periods = zeitraums.OrderByDescending(p => p.Start).GetFormatted(true);
 
             this.CreateHeading("2. Monatsbetrachtung der Temperatur des aktuellen Jahres im Vergleich zum Vorjahr und Langzeitmittel²");
 
@@ -531,7 +538,7 @@ Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
 
         public void AddTagesmitteltemperaturen(object chartData, List<Zeitraum> zeitraums )
         {
-            var periods = zeitraums.OrderBy(p => p.Start).GetFormatted(true);
+            var periods = zeitraums.OrderByDescending(p => p.Start).GetFormatted(true);
 
             this.CreateHeading("3. Tagesmitteltemperaturen³ des gewählten Abrechnungszeitraumes und des Vorjahres");
             ICanvas legendCanvas = default(ICanvas);

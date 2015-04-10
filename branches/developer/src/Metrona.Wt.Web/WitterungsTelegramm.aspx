@@ -179,7 +179,7 @@
                     <asp:Panel ID="pnlMonatsbetrachtungChart" runat="server">
                         <asp:Panel ID="chartMonatsbetrachtung" runat="server" />
                     
-                        <h4>Erläuterung</h4>
+                        <h4 style="margin-top: 10px;">Erläuterung</h4>
                         <h6>
                             Das Langzeitmittel stellt die Nulllinie dar.<br/>
                             Negativer Prozentwert (Balken zeigt nach unten): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es kälter als im gleichen Monats des Langzeitmittels.<br/>

@@ -51,7 +51,10 @@ namespace Metrona.Wt.Reports.Pdf
             report = await this.CreateHeader(report, logoPath);
             report.AddInfo();
             report.AddJahresbetrachtung(await meteoGtzService.GetGtzYearsSum(this.calculateRequest, true));
-            report.AddMonatsbetrachtung((await meteoGtzService.GetRelativeVerteilung(this.calculateRequest, false)).ToList().ToDataTable(), periods);
+
+            var results = (await meteoGtzService.GetRelativeVerteilung(this.calculateRequest, false)).ToList();
+            var dt = results.ToDataTable();
+            report.AddMonatsbetrachtung(dt, periods);
 
             var tempData = drillMonth > 0 ?
                 await this.klimaService.GetTemperaturMohtsDrill(calculateRequest, drillMonth) :

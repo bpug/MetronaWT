@@ -349,8 +349,8 @@ namespace Metrona.Wt.Reports.Charts
             axisX.Labels.Orientation = TextOrientation.Horizontal;
             axisX.Labels.VerticalAlign = StringAlignment.Far;
             axisX.Labels.HorizontalAlign = StringAlignment.Far;
-            axisX.Labels.Font = new Font("Verdana", 7, FontStyle.Regular, GraphicsUnit.Point);
-            axisX.Labels.FontColor = Color.DimGray;
+            axisX.Labels.Font = new Font("Verdana", 9, FontStyle.Regular, GraphicsUnit.Point);
+            axisX.Labels.FontColor = Color.Black;
 
             //axisX.Labels.SeriesLabels.Font = new Font("Verdana", 7, FontStyle.Regular, GraphicsUnit.Point);
             //axisX.Labels.SeriesLabels.Orientation = Infragistics.UltraChart.Shared.Styles.TextOrientation.VerticalLeftFacing;
@@ -360,20 +360,18 @@ namespace Metrona.Wt.Reports.Charts
             axisX.MajorGridLines.Visible = false;
             axisX.MinorGridLines.Visible = false;
 
-           
-
             var axisY = ultraChart.Axis.Y;
-            axisY.Extent = 15;
+            axisY.Extent = 30;
             axisY.LineThickness = 1;
             axisY.TickmarkInterval = 10;
             axisY.TickmarkStyle = AxisTickStyle.Smart;
 
             axisY.Labels.Orientation = TextOrientation.Horizontal;
             axisY.Labels.HorizontalAlign = StringAlignment.Far;
-            axisY.Labels.VerticalAlign = StringAlignment.Center;
-            axisY.Labels.ItemFormatString = "<DATA_VALUE:00.##>";
-            axisY.Labels.Font = new Font("Verdana", 7, FontStyle.Regular, GraphicsUnit.Point);
-            axisY.Labels.FontColor = Color.DimGray;
+            //axisY.Labels.VerticalAlign = StringAlignment.Center;
+            axisY.Labels.ItemFormatString = "<DATA_VALUE:00.######>";
+            axisY.Labels.Font = new Font("Verdana", 9, FontStyle.Regular, GraphicsUnit.Point);
+            axisY.Labels.FontColor = Color.Black;
 
             //.Labels.SeriesLabels.Font = New Font("Verdana", 7, FontStyle.Regular, GraphicsUnit.Point)
             //.Labels.SeriesLabels.Orientation = Infragistics.UltraChart.Shared.Styles.TextOrientation.VerticalLeftFacing

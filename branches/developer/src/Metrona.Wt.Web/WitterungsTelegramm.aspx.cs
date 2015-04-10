@@ -57,7 +57,7 @@ namespace Metrona.Wt.Web
         
 
         private const string Chart1Title =
-            "1. Jahresbetrachtung der Temperatur des aktuellen Jahres im Vergleich zu den Vorjahren und Langzeitmittel<sup>2</sup>";
+            "1. Jahresbetrachtung der heizwirksamen Temperatur des aktuellen Jahres im Vergleich zu den Vorjahren und Langzeitmittel<sup>2</sup>";
 
         private const string Chart2Title =
             "2. Monatsbetrachtung der Temperatur des aktuellen Jahres im Vergleich zum Vorjahr und Langzeitmittel<sup>2</sup>";
@@ -192,7 +192,7 @@ namespace Metrona.Wt.Web
 
             lblChartVergleichJahrTitle.Text = Chart1Title;
 
-            UltraChart myChart = JahresbetrachtungChart.GetChart(gtzYearsSum, 710, 300);
+            UltraChart myChart = JahresbetrachtungChart.GetChart(gtzYearsSum, 710, 310);
             this.chartVergleichJahr.Controls.Add(myChart);
                 
             //var dt2 = chartService.GetJahresbetrachtungProzentual();
@@ -236,10 +236,10 @@ namespace Metrona.Wt.Web
             };
             dt.Columns.Add(column);
 
-            var columnsLabels = Utils.GetZeitraume(calculateRequest.Stichtag).OrderBy(p => p.Start).GetFormatted(true);
+            var columnsLabels = Utils.GetZeitraume(calculateRequest.Stichtag).OrderByDescending(p => p.Start).GetFormatted(true);
             columnsLabels.Add("Langzeitmittel (Nulllinie)");
 
-            var myChart = MonatsRelativeVerteilungJahrChart.GetChart(dt, 800, 400, columnsLabels.ToArray());
+            var myChart = MonatsRelativeVerteilungJahrChart.GetChart(dt, 800, 410, columnsLabels.ToArray());
             this.chartMonatsbetrachtung.Controls.Add(myChart);
 
             var row = results.LastOrDefault();
@@ -264,7 +264,7 @@ namespace Metrona.Wt.Web
             ////this.ChartTemperatur = TemperaturChart.GetChart(this.ChartTemperatur, dt, 800, 520);
 
             lblChartTemperaturTitle.Text = Chart3Title;
-            var columnsLabels = Utils.GetZeitraume(calculateRequest.Stichtag).OrderBy(p => p.Start).GetFormatted(true);
+            var columnsLabels = Utils.GetZeitraume(calculateRequest.Stichtag).OrderByDescending(p => p.Start).GetFormatted(true);
 
             columnsLabels.Add("Heizgrenztemperatur⁴");
 
