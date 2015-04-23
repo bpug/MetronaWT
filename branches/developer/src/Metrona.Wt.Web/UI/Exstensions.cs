@@ -13,6 +13,8 @@ namespace Metrona.Wt.Web.UI
     using System.Web;
     using System.Web.Mvc;
 
+    using Metrona.Wt.Web.App_Start;
+
     using AuthorizeAttribute = Metrona.Wt.Model.Attributes.AuthorizeAttribute;
 
     public static class Exstensions
@@ -23,7 +25,7 @@ namespace Metrona.Wt.Web.UI
             object selectedValue = null
             )
         {
-            bool isAuthenticated = HttpContext.Current.User.Identity.IsAuthenticated;
+            bool isAuthenticated = !Config.Instance.EnableAuthenticate || HttpContext.Current.User.Identity.IsAuthenticated;
 
             var list =
                 enumeration.GetType()

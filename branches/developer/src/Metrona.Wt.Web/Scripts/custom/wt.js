@@ -26,6 +26,14 @@ $(function () {
     $("#cmbRequestType").change(function () {
         ChangeRequestType(this);
     });
+
+    $(".reset-result").change(function () {
+        $("#result").hide();
+    });
+
+    $('.plz').on('input', function () {
+        $("#result").hide();
+    });
      
 });
 
@@ -67,6 +75,7 @@ pageManager.add_endRequest(function (sender, args) {
     if (args._error != null) {
         addErrorMessage(args._error.message);
     }
+    $("#result").show();
 });
 
 function ChangeRequestType(oList) {

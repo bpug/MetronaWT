@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <label for="txtDate" class="control-label">Abrechnungszeitraum des aktuellen Jahres</label>
                         <asp:DropDownList ID="cmbZeitraum" runat="server" 
-                                          CssClass="form-control chzn-select"
+                                          CssClass="form-control chzn-select reset-result"
                                           SelectMethod="GetZeitraeume"
                                           DataTextField = "Interval"
                                           DataValueField = "End"
@@ -61,7 +61,7 @@
                     <div class="form-group">
                         <label for="cmbRequestType" class="control-label">Region</label>
                         <%--<asp:DynamicControl ID="DynamicControl1" runat="server" DataField="Date" Mode="Edit" ValidationGroup="vgKlima" />--%>
-                        <asp:DropDownList ID="cmbRequestType" runat="server" CssClass="form-control chzn-select" ClientIDMode="Static"
+                        <asp:DropDownList ID="cmbRequestType" runat="server" CssClass="form-control chzn-select reset-result" ClientIDMode="Static"
                                           SelectMethod="GetRequestTypes"
                                           SelectedValue="<%# BindItem.RequestType %>"  
                                           DataTextField="Text"
@@ -74,7 +74,7 @@
                 <div class="col-xs-3" >
                     <div class="form-group wt-hidden" id="PLZ" >
                         <label for="txtPlz" class="control-label">Postleitzahl</label>
-                        <asp:TextBox ID="txtPlz" runat="server" CssClass="form-control" placeholder="PLZ"  Text='<%# BindItem.Plz %>'></asp:TextBox>
+                        <asp:TextBox ID="txtPlz" runat="server" CssClass="form-control plz" placeholder="PLZ"  Text='<%# BindItem.Plz %>'></asp:TextBox>
                         <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtPlz"
                                               CssClass="text-danger" Display="None" ErrorMessage="Geben Sie bitte eine gültige Postleitzahl ein." Operator="DataTypeCheck"
                                               SetFocusOnError="True" ToolTip="Geben Sie bitte eine gültige Postleitzahl ein." Type="Integer"
@@ -87,7 +87,7 @@
                     <div class="form-group wt-hidden" id="Bundesland">
                         <label for="cmbBundesland" class="control-label">Bundesland</label>
                         <asp:DropDownList ID="cmbBundesland" runat="server" 
-                                          CssClass="form-control chzn-select"
+                                          CssClass="form-control chzn-select reset-result"
                                           SelectMethod="GetBundeslands"
                                           SelectedValue="<%# BindItem.BundeslandId %>" 
                                           DataTextField = "Name"
@@ -119,7 +119,7 @@
     </asp:UpdatePanel>
 
     
-    <div class="row">
+    <div class="row" id="result">
         
         <asp:UpdatePanel runat="server" id="upInfoHinweis" updatemode="Conditional">
             <Triggers>

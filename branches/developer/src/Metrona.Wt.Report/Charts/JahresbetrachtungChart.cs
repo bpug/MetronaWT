@@ -370,6 +370,15 @@ als das aktuelle Jahr",
 
             e.SceneGraph.Add(targetLabel);
 
+            int yEnd = Convert.ToInt32(axisY.MapMaximum);
+
+            var waermerLabel = new Text();
+            waermerLabel.SetTextString("Temperatur");
+            waermerLabel.SetLabelStyle(new LabelStyle { FontColor = Color.Black, Font = new Font("Verdana", 9, FontStyle.Regular, GraphicsUnit.Point) });
+            Size waermerLabelSize = Size.Ceiling(Platform.GetLabelSizePixels(waermerLabel.GetTextString(), waermerLabel.labelStyle));
+            waermerLabel.bounds = new Rectangle(xStart - (waermerLabelSize.Width / 2), yEnd - waermerLabelSize.Height, waermerLabelSize.Width, waermerLabelSize.Height);
+            e.SceneGraph.Add(waermerLabel);
+
             if (Math.Abs(targetYCoord - aktuellJahrY) < 5)
             {
                 return;
@@ -398,15 +407,7 @@ als das aktuelle Jahr",
             targetLabel2.bounds = new Rectangle(xStart - targetLabelSize2.Width , aktuellJahrY - targetLabelSize2.Height/2, targetLabelSize2.Width, targetLabelSize2.Height);
 
             e.SceneGraph.Add(targetLabel2);
-
-            int yEnd = Convert.ToInt32(axisY.MapMaximum);
-
-            var waermerLabel = new Text();
-            waermerLabel.SetTextString("Temperatur");
-            waermerLabel.SetLabelStyle(new LabelStyle { FontColor = Color.Black, Font = new Font("Verdana", 9, FontStyle.Regular, GraphicsUnit.Point) });
-            Size waermerLabelSize = Size.Ceiling(Platform.GetLabelSizePixels(waermerLabel.GetTextString(), waermerLabel.labelStyle));
-            waermerLabel.bounds = new Rectangle(xStart - (waermerLabelSize.Width / 2), yEnd - waermerLabelSize.Height, waermerLabelSize.Width, waermerLabelSize.Height);
-            e.SceneGraph.Add(waermerLabel);
+            
         }
 
      

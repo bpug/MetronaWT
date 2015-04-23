@@ -9,6 +9,8 @@ using System.Web.UI.WebControls;
 
 namespace Metrona.Wt.Web
 {
+    using Metrona.Wt.Web.App_Start;
+
     public partial class SiteMaster : MasterPage
     {
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
@@ -68,7 +70,10 @@ namespace Metrona.Wt.Web
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                this.LoginView1.Visible = Config.Instance.EnableAuthenticate;
+            }
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)

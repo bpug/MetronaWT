@@ -26,6 +26,7 @@ namespace Metrona.Wt.Web
     using Metrona.Wt.Reports.Pdf;
     using Metrona.Wt.Service;
     using Metrona.Wt.Service.Extensions;
+    using Metrona.Wt.Web.App_Start;
     using Metrona.Wt.Web.Extensions;
     using Metrona.Wt.Web.Models;
     using Metrona.Wt.Web.UI;
@@ -74,7 +75,7 @@ namespace Metrona.Wt.Web
             {
                 return;
             }
-            this.pnlReport.Visible = Context.User.Identity.IsAuthenticated;
+            this.pnlReport.Visible = !Config.Instance.EnableAuthenticate || Context.User.Identity.IsAuthenticated;
         }
 
         public IQueryable<Bundesland>GetBundeslands()
