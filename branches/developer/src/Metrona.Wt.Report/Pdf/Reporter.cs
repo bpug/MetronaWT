@@ -257,8 +257,8 @@
             IText text = this.currentBand.AddText();
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
             text.AddContent(
-@"Um Heizenergieverbräuche und die damit verbundenen Kosten beurteilen zu können muss die Witterung während der Erfassungsperiode als bedeutsamer Einflussfaktor berücksichtigt werden. Dabei sind sowohl starke regionale Unterschiede als auch Unterschiede im zeitlichen Verlauf von einer Heizperiode zur anderen möglich. 
-Mit dem Witterungstelegramm erhalten Sie Informationen zum ortsgenauen Klimaverlauf  über mehrere Jahre bis hin zu tagesgenauen Temperaturwerten. Die Auswahl des Abrechnungszeitraums und der Region welche Sie betrachten möchten können Sie ganz individuell vornehmen.");
+@"Um Heizenergieverbräuche und die damit verbundenen Kosten beurteilen zu können, muss die Witterung während der Erfassungsperiode als bedeutsamer Einflussfaktor berücksichtigt werden. Dabei sind sowohl starke regionale Unterschiede als auch Unterschiede im zeitlichen Verlauf von einer Heizperiode zur anderen möglich. 
+Mit dem Witterungstelegramm erhalten Sie Informationen zum ortsgenauen Klimaverlauf  über mehrere Jahre bis hin zu tagesgenauen Temperaturwerten.");
             text.AddLineBreak();
             text.AddLineBreak();
         }
@@ -266,7 +266,7 @@ Mit dem Witterungstelegramm erhalten Sie Informationen zum ortsgenauen Klimaverl
         public void AddJahresbetrachtung( MeteoGtzYear meteoGtzYear)
         {
 
-            this.CreateHeading("1. Jahresbetrachtung der heizwirksamen Temperatur des aktuellen Jahres im Vergleich zu den Vorjahren und Langzeitmittel²");
+            this.CreateHeading("1. Jahresbetrachtung der heizwirksamen Temperatur des aktuellen Jahres im Vergleich zu den Vorjahren und Langszeitmittel²");
 
             // Add grid 
             IGrid grid = this.currentBand.AddGrid();
@@ -340,7 +340,7 @@ Mit dem Witterungstelegramm erhalten Sie Informationen zum ortsgenauen Klimaverl
                         @"In der gewählten Region war es im gleichen Zeitraum des Vorjahres {0}% {1} als im betrachtenten Zeiraum des aktuellen Jahres.
 Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem Heiz{2}bedarf zu rechnen",
                 Math.Abs(Math.Round(vorjahrBedarf, 2)), (vorjahrBedarf > 0 ? "wärmer" : "kälter"), (vorjahrBedarf > 0 ? "mehr" : "minder"));
-            var lgtzBedarfText = string.Format("In der gewählten Region ist das Langzeitmittel {0}% {1} als das aktuellen Jahr.", Math.Abs(Math.Round(lgtzBedarf, 2)), (lgtzBedarf > 0 ? "wärmer" : "kälter"));
+            var lgtzBedarfText = string.Format("In der gewählten Region ist das Langszeitmittel {0}% {1} als das aktuellen Jahr.", Math.Abs(Math.Round(lgtzBedarf, 2)), (lgtzBedarf > 0 ? "wärmer" : "kälter"));
 
             //text.AddLineBreak();
             text.AddContent(vorjahrBedarfText);
@@ -358,7 +358,7 @@ Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
                 return;
             }
 
-            //Dummy Column für Legende Langzeitmittel
+            //Dummy Column für Legende Langszeitmittel
             var columnDummy = new DataColumn
             {
                 DataType = typeof(double)
@@ -367,7 +367,7 @@ Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
 
             var periods = zeitraums.OrderByDescending(p => p.Start).GetFormatted(true);
 
-            this.CreateHeading("2. Monatsbetrachtung der Temperatur des aktuellen Jahres im Vergleich zum Vorjahr und Langzeitmittel²");
+            this.CreateHeading("2. Monatsbetrachtung der Temperatur des aktuellen Jahres im Vergleich zum Vorjahr und Langszeitmittel²");
 
             //Dim flow As Infragistics.Documents.Report.Flow.IFlow = currentBand.AddFlow()
             //flow.Borders.All = New Border(New Pen(Colors.Black))
@@ -433,7 +433,7 @@ Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
             text.AddContent(periods[0]);
 
-            //Langzeitmittel 
+            //Langszeitmittel 
             legendCell = gridRow.AddCell();
             cellPattern.Apply(legendCell);
             legendCanvas = legendCell.AddCanvas();
@@ -461,7 +461,7 @@ Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
             cellPattern.Apply(legendCell);
             text = legendCell.AddText();
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
-            text.AddContent("Langzeitmittel (Nulllinie)");
+            text.AddContent("Langszeitmittel (Nulllinie)");
 
 
             //Add Chart
@@ -508,16 +508,16 @@ Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
                 text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
                 //text.Paddings.Top = 10
                 text.AddLineBreak();
-                text.AddContent("Das Langzeitmittel stellt die Nulllinie dar.");
+                text.AddContent("Das Langszeitmittel stellt die Nulllinie dar.");
                 text.AddLineBreak();
                 text.AddLineBreak();
-                text.AddContent("Negativer Prozentwert (Balken zeigt nach unten): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es kälter als im gleichen Monats des Langzeitmittels.");
+                text.AddContent("Negativer Prozentwert (Balken zeigt nach unten): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es kälter als im gleichen Monats des Langszeitmittels.");
                 text.AddLineBreak();
                 text.AddLineBreak();
-                text.AddContent("Positiver Prozentwert (Balken zeigt nach oben): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es wärmer als im gleichen Monats des Langzeitmittels.");
+                text.AddContent("Positiver Prozentwert (Balken zeigt nach oben): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es wärmer als im gleichen Monats des Langszeitmittels.");
                 text.AddLineBreak();
                 text.AddLineBreak();
-                text.AddContent(string.Format("Für die gewählte Region war es - bezogen auf das Langzeitmittel im Monat {0}", monat));
+                text.AddContent(string.Format("Für die gewählte Region war es - bezogen auf das Langszeitmittel im Monat {0}", monat));
 
                 IQuickList list = gridCell.AddQuickList();
                 list.Margins.Bottom = 0;
@@ -688,12 +688,12 @@ Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
             text.AddLineBreak();
 
             text.AddContent("² ", style3);
-            text.AddContent("Langzeitmittel:", style1);
+            text.AddContent("Langszeitmittel:", style1);
             text.AddLineBreak();
 
             text = gridCell.AddText();
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
-            text.AddContent("Beim Langzeitmittel werden die seit 1993 vorliegenden Klimadaten der gewählten Region in Abhängigkeit des jeweiligen Abrechnungszeitraums zugrunde gelegt.", style2);
+            text.AddContent("Beim Langszeitmittel werden die seit 1993 vorliegenden Klimadaten der gewählten Region in Abhängigkeit des jeweiligen Abrechnungszeitraums zugrunde gelegt.", style2);
             text.AddLineBreak();
             text.AddLineBreak();
 

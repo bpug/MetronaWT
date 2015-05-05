@@ -340,7 +340,7 @@ als das aktuelle Jahr",
             e.SceneGraph.Add(nullLine);
 
             var annLabel = new Text();
-            annLabel.SetTextString(GetAnnotationText(relativeData.Lgtz, "das Langzeitmittel" + Environment.NewLine + "ist"));
+            annLabel.SetTextString(GetAnnotationText(relativeData.Lgtz, "das Langszeitmittel" + Environment.NewLine + "ist"));
             annLabel.SetLabelStyle(new LabelStyle { FontColor = Color.FromArgb(236, 98, 42), Font = new Font("Verdana", isPdf ? 6f : 8.5f, FontStyle.Italic, GraphicsUnit.Point) });
             Size annLabelSize = Size.Ceiling(Platform.GetLabelSizePixels(annLabel.GetTextString(), annLabel.labelStyle));
             annLabel.bounds = new Rectangle(xEnd - annLabelSize.Width, targetYCoord - annLabelSize.Height / 2, annLabelSize.Width, annLabelSize.Height);

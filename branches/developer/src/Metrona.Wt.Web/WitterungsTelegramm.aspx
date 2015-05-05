@@ -129,7 +129,7 @@
                 <asp:Panel ID="pnlInfoHinweis" runat="server" Visible="False">
                     <h4>Hinweis</h4>
                     <h6>
-                        Der gewählte Abrechnungszeitraum wird mit den Vorjahreszeiträumen und dem Langzeitmittel verglichen.<br/>
+                        Der gewählte Abrechnungszeitraum wird mit den Vorjahreszeiträumen und dem Langszeitmittel verglichen.<br/>
                         Alle Angaben sind immer konkret bezogen auf die durch Sie getroffene Auswahl (Abrechnungszeitraum und Region).<br/>
                         Betrachtet werden immer die Heizperioden<sup>1</sup> des gewählten Abrechnungszeitraums. Basis sind dabei immer die Tagesmitteltemperaturen<sup>3</sup>.
                     </h6>
@@ -181,14 +181,14 @@
                     
                         <h4 style="margin-top: 10px;">Erläuterung</h4>
                         <h6>
-                            Das Langzeitmittel stellt die Nulllinie dar.<br/>
-                            Negativer Prozentwert (Balken zeigt nach unten): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es kälter als im gleichen Monats des Langzeitmittels.<br/>
-                            Positiver Prozentwert (Balken zeigt nach oben): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es wärmer als im gleichen Monats des Langzeitmittels.
+                            Das Langszeitmittel stellt die Nulllinie dar.<br/>
+                            Negativer Prozentwert (Balken zeigt nach unten): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es kälter als im gleichen Monats des Langszeitmittels.<br/>
+                            Positiver Prozentwert (Balken zeigt nach oben): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es wärmer als im gleichen Monats des Langszeitmittels.
                          </h6>
                        
                         <h4>Beispiel</h4>
                         <h6>
-                            Für die gewählte Region war es bezogen auf das Langzeitmittel
+                            Für die gewählte Region war es bezogen auf das Langszeitmittel
                             <ul style="margin: 0px 10px;">
                                 <li>
                                     <asp:Label ID="lblVorjahrBedarf2" runat="server"  />
@@ -320,15 +320,17 @@
                     <asp:Panel runat="server" ID="pnlReport">
                         <table style="width: 100%">
                             <tr>
-                                <td>
-                                    <asp:Label ID="Label2" runat="server" Text="Berechnungsgrundlage" Font-Bold="True" ></asp:Label>&nbsp;
-                                    <asp:ImageButton ID="btnExportExecl" runat="server" ClientIDMode="Static" ImageUrl="~/img/excel.gif" ToolTip="Excel export" />
-                                </td>
-                                <td style="width: 100px;">
-                                </td>
-                                <td style="vertical-align: middle">
+                                <td style="vertical-align: middle;">
                                     <asp:Label ID="Label3" runat="server" Text="PDF" Font-Bold="True" ></asp:Label>&nbsp;
                                     <asp:ImageButton ID="btnPrintPDF" runat="server" ClientIDMode="Static" ImageUrl="~/img/pdf.gif" ToolTip="PDF" />
+                                </td>                                
+                                <td style="width: 100px;">
+                                </td>
+                                <td style="vertical-align: middle;text-align:right">
+                                    <asp:Panel runat="server" ID="pnlExcelExport">
+                                        <asp:Label ID="Label2" runat="server" Text="Berechnungsgrundlage" Font-Bold="True" ></asp:Label>&nbsp;
+                                        <asp:ImageButton ID="btnExportExecl" runat="server" ClientIDMode="Static" ImageUrl="~/img/excel.gif" ToolTip="Excel export" />
+                                    </asp:Panel>
                                 </td>
                             </tr>
                         </table>
@@ -341,8 +343,8 @@
                             Als Heizperiode werden üblicherweise die Monate September bis Mai angesehen. Nicht zur Heizperiode gehören die Monate Juni bis August eines Jahres.
                         </h6>
                         <h6>
-                            <h5><sup>2</sup> Langzeitmittel:</h5>
-                            Beim Langzeitmittel werden die seit 1993 vorliegenden Klimadaten der gewählten Region in Abhängigkeit des jeweiligen Abrechnungszeitraums zugrunde gelegt. 
+                            <h5><sup>2</sup> Langszeitmittel:</h5>
+                            Beim Langszeitmittel werden die seit 1993 vorliegenden Klimadaten der gewählten Region in Abhängigkeit des jeweiligen Abrechnungszeitraums zugrunde gelegt. 
                         </h6>
                         <h6>
                             <h5><sup>3</sup> Tagesmitteltemperatur:</h5> 

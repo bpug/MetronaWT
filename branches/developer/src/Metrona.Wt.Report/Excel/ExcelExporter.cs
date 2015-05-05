@@ -19,10 +19,10 @@ namespace Metrona.Wt.Reports.Excel
     public class ExcelExporter : IExcelExporter
     {
         private const string Title1 =
-            "Jahresbetrachtung der heizwirksamen Temperatur des aktuellen Jahres im Vergleich zu den Vorjahren und Langzeitmittel";
+            "Jahresbetrachtung der heizwirksamen Temperatur des aktuellen Jahres im Vergleich zu den Vorjahren und Langszeitmittel";
 
         private const string Title2 =
-            "Monatsbetrachtung der Temperatur des aktuellen Jahres im Vergleich zum Vorjahr und Langzeitmittel";
+            "Monatsbetrachtung der Temperatur des aktuellen Jahres im Vergleich zum Vorjahr und Langszeitmittel";
 
         private CalculateRequest calculateRequest;
 

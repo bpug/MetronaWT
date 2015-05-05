@@ -3,7 +3,7 @@
 <Include>
 
   <?ifndef ProductCode?>
-    <?define ProductCode = "f05d4eda-7ba4-46b0-80df-281f61248a4f"?>
+    <?define ProductCode = "73a240a6-3b9c-417b-8c4c-9ec1523f7e92"?>
   <?endif?>
 
   <?ifndef UpgradeCode?>

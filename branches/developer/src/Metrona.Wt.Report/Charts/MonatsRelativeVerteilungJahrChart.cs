@@ -152,7 +152,7 @@ namespace Metrona.Wt.Reports.Charts
             titleLeft.Extent = 30;
             titleLeft.Font = new Font("Arial", 9.75f, FontStyle.Bold, GraphicsUnit.Point);
             titleLeft.HorizontalAlign = StringAlignment.Center;
-            titleLeft.Text = "Monat war im Vergleich zum Langzeitmittel" + Environment.NewLine + "  kälter / wärmer [%]";
+            titleLeft.Text = "Monat war im Vergleich zum Langszeitmittel" + Environment.NewLine + "  kälter / wärmer [%]";
             var titleLeftmargins = titleLeft.Margins;
             titleLeftmargins.Bottom = 1;
             titleLeftmargins.Top = 1;
@@ -192,7 +192,7 @@ namespace Metrona.Wt.Reports.Charts
             //data.SetColumnLabels(new string[] {
             //    "Vorjahr",
             //    "Aktuelles Jahr",
-            //    "Langzeitmittel (Nulllinie)"
+            //    "Langszeitmittel (Nulllinie)"
             //});
             data.UseRowLabelsColumn = true;
             data.ZeroAligned = true;
