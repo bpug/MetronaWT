@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Metrona.Wt.Reports.Charts.JahresbetrachtungChart">
+    <Position X="6.25" Y="0.75" Width="2" />
+    <NestedTypes>
+      <Class Name="Metrona.Wt.Reports.Charts.JahresbetrachtungChart.MyLabelRenderer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Charts\JahresbetrachtungChart.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAEAAAABCAACBAAAAAQAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Charts\JahresbetrachtungChart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Reports.Charts.MonatsRelativeVerteilungJahrChart">
+    <Position X="0.5" Y="6.25" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Metrona.Wt.Reports.Charts.MonatsRelativeVerteilungJahrChart.MonthLabelRenderer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Charts\MonatsRelativeVerteilungJahrChart.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAQAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Charts\MonatsRelativeVerteilungJahrChart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Reports.Charts.TemperaturChart">
+    <Position X="7" Y="5.75" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Metrona.Wt.Reports.Charts.TemperaturChart.TempMonthLabelRenderer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Charts\TemperaturChart.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Class Name="Metrona.Wt.Reports.Charts.TemperaturChart.TemperaturLabelRenderer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Charts\TemperaturChart.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Class Name="Metrona.Wt.Reports.Charts.TemperaturChart.TemperaturDrillDown" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Charts\TemperaturChart.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAIAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Charts\TemperaturChart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Reports.Charts.TextAnnatation">
+    <Position X="7.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQAAgAAAAAAAA=</HashCode>
+      <FileName>Charts\TextAnnatation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Reports.Charts.UltraChartEx">
+    <Position X="4.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Charts\UltraChartEx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Reports.Constants">
+    <Position X="1.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIIAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Reports.Excel.DataTableExtensions">
+    <Position X="10.5" Y="7.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAA=</HashCode>
+      <FileName>Excel\DataTableExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Reports.Excel.ExcelExporter" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAEEAAAABBAACAEAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Excel\ExcelExporter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Metrona.Wt.Reports.Excel.WebDataGridExport">
+    <Position X="3.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAgAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Excel\WebDataGridExport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Reports.Excel.WebExcelEsporter">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Excel\WebExcelEsporter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Reports.Pdf.PdfReport" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAiAEAAEAAEAAEAAAAAAAA=</HashCode>
+      <FileName>Pdf\PdfReport.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Metrona.Wt.Reports.Pdf.Reporter" BaseTypeListCollapsed="true">
+    <Position X="9" Y="1.25" Width="2.5" />
+    <NestedTypes>
+      <Enum Name="Metrona.Wt.Reports.Pdf.Reporter.PdfFont" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Pdf\Reporter.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ACEEAAAIoCAAAQiAAGIAIJAAABIAAAAAAAEAAgIACAA=</HashCode>
+      <FileName>Pdf\Reporter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Metrona.Wt.Reports.Excel.IExcelExporter">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Excel\IExcelExporter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Metrona.Wt.Reports.Pdf.IPdfReport">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Pdf\IPdfReport.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Metrona.Wt.Reports.Pdf.IReporter">
+    <Position X="11.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIIAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Pdf\IReporter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

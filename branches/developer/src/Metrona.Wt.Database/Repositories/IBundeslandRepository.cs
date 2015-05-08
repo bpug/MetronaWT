@@ -13,6 +13,11 @@ namespace Metrona.Wt.Database.Repositories
 
     public interface IBundeslandRepository : IEntityAsyncRepository<Bundesland>
     {
+        /// <summary>
+        /// Gets the by identifier asynch.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Task&lt;Bundesland&gt;.</returns>
         Task<Bundesland> GetByIdAsynch(int id);
     }
 }

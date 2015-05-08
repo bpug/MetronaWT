@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Metrona.Wt.Model.Attributes.AuthorizeAttribute" Collapsed="true">
+    <Position X="1.75" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAACgAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\AuthorizeAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Bundesland">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Bundesland.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.BundeslandPlz">
+    <Position X="7.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAIAAAAAAAAAAIAAAABAAAAAAAAAABA=</HashCode>
+      <FileName>BundeslandPlz.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.CalculateRequest">
+    <Position X="2.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAgAAAAAAA=</HashCode>
+      <FileName>CalculateRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Entity">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Metrona.Wt.Model.Langzeitmittel">
+    <Position X="5.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAABCAAAQAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Langzeitmittel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Promille">
+    <Position X="7.5" Y="4.75" Width="1.5" />
+    <InheritanceLine Type="Metrona.Wt.Model.Entity" ManuallyRouted="true">
+      <Path>
+        <Point X="5.75" Y="1.603" />
+        <Point X="5.75" Y="1.858" />
+        <Point X="7.422" Y="1.858" />
+        <Point X="7.422" Y="4.555" />
+        <Point X="8.25" Y="4.555" />
+        <Point X="8.25" Y="4.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAIAA=</HashCode>
+      <FileName>Promille.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.TestData" Collapsed="true">
+    <Position X="6.25" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAgAAAEAYACA=</HashCode>
+      <FileName>TestData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.WetterStation">
+    <Position X="2.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAEAAAAAAAAEAgACCAAAAAABA=</HashCode>
+      <FileName>WetterStation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.WetterStationPlz">
+    <Position X="6" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAAAAAAAAAAGAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WetterStationPlz.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Zeitraum">
+    <Position X="7.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAACAAAAAAAIAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Zeitraum.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Klima.Klima">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIQCgxgIAAAAIAAAAAAAAAgAghCAAAAAACgAAAAABM=</HashCode>
+      <FileName>Klima\Klima.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Klima.KlimaTemperatur">
+    <Position X="4" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Klima\KlimaTemperatur.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Klima.KlimaTemperaturBundesland">
+    <Position X="5" Y="13.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Klima\KlimaTemperaturBundesland.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Klima.KlimaTemperaturDeutschland">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Klima\KlimaTemperaturDeutschland.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Klima.KlimaTemperaturPeriod">
+    <Position X="7.75" Y="9.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAADAAAAAAAAAAACAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Klima\KlimaTemperaturPeriod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Meteo.MeteoFaktor">
+    <Position X="2.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Meteo\MeteoFaktor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Meteo.MeteoGtz">
+    <Position X="4" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAIAAAAAAAAAAAAgBAAgAAACAAACA=</HashCode>
+      <FileName>Meteo\MeteoGtz.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Meteo.MeteoGtzBundesland">
+    <Position X="4" Y="9.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAIAAAAAAAAAAAAgAAAgAAAAAAADA=</HashCode>
+      <FileName>Meteo\MeteoGtzBundesland.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Meteo.MeteoGtzData">
+    <Position X="4" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAIAAAAAAAAAAAAgAAAgAAAAAAACA=</HashCode>
+      <FileName>Meteo\MeteoGtzData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Meteo.MeteoGtzDeutschland">
+    <Position X="0.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAIAAAAAAAAAAAAgAAAgAAAAAAACA=</HashCode>
+      <FileName>Meteo\MeteoGtzDeutschland.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Meteo.MeteoGtzPeriod">
+    <Position X="0.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAHIAAAAAAAAAAAAAAAAgAAAAAAACA=</HashCode>
+      <FileName>Meteo\MeteoGtzPeriod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Meteo.MeteoGtzPeriodRelative">
+    <Position X="0.5" Y="13.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAADIAAAAAAAAAAAAAAAAkAAAACAAAA=</HashCode>
+      <FileName>Meteo\MeteoGtzPeriodRelative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Meteo.MeteoGtzYear">
+    <Position X="6" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Meteo\MeteoGtzYear.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Meteo.MeteoLangGtz">
+    <Position X="2.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAgBAAgAAAAAAAAA=</HashCode>
+      <FileName>Meteo\MeteoLangGtz.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Meteo.MeteoLangGtzBundesland">
+    <Position X="2.75" Y="13.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAgAAAAAAABA=</HashCode>
+      <FileName>Meteo\MeteoLangGtzBundesland.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Model.Meteo.MeteoLangGtzDeutschland">
+    <Position X="5.75" Y="7.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAgAAAAAAAAA=</HashCode>
+      <FileName>Meteo\MeteoLangGtzDeutschland.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Metrona.Wt.Model.IEntity">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Metrona.Wt.Model.Enums.IntervalType">
+    <Position X="4" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\IntervalType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Metrona.Wt.Model.Enums.RequestType">
+    <Position X="2.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAABEAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\RequestType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

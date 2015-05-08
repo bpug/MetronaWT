@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Metrona.Wt.Database.KlimaContextInitializer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>KlimaContextInitializer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.KlimaContext" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BgABACAAGBCACEAQIAgAACgAERQAQAAggAAAAAgAQgI=</HashCode>
+      <FileName>KlimaContext.Partial.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Eventlog" Collapsed="true">
+    <Position X="4" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAgAIAAQAAAAAgIAgAAAAAAAAAAIAAAAAAAAQ=</HashCode>
+      <FileName>Models\Eventlog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.EventlogDay" Collapsed="true">
+    <Position X="5.75" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAgAAQAAAAAAAABAAAAAAAAIAA=</HashCode>
+      <FileName>Models\EventlogDay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.KlimaDwd" Collapsed="true">
+    <Position X="2.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAKACAAAAEAgEABACAgI5AAAABJACQQAQIAQCAAAAAA=</HashCode>
+      <FileName>Models\KlimaDwd.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.KlimafaktorDwd" Collapsed="true">
+    <Position X="5.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAIAAAQAAAAAAAAAAAAAEACAA=</HashCode>
+      <FileName>Models\KlimafaktorDwd.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.KlimafaktorDwdOkf" Collapsed="true">
+    <Position X="9.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAIAAAQAAAAAAAAAAAAAEACAA=</HashCode>
+      <FileName>Models\KlimafaktorDwdOkf.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.LangzeitGtzDwd" Collapsed="true">
+    <Position X="5.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAQAAAAAgCAAAAAAAA=</HashCode>
+      <FileName>Models\LangzeitGtzDwd.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.User" Collapsed="true">
+    <Position X="0.5" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAQAAQAAAAAACAABAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.VIEW_EVENTLOG" Collapsed="true">
+    <Position X="4" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAQAAAAIAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\VIEW_EVENTLOG.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.VIEW_LANG_GTZMONAT" Collapsed="true">
+    <Position X="7.5" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAACAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\VIEW_LANG_GTZMONAT.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.VIEW_MONATDATA" Collapsed="true">
+    <Position X="11" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACIAAABAAAAgAIBARiQAAAAAAAAACGAAAAABAAAAAAA=</HashCode>
+      <FileName>Models\VIEW_MONATDATA.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.VIEW_MONATDATA_TAGESWERTE_DWD" Collapsed="true">
+    <Position X="0.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACIAAABAAAAgAIBARiQAAAAAAAAACGAAAAABAAAAAAA=</HashCode>
+      <FileName>Models\VIEW_MONATDATA_TAGESWERTE_DWD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.BundeslandMap" Collapsed="true">
+    <Position X="0.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\BundeslandMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.BundeslandPlzMap" Collapsed="true">
+    <Position X="2.25" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\BundeslandPlzMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.EventlogDayMap" Collapsed="true">
+    <Position X="7.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\EventlogDayMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.EventlogMap" Collapsed="true">
+    <Position X="9.25" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\EventlogMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.KlimaDwdMap" Collapsed="true">
+    <Position X="4" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\KlimaDwdMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.KlimafaktorDwdMap" Collapsed="true">
+    <Position X="7.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\KlimafaktorDwdMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.KlimafaktorDwdOkfMap" Collapsed="true">
+    <Position X="11" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\KlimafaktorDwdOkfMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.KlimaMap" Collapsed="true">
+    <Position X="0.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\KlimaMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.KlimaTemperaturBundeslandMap" Collapsed="true">
+    <Position X="2.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\KlimaTemperaturBundeslandMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.KlimaTemperaturDeutschlandMap" Collapsed="true">
+    <Position X="4" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\KlimaTemperaturDeutschlandMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.LangzeitmittelMap" Collapsed="true">
+    <Position X="7.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\LangzeitmittelMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.MeteoFaktorMap" Collapsed="true">
+    <Position X="9.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\MeteoFaktorMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.MeteoGtzBundeslandMap" Collapsed="true">
+    <Position X="11" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\MeteoGtzBundeslandMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.MeteoGtzDeutschlandMap" Collapsed="true">
+    <Position X="0.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\MeteoGtzDeutschlandMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.MeteoGtzMap" Collapsed="true">
+    <Position X="2.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\MeteoGtzMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.MeteoLangGtzBundeslandMap" Collapsed="true">
+    <Position X="4" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\MeteoLangGtzBundeslandMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.MeteoLangGtzDeutschlandMap" Collapsed="true">
+    <Position X="5.75" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\MeteoLangGtzDeutschlandMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.MeteoLangGtzMap" Collapsed="true">
+    <Position X="7.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\MeteoLangGtzMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.PromilleMap" Collapsed="true">
+    <Position X="9.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\PromilleMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.TAB_LANGZEITGTZ_TAGESWERT_DWDMap" Collapsed="true">
+    <Position X="11" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\TAB_LANGZEITGTZ_TAGESWERT_DWDMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.UserMap" Collapsed="true">
+    <Position X="2.25" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\UserMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.VIEW_EVENTLOGMap" Collapsed="true">
+    <Position X="5.75" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\VIEW_EVENTLOGMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.VIEW_LANG_GTZMONATMap" Collapsed="true">
+    <Position X="9.25" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\VIEW_LANG_GTZMONATMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.VIEW_MONATDATA_TAGESWERTE_DWDMap" Collapsed="true">
+    <Position X="2.25" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\VIEW_MONATDATA_TAGESWERTE_DWDMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.VIEW_MONATDATAMap" Collapsed="true">
+    <Position X="4" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\VIEW_MONATDATAMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.WetterStationMap" Collapsed="true">
+    <Position X="5.75" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\WetterStationMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Models.Mapping.WetterStationPlzMap" Collapsed="true">
+    <Position X="7.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mapping\WetterStationPlzMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metrona.Wt.Database.Repositories.BundeslandRepository">
+    <Position X="3.75" Y="8.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\BundeslandRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Metrona.Wt.Database.Repositories.KlimaRepository">
+    <Position X="5.25" Y="10.5" Width="2" />
+    <InheritanceLine Type="Metrona.Wt.Database.Repositories.Core.EntityAsyncRepository&lt;TEntity&gt;" ManuallyRouted="true">
+      <Path>
+        <Point X="4.25" Y="8.045" />
+        <Point X="4.25" Y="8.376" />
+        <Point X="6.25" Y="8.376" />
+        <Point X="6.25" Y="10.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAEAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Repositories\KlimaRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Metrona.Wt.Database.Repositories.MeteoGtzRepository">
+    <Position X="7.5" Y="8.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAEAAAAAAAACAAAAAAAAAAAABAAAAQAAA=</HashCode>
+      <FileName>Repositories\MeteoGtzRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Metrona.Wt.Database.Repositories.UserRepository">
+    <Position X="2.5" Y="10.5" Width="2" />
+    <InheritanceLine Type="Metrona.Wt.Database.Repositories.Core.EntityAsyncRepository&lt;TEntity&gt;" ManuallyRouted="true">
+      <Path>
+        <Point X="4.25" Y="8.045" />
+        <Point X="4.25" Y="8.383" />
+        <Point X="3.5" Y="8.383" />
+        <Point X="3.5" Y="10.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\UserRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Metrona.Wt.Database.Repositories.WetterStationRepository">
+    <Position X="0.5" Y="8.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\WetterstationRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Metrona.Wt.Database.Repositories.Core.EntityAsyncRepository&lt;TEntity&gt;">
+    <Position X="3" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAQAAUAAAAAAAAAgQAAAAAAIAAAAAAEAICAAAAA=</HashCode>
+      <FileName>Repositories\Core\EntityAsyncRepository{T}.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Metrona.Wt.Database.IEntitiesContext">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAQAAAAAEAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IEntitiesContext.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Metrona.Wt.Database.Repositories.IBundeslandRepository" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\IBundeslandRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Metrona.Wt.Database.Repositories.IKlimaRepository" Collapsed="true">
+    <Position X="2" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAEAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Repositories\IKlimaRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Metrona.Wt.Database.Repositories.IMeteoGtzRepository" Collapsed="true">
+    <Position X="3.5" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAACAAAAAAAAAAAABAAAAQAAA=</HashCode>
+      <FileName>Repositories\IMeteoGtzRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Metrona.Wt.Database.Repositories.IUserRepository" Collapsed="true">
+    <Position X="6.75" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\IUserRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Metrona.Wt.Database.Repositories.IWetterStationRepository" Collapsed="true">
+    <Position X="5" Y="2.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\IWetterstationRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Metrona.Wt.Database.Repositories.Core.IEntityAsyncRepository&lt;TEntity&gt;" Collapsed="true">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAQAAQAAAAAAAAAAQAAAAAAAAAAAAAAAICAAAAA=</HashCode>
+      <FileName>Repositories\Core\IEntityAsyncRepository{T}.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

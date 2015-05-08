@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Metrona.Wt.Service.BundeslandService" BaseTypeListCollapsed="true">
+    <Position X="6" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>BundeslandService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.21" />
+  </Class>
+  <Class Name="Metrona.Wt.Service.KlimaService" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQIAAAABACAAAAAQAAEAIAAIAAAAAAAAQAAAA=</HashCode>
+      <FileName>KlimaService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Metrona.Wt.Service.MeteoGtzService" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAGACAAAAFAAACAAQABAAAAAIApAQAARAAA=</HashCode>
+      <FileName>MeteoGtzService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Metrona.Wt.Service.Extensions.MeteoCalculateExtensions">
+    <Position X="6" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Extensions\MeteoCalculateExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Metrona.Wt.Service.IBundeslandService">
+    <Position X="6" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>IBundeslandService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Metrona.Wt.Service.IKlimaService">
+    <Position X="0.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABACAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IKlimaService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Metrona.Wt.Service.IMeteoGtzService">
+    <Position X="3.25" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACACAAAAFAAAAAAAABAAAAAAApAQAABAAA=</HashCode>
+      <FileName>IMeteoGtzService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Metrona.Wt.Service.IWetterstationService">
+    <Position X="6" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IWetterstationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
