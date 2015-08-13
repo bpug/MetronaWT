@@ -58,10 +58,10 @@ namespace Metrona.Wt.Web
         
 
         private const string Chart1Title =
-            "1. Jahresbetrachtung der heizwirksamen Temperatur des aktuellen Jahres im Vergleich zu den Vorjahren und Langszeitmittel<sup>2</sup>";
+            "1. Jahresbetrachtung der heizwirksamen Temperatur des aktuellen Jahres im Vergleich zu den Vorjahren und Langzeitmittel<sup>2</sup>";
 
         private const string Chart2Title =
-            "2. Monatsbetrachtung der Temperatur des aktuellen Jahres im Vergleich zum Vorjahr und Langszeitmittel<sup>2</sup>";
+            "2. Monatsbetrachtung der Temperatur des aktuellen Jahres im Vergleich zum Vorjahr und Langzeitmittel<sup>2</sup>";
 
         private const string Chart3Title =
             "3. Tagesmitteltemperaturen<sup>3</sup> des gewählten Abrechnungszeitraumes und des Vorjahres";
@@ -207,10 +207,10 @@ namespace Metrona.Wt.Web
 
             lblVorjahrBedarf.Text = string.Format(
                         @"In der gewählten Region war es im gleichen Zeitraum des Vorjahres {0}% {1} als im
-                        betrachtenten Zeiraum des aktuellen Jahres.<br/>
-                        Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem Heiz{2}bedarf zu rechnen",
+                        betrachteten Zeiraum des aktuellen Jahres.<br/>
+                        Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem Heiz{2}bedarf zu rechnen. <br/>",
                 Math.Abs(Math.Round(vorjahrBedarf, 2)), (vorjahrBedarf > 0 ? "wärmer" : "kälter"), (vorjahrBedarf > 0 ? "mehr" : "minder"));
-            lblLGTZBedarf.Text = string.Format("In der gewählten Region ist das Langszeitmittel {0}% {1} als das aktuellen Jahr.", Math.Abs(Math.Round(lgtzBedarf, 2)), (lgtzBedarf > 0 ? "wärmer" : "kälter"));
+            lblLGTZBedarf.Text = string.Format("In der gewählten Region ist das Langzeitmittel {0}% {1} als das aktuelle Jahr.", Math.Abs(Math.Round(lgtzBedarf, 2)), (lgtzBedarf > 0 ? "wärmer" : "kälter"));
 
             pnlJahresbetrachtungChart.Visible = true;
         }
@@ -232,7 +232,7 @@ namespace Metrona.Wt.Web
 
             lblChartRelativeVerteilungJahrTitle.Text = Chart2Title;
 
-            //Dummy Column für Legende Langszeitmittel
+            //Dummy Column für Legende Langzeitmittel
             var column = new DataColumn
             {
                 DataType = typeof(double)
@@ -240,9 +240,9 @@ namespace Metrona.Wt.Web
             dt.Columns.Add(column);
 
             var columnsLabels = Utils.GetZeitraume(calculateRequest.Stichtag).OrderByDescending(p => p.Start).GetFormatted(true);
-            columnsLabels.Add("Langszeitmittel (Nulllinie)");
+            columnsLabels.Add("Langzeitmittel (Nulllinie)");
 
-            var myChart = MonatsRelativeVerteilungJahrChart.GetChart(dt, 800, 410, columnsLabels.ToArray());
+            var myChart = MonatsRelativeVerteilungJahrChart.GetChart(dt, 800, 430, columnsLabels.ToArray());
             this.chartMonatsbetrachtung.Controls.Add(myChart);
 
             var row = results.LastOrDefault();

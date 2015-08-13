@@ -340,8 +340,8 @@ als das aktuelle Jahr",
             e.SceneGraph.Add(nullLine);
 
             var annLabel = new Text();
-            annLabel.SetTextString(GetAnnotationText(relativeData.Lgtz, "das Langszeitmittel" + Environment.NewLine + "ist"));
-            annLabel.SetLabelStyle(new LabelStyle { FontColor = Color.FromArgb(236, 98, 42), Font = new Font("Verdana", isPdf ? 6f : 8.5f, FontStyle.Italic, GraphicsUnit.Point) });
+            annLabel.SetTextString(GetAnnotationText(relativeData.Lgtz, "das Langzeitmittel" + Environment.NewLine + "ist"));
+            annLabel.SetLabelStyle(new LabelStyle { FontColor = Constants.YearsChartColors[3], Font = new Font("Verdana", isPdf ? 6f : 8.5f, FontStyle.Italic, GraphicsUnit.Point) });
             Size annLabelSize = Size.Ceiling(Platform.GetLabelSizePixels(annLabel.GetTextString(), annLabel.labelStyle));
             annLabel.bounds = new Rectangle(xEnd - annLabelSize.Width, targetYCoord - annLabelSize.Height / 2, annLabelSize.Width, annLabelSize.Height);
             e.SceneGraph.Add(annLabel);
@@ -350,7 +350,7 @@ als das aktuelle Jahr",
             {
                 PE =
                 {
-                    Stroke = Color.FromArgb(236, 98, 42),
+                    Stroke = Constants.YearsChartColors[3],
                     StrokeWidth = 2
                 },
                 lineStyle =
@@ -363,8 +363,8 @@ als das aktuelle Jahr",
             e.SceneGraph.Add(targetLine);
 
             var targetLabel = new Text();
-            targetLabel.SetTextString("Langszeitmittel");
-            targetLabel.SetLabelStyle(new LabelStyle { FontColor = Color.FromArgb(236, 98, 42) });
+            targetLabel.SetTextString("Langzeitmittel");
+            targetLabel.SetLabelStyle(new LabelStyle { FontColor = Constants.YearsChartColors[3] });
             Size targetLabelSize = Size.Ceiling(Platform.GetLabelSizePixels(targetLabel.GetTextString(), targetLabel.labelStyle));
             targetLabel.bounds = new Rectangle(xStart - (targetLabelSize.Width - (isPdf ? 10 : 0)), targetYCoord - targetLabelSize.Height / 2, targetLabelSize.Width, targetLabelSize.Height);
 

@@ -129,7 +129,7 @@
                 <asp:Panel ID="pnlInfoHinweis" runat="server" Visible="False">
                     <h4>Hinweis</h4>
                     <h6>
-                        Der gewählte Abrechnungszeitraum wird mit den Vorjahreszeiträumen und dem Langszeitmittel verglichen.<br/>
+                        Der gewählte Abrechnungszeitraum wird mit den Vorjahreszeiträumen und dem Langzeitmittel verglichen.<br/>
                         Alle Angaben sind immer konkret bezogen auf die durch Sie getroffene Auswahl (Abrechnungszeitraum und Region).<br/>
                         Betrachtet werden immer die Heizperioden<sup>1</sup> des gewählten Abrechnungszeitraums. Basis sind dabei immer die Tagesmitteltemperaturen<sup>3</sup>.
                     </h6>
@@ -181,14 +181,14 @@
                     
                         <h4 style="margin-top: 10px;">Erläuterung</h4>
                         <h6>
-                            Das Langszeitmittel stellt die Nulllinie dar.<br/>
-                            Negativer Prozentwert (Balken zeigt nach unten): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es kälter als im gleichen Monats des Langszeitmittels.<br/>
-                            Positiver Prozentwert (Balken zeigt nach oben): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es wärmer als im gleichen Monats des Langszeitmittels.
+                            Das Langzeitmittel stellt die Nulllinie dar.<br/>
+                            Negativer Prozentwert (Balken zeigt nach unten): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es kälter als im gleichen Monat des Langzeitmittels.<br/>
+                            Positiver Prozentwert (Balken zeigt nach oben): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es wärmer als im gleichen Monat des Langzeitmittels.
                          </h6>
                        
                         <h4>Beispiel</h4>
                         <h6>
-                            Für die gewählte Region war es bezogen auf das Langszeitmittel
+                            Für die gewählte Region war es bezogen auf das Langzeitmittel
                             <ul style="margin: 0px 10px;">
                                 <li>
                                     <asp:Label ID="lblVorjahrBedarf2" runat="server"  />
@@ -296,7 +296,7 @@
                             </Z2>
                         </Axis>
                     </igchart:UltraChart>
-                    <asp:Button ID="btnDrillBack" runat="server" Text="Jahresansicht" Visible="False" CssClass="btn btn-default" onclick="OnBtnDrillBackClick" />
+                    <asp:Button ID="btnDrillBack" runat="server" Text="Zurück zur Jahresansicht" Visible="False" CssClass="btn btn-default" onclick="OnBtnDrillBackClick" />
                     <%--<asp:Panel ID="pnlChartTemperaturChart" runat="server" />--%>
                     
                     <h4>Hinweis</h4>
@@ -343,8 +343,8 @@
                             Als Heizperiode werden üblicherweise die Monate September bis Mai angesehen. Nicht zur Heizperiode gehören die Monate Juni bis August eines Jahres.
                         </h6>
                         <h6>
-                            <h5><sup>2</sup> Langszeitmittel:</h5>
-                            Beim Langszeitmittel werden die seit 1993 vorliegenden Klimadaten der gewählten Region in Abhängigkeit des jeweiligen Abrechnungszeitraums zugrunde gelegt. 
+                            <h5><sup>2</sup> Langzeitmittel:</h5>
+                            Beim Langzeitmittel werden die seit 1993 vorliegenden Klimadaten der gewählten Region in Abhängigkeit des jeweiligen Abrechnungszeitraums zugrunde gelegt. 
                         </h6>
                         <h6>
                             <h5><sup>3</sup> Tagesmitteltemperatur:</h5> 
@@ -352,7 +352,7 @@
                         </h6>
                         <h6>
                             <h5><sup>4</sup> Heizgrenztemperatur:</h5> 
-                            Die Heizgrenztemperatur liegt bei 15° C. Bei Temperaturen von unter 15° C wird normativ  von der Inbetriebnahme der Heizanlage ausgegangen. 
+                            Die Heizgrenztemperatur liegt bei 15° C. Bei Temperaturen von unter 15° C wird normativ von der Inbetriebnahme der Heizanlage ausgegangen. 
                         </h6>
                     </div>
                 </asp:Panel>     

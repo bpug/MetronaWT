@@ -175,7 +175,7 @@
             bandHeader.Repeat = true;
             bandHeader.Height = new FixedHeight(80);
             bandHeader.Alignment = new ContentAlignment(Alignment.Left, Alignment.Middle);
-            var logo = new Infragistics.Documents.Reports.Graphics.Image(logoPath);
+            var logo = new Image(logoPath);
             logo.Preferences.Compressor = ImageCompressors.Flate;
 
             //' Add a grid to header
@@ -187,26 +187,20 @@
 
             // Add two columns to the grid
             headerColumn[0] = grid.AddColumn();
-            headerColumn[0].Width = new FixedWidth(270);
+            //headerColumn[0].Width = new FixedWidth(270);
             headerColumn[1] = grid.AddColumn();
             headerColumn[1].Width = new FixedWidth(20);
             headerColumn[2] = grid.AddColumn();
+            headerColumn[2].Width = new FixedWidth(270);
 
             // Add one row to the grid
             IGridRow gridRow = grid.AddRow();
 
-            // Add grid cell for logo
-            headerGridCell[0] = gridRow.AddCell();
-            //cellPattern.Apply(headerGridCell(0))
-            headerGridCell[0].Alignment = ContentAlignment.Left;
-            headerGridCell[0].AddImage(logo);
-            gridRow.AddCell();
-
-
+            
             headerGridCell[1] = gridRow.AddCell();
             IGrid dataGrid = headerGridCell[1].AddGrid();
-            headerColumn[0] = dataGrid.AddColumn();
-            headerColumn[0].Width = new FixedWidth(150);
+            var dataGridheaderColumn = dataGrid.AddColumn();
+            dataGridheaderColumn.Width = new FixedWidth(150);
             dataGrid.AddColumn();
 
             GridCellPattern dataCellPattern = new GridCellPattern();
@@ -214,34 +208,43 @@
             dataCellPattern.Paddings.Left = 5;
             dataCellPattern.Paddings.Bottom = 10;
 
-            gridRow = dataGrid.AddRow();
+            var dataGridRow = dataGrid.AddRow();
 
             IText text ;
-            headerGridCell[0] = gridRow.AddCell();
+            headerGridCell[0] = dataGridRow.AddCell();
             dataCellPattern.Apply(headerGridCell[0]);
             text = headerGridCell[0].AddText();
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
             text.AddContent("Ende Abrechnungszeitraum (Stichtag)");
 
-            headerGridCell[1] = gridRow.AddCell();
+            headerGridCell[1] = dataGridRow.AddCell();
             dataCellPattern.Apply(headerGridCell[1]);
             text = headerGridCell[1].AddText();
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
             text.AddContent(startDate.ToShortDateString());
 
-            gridRow = dataGrid.AddRow();
+            dataGridRow = dataGrid.AddRow();
 
-            headerGridCell[0] = gridRow.AddCell();
+            headerGridCell[0] = dataGridRow.AddCell();
             dataCellPattern.Apply(headerGridCell[0]);
             text = headerGridCell[0].AddText();
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
             text.AddContent("Region");
 
-            headerGridCell[1] = gridRow.AddCell();
+            headerGridCell[1] = dataGridRow.AddCell();
             dataCellPattern.Apply(headerGridCell[1]);
             text = headerGridCell[1].AddText();
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
             text.AddContent(requestText);
+
+            // Add grid cell for logo
+            gridRow.AddCell();
+
+            headerGridCell[0] = gridRow.AddCell();
+            //cellPattern.Apply(headerGridCell(0))
+            headerGridCell[0].Alignment = ContentAlignment.Right;
+            headerGridCell[0].AddImage(logo);
+            //gridRow.AddCell();
 
 
             //'cellPattern.Apply(headerGridCell(1))
@@ -266,7 +269,7 @@ Mit dem Witterungstelegramm erhalten Sie Informationen zum ortsgenauen Klimaverl
         public void AddJahresbetrachtung( MeteoGtzYear meteoGtzYear)
         {
 
-            this.CreateHeading("1. Jahresbetrachtung der heizwirksamen Temperatur des aktuellen Jahres im Vergleich zu den Vorjahren und Langszeitmittel²");
+            this.CreateHeading("1. Jahresbetrachtung der heizwirksamen Temperatur des aktuellen Jahres im Vergleich zu den Vorjahren und Langzeitmittel²");
 
             // Add grid 
             IGrid grid = this.currentBand.AddGrid();
@@ -337,10 +340,10 @@ Mit dem Witterungstelegramm erhalten Sie Informationen zum ortsgenauen Klimaverl
             double vorjahrBedarf = relativeData.Period2;
             double lgtzBedarf = relativeData.Lgtz;
             var vorjahrBedarfText = string.Format(
-                        @"In der gewählten Region war es im gleichen Zeitraum des Vorjahres {0}% {1} als im betrachtenten Zeiraum des aktuellen Jahres.
-Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem Heiz{2}bedarf zu rechnen",
+                        @"In der gewählten Region war es im gleichen Zeitraum des Vorjahres {0}% {1} als im betrachteten Zeiraum des aktuellen Jahres.
+Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem Heiz{2}bedarf zu rechnen.",
                 Math.Abs(Math.Round(vorjahrBedarf, 2)), (vorjahrBedarf > 0 ? "wärmer" : "kälter"), (vorjahrBedarf > 0 ? "mehr" : "minder"));
-            var lgtzBedarfText = string.Format("In der gewählten Region ist das Langszeitmittel {0}% {1} als das aktuellen Jahr.", Math.Abs(Math.Round(lgtzBedarf, 2)), (lgtzBedarf > 0 ? "wärmer" : "kälter"));
+            var lgtzBedarfText = string.Format("In der gewählten Region ist das Langzeitmittel {0}% {1} als das aktuelle Jahr.", Math.Abs(Math.Round(lgtzBedarf, 2)), (lgtzBedarf > 0 ? "wärmer" : "kälter"));
 
             //text.AddLineBreak();
             text.AddContent(vorjahrBedarfText);
@@ -358,7 +361,7 @@ Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
                 return;
             }
 
-            //Dummy Column für Legende Langszeitmittel
+            //Dummy Column für Legende Langzeitmittel
             var columnDummy = new DataColumn
             {
                 DataType = typeof(double)
@@ -367,7 +370,7 @@ Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
 
             var periods = zeitraums.OrderByDescending(p => p.Start).GetFormatted(true);
 
-            this.CreateHeading("2. Monatsbetrachtung der Temperatur des aktuellen Jahres im Vergleich zum Vorjahr und Langszeitmittel²");
+            this.CreateHeading("2. Monatsbetrachtung der Temperatur des aktuellen Jahres im Vergleich zum Vorjahr und Langzeitmittel²");
 
             //Dim flow As Infragistics.Documents.Report.Flow.IFlow = currentBand.AddFlow()
             //flow.Borders.All = New Border(New Pen(Colors.Black))
@@ -433,7 +436,7 @@ Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
             text.AddContent(periods[0]);
 
-            //Langszeitmittel 
+            //Langzeitmittel 
             legendCell = gridRow.AddCell();
             cellPattern.Apply(legendCell);
             legendCanvas = legendCell.AddCanvas();
@@ -461,7 +464,7 @@ Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
             cellPattern.Apply(legendCell);
             text = legendCell.AddText();
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
-            text.AddContent("Langszeitmittel (Nulllinie)");
+            text.AddContent("Langzeitmittel (Nulllinie)");
 
 
             //Add Chart
@@ -508,16 +511,16 @@ Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
                 text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
                 //text.Paddings.Top = 10
                 text.AddLineBreak();
-                text.AddContent("Das Langszeitmittel stellt die Nulllinie dar.");
+                text.AddContent("Das Langzeitmittel stellt die Nulllinie dar.");
                 text.AddLineBreak();
                 text.AddLineBreak();
-                text.AddContent("Negativer Prozentwert (Balken zeigt nach unten): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es kälter als im gleichen Monats des Langszeitmittels.");
+                text.AddContent("Negativer Prozentwert (Balken zeigt nach unten): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es kälter als im gleichen Monat des Langzeitmittels.");
                 text.AddLineBreak();
                 text.AddLineBreak();
-                text.AddContent("Positiver Prozentwert (Balken zeigt nach oben): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es wärmer als im gleichen Monats des Langszeitmittels.");
+                text.AddContent("Positiver Prozentwert (Balken zeigt nach oben): in dem jeweiligen Monat des Vorjahres / aktuellen Jahres war es wärmer als im gleichen Monat des Langzeitmittels.");
                 text.AddLineBreak();
                 text.AddLineBreak();
-                text.AddContent(string.Format("Für die gewählte Region war es - bezogen auf das Langszeitmittel im Monat {0}", monat));
+                text.AddContent(string.Format("Für die gewählte Region war es - bezogen auf das Langzeitmittel im Monat {0}", monat));
 
                 IQuickList list = gridCell.AddQuickList();
                 list.Margins.Bottom = 0;
@@ -683,17 +686,20 @@ Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
             text.AddContent("¹ ", style3);
             text.AddContent("Heizperiode:", style1);
             text.AddLineBreak();
+
+            text = gridCell.AddText();
+            text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
             text.AddContent("Als Heizperiode werden üblicherweise die Monate September bis Mai angesehen. Nicht zur Heizperiode gehören die Monate Juni bis August eines Jahres.", style2);
             text.AddLineBreak();
             text.AddLineBreak();
 
             text.AddContent("² ", style3);
-            text.AddContent("Langszeitmittel:", style1);
+            text.AddContent("Langzeitmittel:", style1);
             text.AddLineBreak();
 
             text = gridCell.AddText();
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
-            text.AddContent("Beim Langszeitmittel werden die seit 1993 vorliegenden Klimadaten der gewählten Region in Abhängigkeit des jeweiligen Abrechnungszeitraums zugrunde gelegt.", style2);
+            text.AddContent("Beim Langzeitmittel werden die seit 1993 vorliegenden Klimadaten der gewählten Region in Abhängigkeit des jeweiligen Abrechnungszeitraums zugrunde gelegt.", style2);
             text.AddLineBreak();
             text.AddLineBreak();
 
@@ -708,7 +714,7 @@ Entsprechend ist im aktuellen Jahr im Vergleich zum Vorjahreszeitraum mit einem 
             text.AddContent("Heizgrenztemperatur:", style1);
             text.AddLineBreak();
             text.Style.Font = this.pdfFonts[PdfFont.DefaultNormalReg];
-            text.AddContent("Die Heizgrenztemperatur liegt bei 15° C. Bei Temperaturen von unter 15° C wird normativ  von der Inbetriebnahme der Heizanlage ausgegangen.", style2);
+            text.AddContent("Die Heizgrenztemperatur liegt bei 15° C. Bei Temperaturen von unter 15° C wird normativ von der Inbetriebnahme der Heizanlage ausgegangen.", style2);
             text.AddLineBreak();
             text.AddLineBreak();
            

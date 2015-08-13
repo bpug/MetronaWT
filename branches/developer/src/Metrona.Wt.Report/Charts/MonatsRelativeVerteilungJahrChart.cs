@@ -102,7 +102,7 @@ namespace Metrona.Wt.Reports.Charts
             //'*** END Implementierungs IRenderLabel-Interface für die Labels-Formatierung
 
             var axisX = chart.Axis.X;
-            axisX.Extent = 5;
+            axisX.Extent = 30;
             axisX.LineColor = Color.Green;
             axisX.LineThickness = 1;
             axisX.TickmarkStyle = AxisTickStyle.Smart;
@@ -114,6 +114,7 @@ namespace Metrona.Wt.Reports.Charts
             axisX.Labels.VerticalAlign = StringAlignment.Center;
             axisX.Labels.Font = new Font("Verdana", 9, FontStyle.Regular, GraphicsUnit.Point);
             axisX.Labels.FontColor = Color.Black;
+            axisX.Labels.Layout.Padding = 25;
 
             //.Labels.SeriesLabels.Format = Infragistics.UltraChart.Shared.Styles.AxisSeriesLabelFormat.Custom
             //.Labels.SeriesLabels.FormatString = "<MY_MONTH_LABEL>"
@@ -121,7 +122,9 @@ namespace Metrona.Wt.Reports.Charts
             axisX.Labels.SeriesLabels.Orientation = TextOrientation.Horizontal;
             axisX.Labels.SeriesLabels.FontColor = Color.Black;
             axisX.Labels.SeriesLabels.HorizontalAlign = StringAlignment.Far;
-            axisX.Labels.SeriesLabels.VerticalAlign = StringAlignment.Center;
+            axisX.Labels.SeriesLabels.VerticalAlign = StringAlignment.Near;
+            axisX.Labels.SeriesLabels.Layout.Behavior = AxisLabelLayoutBehaviors.Auto;
+            axisX.Labels.SeriesLabels.Layout.Padding = 20;
             axisX.MajorGridLines.Visible = false;
             axisX.MinorGridLines.Visible = false;
 
@@ -152,7 +155,7 @@ namespace Metrona.Wt.Reports.Charts
             titleLeft.Extent = 30;
             titleLeft.Font = new Font("Arial", 9.75f, FontStyle.Bold, GraphicsUnit.Point);
             titleLeft.HorizontalAlign = StringAlignment.Center;
-            titleLeft.Text = "Monat war im Vergleich zum Langszeitmittel" + Environment.NewLine + "  kälter / wärmer [%]";
+            titleLeft.Text = "Monat war im Vergleich zum Langzeitmittel" + Environment.NewLine + "  kälter / wärmer [%]";
             var titleLeftmargins = titleLeft.Margins;
             titleLeftmargins.Bottom = 1;
             titleLeftmargins.Top = 1;
@@ -192,7 +195,7 @@ namespace Metrona.Wt.Reports.Charts
             //data.SetColumnLabels(new string[] {
             //    "Vorjahr",
             //    "Aktuelles Jahr",
-            //    "Langszeitmittel (Nulllinie)"
+            //    "Langzeitmittel (Nulllinie)"
             //});
             data.UseRowLabelsColumn = true;
             data.ZeroAligned = true;
@@ -252,7 +255,7 @@ namespace Metrona.Wt.Reports.Charts
             kaelterLabel.SetTextString("kälter");
             kaelterLabel.SetLabelStyle(new LabelStyle { FontColor = Color.Black, Font = new Font("Verdana", 8, FontStyle.Regular, GraphicsUnit.Point) });
             Size kaelterLabelSize = Size.Ceiling(Platform.GetLabelSizePixels(kaelterLabel.GetTextString(), kaelterLabel.labelStyle));
-            kaelterLabel.bounds = new Rectangle(xStart + 5, yStart - kaelterLabelSize.Height , kaelterLabelSize.Width, kaelterLabelSize.Height);
+            kaelterLabel.bounds = new Rectangle(xStart + 5, yStart , kaelterLabelSize.Width, kaelterLabelSize.Height);
             e.SceneGraph.Add(kaelterLabel);
         }
 

@@ -339,7 +339,7 @@ namespace Metrona.Wt.Reports.Charts
             //'*** END Implementierungs IRenderLabel-Interface für die Labels-Formatierung
 
             var axisX = ultraChart.Axis.X;
-            axisX.Extent = 10;
+            axisX.Extent = 15;
             axisX.LineColor = Color.LightGray;
             axisX.LineThickness = 1;
             axisX.TickmarkStyle = AxisTickStyle.DataInterval;
@@ -351,6 +351,7 @@ namespace Metrona.Wt.Reports.Charts
             axisX.Labels.HorizontalAlign = StringAlignment.Far;
             axisX.Labels.Font = new Font("Verdana", 9, FontStyle.Regular, GraphicsUnit.Point);
             axisX.Labels.FontColor = Color.Black;
+            axisX.Labels.Layout.Padding = 15;
 
             //axisX.Labels.SeriesLabels.Font = new Font("Verdana", 7, FontStyle.Regular, GraphicsUnit.Point);
             //axisX.Labels.SeriesLabels.Orientation = Infragistics.UltraChart.Shared.Styles.TextOrientation.VerticalLeftFacing;
