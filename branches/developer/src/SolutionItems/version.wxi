@@ -15,7 +15,7 @@
   <?ifdef AssemblyFileVersionBuild?>
     <?error AssemblyFileVersionBuild variable is already defined?>
   <?endif?>
-  <?define AssemblyFileVersionBuild = "50813"?>
+  <?define AssemblyFileVersionBuild = "50827"?>
 
   <?ifdef AssemblyFileVersionRevision?>
     <?error AssemblyFileVersionRevision variable is already defined?>
@@ -30,7 +30,7 @@
   <?ifdef AssemblyFileVersion?>
     <?error AssemblyFileVersion variable is already defined?>
   <?endif?>
-  <?define AssemblyFileVersion = "1.0.50813.0"?>
+  <?define AssemblyFileVersion = "1.0.50827.0"?>
 
 
   <?ifdef AssemblyVersionMajor?>
@@ -82,7 +82,7 @@
   <?ifdef AssemblyInformationalVersionPreReleaseIdentifier?>
     <?error AssemblyInformationalVersionPreReleaseIdentifier variable is already defined?>
   <?endif?>
-  <?define AssemblyInformationalVersionPreReleaseIdentifier = "beta.12"?>
+  <?define AssemblyInformationalVersionPreReleaseIdentifier = "beta.13"?>
 
   <?ifdef AssemblyInformationalVersionBuildIdentifier?>
     <?error AssemblyInformationalVersionBuildIdentifier variable is already defined?>
@@ -102,12 +102,12 @@
   <?ifdef AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier?>
     <?error AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier variable is already defined?>
   <?endif?>
-  <?define AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier = "beta.12"?>
+  <?define AssemblyInformationalVersionPreReleaseIdentifierBuildIdentifier = "beta.13"?>
 
   <?ifdef AssemblyInformationalVersion?>
     <?error AssemblyInformationalVersion variable is already defined?>
   <?endif?>
-  <?define AssemblyInformationalVersion = "1.0.0-beta.12"?>
+  <?define AssemblyInformationalVersion = "1.0.0-beta.13"?>
 
 
 </Include>
