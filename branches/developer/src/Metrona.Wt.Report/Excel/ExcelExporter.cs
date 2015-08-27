@@ -145,7 +145,7 @@ namespace Metrona.Wt.Reports.Excel
             switch (calculateRequest.RequestType)
             {
                 case RequestType.Plz:
-                    title = "PLZ: " + calculateRequest.Value;
+                    title = "PLZ: " + calculateRequest.Plz;
                     break;
                 case RequestType.Bundesland:
                     var bl = await bundeslandService.GetById(calculateRequest.Value);

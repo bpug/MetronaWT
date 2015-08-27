@@ -21,8 +21,8 @@ namespace Metrona.Wt.Web.Models
         [Required(ErrorMessage = "Bitte treffen Sie beim Abrechnungszeitraum Ihre Auswahl")]
         public DateTime? Date { get; set; }
 
-        [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "Postleitzahl muss 5-stellig sein.")]
-        public int? Plz { get; set; }
+        [RegularExpression(@"^[0-9]{5}$", ErrorMessage = "Postleitzahl muss 5-stellig sein.")]
+        public string Plz { get; set; }
 
         [Required(ErrorMessage = "Bitte treffen Sie bei der Region Ihre Auswahl")]
         public RequestType? RequestType { get; set; }

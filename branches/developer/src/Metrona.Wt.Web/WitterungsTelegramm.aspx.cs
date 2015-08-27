@@ -156,7 +156,7 @@ namespace Metrona.Wt.Web
             switch (calculateRequest.RequestType)
             {
                 case RequestType.Plz:
-                    region = "PLZ: " + calculateRequest.Value;
+                    region = "PLZ: " + calculateRequest.Plz;
                     break;
                 case RequestType.Bundesland:
                     var bl = await BundeslandService.GetById(calculateRequest.Value);

@@ -19,7 +19,8 @@ namespace Metrona.Wt.Web.Extensions
             {
                 Stichtag = firstDayOfMonth ? source.Date.GetValueOrDefault().GetFirstDayOfMonth() : source.Date.GetValueOrDefault(),
                 RequestType = source.RequestType.GetValueOrDefault(),
-                Value = source.RequestType == RequestType.Bundesland ? source.BundeslandId.GetValueOrDefault() : source.Plz.GetValueOrDefault()
+                Value = source.RequestType == RequestType.Bundesland ? source.BundeslandId.GetValueOrDefault() : source.Plz.ConvertTo<int>(),
+                Plz = source.Plz
             };
             return result;
         }

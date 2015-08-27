@@ -13,6 +13,8 @@ namespace Metrona.Wt.Model
     public class CalculateRequest
     {
         public int Value { get; set; }
+
+        public string Plz { get; set; }
         
         public DateTime Stichtag { get; set; }
 

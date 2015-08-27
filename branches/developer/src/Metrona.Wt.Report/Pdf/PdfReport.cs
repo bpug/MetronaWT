@@ -74,7 +74,7 @@ namespace Metrona.Wt.Reports.Pdf
             switch (this.calculateRequest.RequestType)
             {
                 case RequestType.Plz:
-                    requestLabel = "PLZ: " + calculateRequest.Value;
+                    requestLabel = "PLZ: " + calculateRequest.Plz;
                     break;
                 case RequestType.Bundesland:
                     var bl = await bundeslandService.GetById(calculateRequest.Value);

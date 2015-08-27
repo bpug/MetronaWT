@@ -2,13 +2,13 @@
 <project>
   <versioninfos>
     <latest>
-      <semver>1.0.0-beta.11</semver>
-      <version>1.0.50505.0</version>
+      <semver>1.0.0-beta.12</semver>
+      <version>1.0.50813.0</version>
     </latest>
     <!-- Available mode values: auto, manual, major, minor, patch, pre -->
     <next mode="auto">
-      <semver>1.0.0-beta.11</semver>
-      <version>1.0.50505.0</version>
+      <semver>1.0.0-beta.12</semver>
+      <version>1.0.50813.0</version>
     </next>
   </versioninfos>
 </project>
