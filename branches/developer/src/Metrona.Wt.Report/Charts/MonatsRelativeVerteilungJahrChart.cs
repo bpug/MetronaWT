@@ -144,7 +144,9 @@ namespace Metrona.Wt.Reports.Charts
             axisY.Labels.ItemFormatString = "<DATA_VALUE:0.##>";
 
             axisY.Labels.Font = new Font("Verdana", 9, FontStyle.Regular, GraphicsUnit.Point);
+            axisY.Labels.FontColor = Color.Black;
             axisY.Labels.SeriesLabels.Font = new Font("Verdana", 9, FontStyle.Regular, GraphicsUnit.Point);
+            axisY.Labels.SeriesLabels.FontColor = Color.Black;
             axisY.Labels.SeriesLabels.Orientation = TextOrientation.VerticalLeftFacing;
             axisY.Labels.SeriesLabels.FontColor = Color.Black;
             axisY.Labels.SeriesLabels.HorizontalAlign = StringAlignment.Far;
